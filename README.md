@@ -1,6 +1,6 @@
 # nworld-wallet
 
-> Desktop wallet for the NULS blockchain@[cf53551](https://github.com/SimulatedGREG/electron-vue/tree/cf53551a209b49220525e7de80f1c541d7096aef) using the NULS.World API
+> Desktop wallet for the NULS blockchain using the NULS.World API
 
 #### Build Setup
 
