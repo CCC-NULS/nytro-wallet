@@ -117,6 +117,9 @@ export default {
     validTargetFeedback () {
       return 'Target seems valid'
     },
+    api_server() {
+      return this.$root.$data.settings.api_server
+    },
     amountState () {
       if (!this.amount) { return false }
       if (typeof this.amount === 'string' || this.amount instanceof String) { return false }
@@ -203,7 +206,7 @@ export default {
       this.$emit('message-broadcasted', msg)
     },
     async getOutputs () {
-      let response = await axios.get('/addresses/outputs/' + this.account.address + '.json')
+      let response = await axios.get(`${this.api_server}addresses/outputs/${this.account.address}.json`)
       this.$set(this, 'stats', response.data.unspent_info)
       this.$set(this, 'outputs', response.data.outputs)
       this.$set(this, 'last_sync_height', response.data.last_height)

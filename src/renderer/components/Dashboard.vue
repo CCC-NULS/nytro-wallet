@@ -93,10 +93,10 @@
             </b-col>
             <b-col cols="auto" class="text-muted">
               <router-link to="/login" v-b-tooltip.hover title="Add an account">
-                <i class="fe fe-log-in"></i>
+                <LogInIcon />
               </router-link>
               <router-link to="/new" v-b-tooltip.hover title="Create an account">
-                <i class="fe fe-plus"></i>
+                <PlusIcon />
               </router-link>
             </b-col>
           </b-row>
@@ -151,10 +151,10 @@
           <template slot="actions" slot-scope="data">
             <b-dropdown variant="link" class="menu-btn" no-caret right>
               <template slot="button-content">
-                <i class="fe fe-more-vertical"></i><span class="sr-only">actions</span>
+                <MoreVerticalIcon /><span class="sr-only">actions</span>
               </template>
-              <b-dropdown-item href="#" @click="rename_account(data.item)"><i class="fe fe-edit-3"></i> Rename</b-dropdown-item>
-              <b-dropdown-item href="#" @click="delete_account(data.item)"><i class="fe fe-delete"></i> Delete</b-dropdown-item>
+              <b-dropdown-item href="#" @click="rename_account(data.item)"><Edit3Icon /> Rename</b-dropdown-item>
+              <b-dropdown-item href="#" @click="delete_account(data.item)"><DeleteIcon /> Delete</b-dropdown-item>
             </b-dropdown>
           </template>
         </b-table>
@@ -169,6 +169,10 @@
 <script>
 import axios from 'axios'
 import DoughnutChart from './DoughnutChart.js'
+import {
+  PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
+} from 'vue-feather-icons'
+
 
 const colors = {
   gray: {
@@ -296,18 +300,21 @@ export default {
     }
   },
   components: {
-    DoughnutChart
+    DoughnutChart,
+    PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
   },
   computed: {
+    api_server() {
+      return this.$root.$data.settings.api_server
+    }
   },
   methods: {
     async update () {
-      let result = await axios.get('/addresses/stats', {
+      let result = await axios.get(`${this.api_server}addresses/stats`, {
         params: {
           addresses: this.$root.$data.accounts.map((acct) => acct.address)
         }
       })
-      console.log(result.data)
       this.unspent_info = result.data.unspent_info
       this.last_height = result.data.last_block_height
       this.total_unspent = Object.values(this.unspent_info).map((u) => u.unspent_value).reduce((e, i) => e + i)
@@ -343,7 +350,6 @@ export default {
       }
     },
     rename_account (account) {
-      console.log(account)
       let new_name = prompt(
         `Renaming account ${account.address}\n\nPlease input a new name:`,
         account.name)

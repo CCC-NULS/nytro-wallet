@@ -33,12 +33,12 @@
                 {{account.name}}
                 <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="'Rename'">
                   <small>
-                    <i class="fe fe-edit-3"></i>
+                    <Edit3Icon />
                   </small>
                 </b-link>
                 <b-link @click="backupShow = !backupShow" class="text-muted" v-b-popover.hover.bottom="'Backup'">
                   <small>
-                    <i class="fe fe-eye"></i>
+                    <EyeIcon />
                   </small>
                 </b-link>
               </h1>
@@ -48,7 +48,7 @@
                 Staked
               </h6>
               <h3 class="text-white mb-0">
-                {{(stats.consensus_locked_value || 0)/100000000}} <i class="nuls-dark"></i>
+                {{(stats.consensus_locked_value || 0)/100000000}}&nbsp;<i class="nuls-dark"></i>
               </h3>
             </div>
             <div class="col-auto text-center">
@@ -56,7 +56,7 @@
                 Time Locked
               </h6>
               <h3 class="text-white mb-0">
-                 {{(stats.time_locked_value || 0)/100000000}}  <i class="nuls-dark"></i>
+                 {{(stats.time_locked_value || 0)/100000000}}&nbsp;<i class="nuls-dark"></i>
               </h3>
             </div>
             <div class="col-auto text-center">
@@ -64,7 +64,7 @@
                 Available
               </h6>
               <h3 class="text-white mb-0">
-                {{(stats.available_value || 0)/100000000}} <i class="nuls-dark"></i>
+                {{(stats.available_value || 0)/100000000}}&nbsp;<i class="nuls-dark"></i>
               </h3>
             </div>
           </div>
@@ -75,9 +75,9 @@
       <div class="row">
         <div class="col-12 col-md-6">
           <b-button-group size="sm">
-            <b-button variant="primary" @click="transferShow = !transferShow"><i class="fe fe-send"></i> Send</b-button>
-            <b-button @click="requestShow = !requestShow"><i class="fe fe-inbox"></i> Request</b-button>
-            <b-button :disabled="(stats.unspent_count < 30)" @click="consolidate"><i class="fe fe-git-merge"></i> Consolidate</b-button>
+            <b-button variant="primary" @click="transferShow = !transferShow"><SendIcon /> Send</b-button>
+            <b-button @click="requestShow = !requestShow"><InboxIcon /> Request</b-button>
+            <b-button :disabled="(stats.unspent_count < 30)" @click="consolidate"><GitMergeIcon /> Consolidate</b-button>
             <!--<b-button disabled><i class="fe fe-sunrise"></i> Create Agent</b-button>-->
           </b-button-group>
           <!-- Devices -->
@@ -105,7 +105,7 @@
                   </span>
                   <div>
                     <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
-                    <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><i class="fe fe-x"></i></b-link>
+                    <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
                   </div>
                 </b-list-group-item>
               </b-list-group>
@@ -165,10 +165,9 @@
           <template slot="tags" slot-scope="data">
             <span class="badge badge-primary">
               {{data.item.display_type}}
-            </span>
-            <span v-if="data.item.remark"
+            </span>&nbsp;<span v-if="data.item.remark"
                   v-b-popover.hover="data.item.remark" title="Remark">
-                  <i class="fe fe-info"></i>
+                  <InfoIcon />
             </span>
           </template>
           <template slot="value" slot-scope="data">
@@ -197,6 +196,11 @@ import Stake from './Stake.vue'
 import Sign from './Sign.vue'
 import {hash_from_address} from 'nulsworldjs/src/model/data.js'
 import {Coin, Transaction} from 'nulsworldjs/src/model/transaction.js'
+
+import {
+  Edit3Icon, EyeIcon, InboxIcon,
+  GitMergeIcon, SendIcon, XIcon,
+  InfoIcon} from 'vue-feather-icons'
 
 export default {
   name: 'accounts',
@@ -259,25 +263,30 @@ export default {
       await this.update()
     }
   },
+  computed: {
+    api_server() {
+      return this.$root.$data.settings.api_server
+    }
+  },
   methods: {
     dateformat (dt) {
       return moment.unix(dt / 1000).format('lll')
     },
     async updateConsensus () {
-      let response = await axios.get('/consensus/agents.json')
+      let response = await axios.get(`${this.api_server}consensus/agents.json`)
       this.$set(this, 'consensus', response.data.agents)
     },
     async updateTxs (min_height) {
-      let response = await axios.get('/addresses/' + this.address + '/summary/all.json?min_height=' + min_height)
+      let response = await axios.get(`${this.api_server}addresses/${this.address}/summary/all.json?min_height=${min_height}`)
       this.transactions = this.transactions.concat(response.data.transactions)
       this.totalRows = this.transactions.length
       this.last_sync_height = response.data.last_height
     },
     async updateStatus () {
-      let response = await axios.get('/addresses/consensus/' + this.address + '.json')
+      let response = await axios.get(`${this.api_server}addresses/consensus/${this.address}.json`)
       this.$set(this, 'account_stakes', response.data.positions)
 
-      response = await axios.get('/addresses/stats', {
+      response = await axios.get(`${this.api_server}addresses/stats`, {
         params: {
           addresses: [this.address]
         }
@@ -369,7 +378,7 @@ export default {
       this.signShow = true
     },
     async getOutputs () {
-      let response = await axios.get('/addresses/outputs/' + this.account.address + '.json')
+      let response = await axios.get(`${this.api_server}addresses/outputs/${this.account.address}.json`)
       return response.data
     },
     rename () {
@@ -383,7 +392,10 @@ export default {
     Transfer,
     Request,
     Stake,
-    Sign
+    Sign,
+    Edit3Icon, EyeIcon, InboxIcon,
+    GitMergeIcon, SendIcon, XIcon,
+    InfoIcon
   },
   async created () {
     this.last_sync_height = 0

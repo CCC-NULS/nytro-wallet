@@ -121,7 +121,9 @@ export default {
       if (this.prvState) {
         let prvbuffer = Buffer.from(this.private_key, 'hex')
         let pub = private_key_to_public_key(prvbuffer)
-        let hash = public_key_to_hash(pub, {chain_id: CHAIN_ID})
+        let hash = public_key_to_hash(pub, {
+          chain_id: this.$root.$data.settings.chain_id
+        })
         let address = address_from_hash(hash)
         // Vue.set(this, 'public_key', pub);
         this.public_key = pub.toString('hex')
