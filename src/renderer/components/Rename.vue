@@ -1,0 +1,71 @@
+<template>
+  <form :class="outputs === null ? 'is-loading is-loading-lg' : ''">
+    <b-form-group
+      id="name-group"
+      label="Account Name"
+      label-for="name"
+      :state="nameState"
+  >
+      <b-form-input id="name" :state="nametate" v-model.trim="name"></b-form-input>
+      <b-form-text id="amountHelp">
+        Account address: {{address}}
+      </b-form-text>
+    </b-form-group>
+
+    <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="sign" :disabled="tx==null">
+      Save
+    </button>
+  </form>
+</template>
+<script>
+import axios from 'axios'
+import {private_key_to_public_key,
+  address_from_hash,
+  hash_from_address,
+  public_key_to_hash,
+  get_outputs_for_sum
+} from 'nulsworldjs/src/model/data.js'
+import Transaction from 'nulsworldjs/src/model/transaction.js'
+import Sign from './Sign.vue'
+
+export default {
+  name: 'transfer',
+  data () {
+    return {
+      'name': '',
+      'address': ''
+    }
+  },
+  computed: {
+    nameState () {
+      if (!this.name) { return false }
+      if (this.name.length > 50) { return false }
+
+      return true
+    }
+  },
+  watch: {
+    account() {
+      this.name = this.account.name
+      this.address = this.account.address
+    }
+  },
+  methods: {
+    save () {
+     // save the name here...
+    }
+  },
+  props: ['account'],
+  components: {
+    Sign
+  },
+  async created () {
+    await this.getOutputs()
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>
