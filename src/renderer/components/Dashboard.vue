@@ -172,6 +172,7 @@ import DoughnutChart from './DoughnutChart.js'
 import {
   PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
 } from 'vue-feather-icons'
+import { mapState } from 'vuex'
 
 
 const colors = {
@@ -260,7 +261,6 @@ export default {
       total_available: 0,
       unspent_info: {},
       last_height: 0,
-      accounts: this.$root.$data.accounts,
       amounts_chart: {},
       accounts_chart: {},
       account_fields: [
@@ -303,16 +303,16 @@ export default {
     DoughnutChart,
     PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
   },
-  computed: {
-    api_server() {
-      return this.$root.$data.settings.api_server
-    }
-  },
+  computed: mapState([
+    // map this.count to store.state.count
+    'accounts',
+    'settings'
+  ]),
   methods: {
     async update () {
-      let result = await axios.get(`${this.api_server}addresses/stats`, {
+      let result = await axios.get(`${this.settings.api_server}addresses/stats`, {
         params: {
-          addresses: this.$root.$data.accounts.map((acct) => acct.address)
+          addresses: this.accounts.map((acct) => acct.address)
         }
       })
       this.unspent_info = result.data.unspent_info
@@ -321,7 +321,6 @@ export default {
       this.total_available = Object.values(this.unspent_info).map((u) => u.available_value).reduce((e, i) => e + i)
       this.total_consensus_locked = Object.values(this.unspent_info).map((u) => u.consensus_locked_value).reduce((e, i) => e + i)
       this.total_time_locked = Object.values(this.unspent_info).map((u) => u.time_locked_value).reduce((e, i) => e + i)
-      this.accounts = this.$root.$data.accounts
       this.update_charts()
     },
     update_charts () {
@@ -359,10 +358,7 @@ export default {
       if (confirm(`Delete account ${account.name} ?\n\nPlease backup your private key before doing this!`)) {
         if (confirm(`The address is ${account.address}\n\nAre you really sure? There is no way to going back!`)) {
           alert(`Ok, deleting address ${account.address}`)
-          var index = this.accounts.indexOf(account)
-          if (index > -1) {
-            this.accounts.splice(index, 1)
-          }
+          store.commit('remove_account', account);
         }
       }
     }

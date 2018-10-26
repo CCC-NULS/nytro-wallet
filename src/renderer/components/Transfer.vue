@@ -69,6 +69,7 @@ import {private_key_to_public_key,
 } from 'nulsworldjs/src/model/data.js'
 import Transaction from 'nulsworldjs/src/model/transaction.js'
 import Sign from './Sign.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'transfer',
@@ -120,9 +121,11 @@ export default {
 
       return ''
     },
-    api_server() {
-      return this.$root.$data.settings.api_server
-    }
+    ...mapState([
+      // map this.count to store.state.count
+      'accounts',
+      'settings'
+    ])
   },
   methods: {
     prepareTx () {

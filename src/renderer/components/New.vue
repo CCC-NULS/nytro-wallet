@@ -80,7 +80,9 @@ import {private_key_to_public_key,
   hash_from_address,
   public_key_to_hash
 } from 'nulsworldjs/src/model/data'
-import {storage} from 'nulsworldjs/src/model/store'
+import store from '../store'
+import { mapState } from 'vuex'
+
 const secp256k1 = require('secp256k1')
 export default {
   name: 'new',
@@ -92,6 +94,11 @@ export default {
       'address': null
     }
   },
+  computed: mapState([
+    // map this.count to store.state.count
+    'accounts',
+    'settings'
+  ]),
   methods: {
     generate () {
       let randArr = new Uint8Array(32) // create a typed array of 32 bytes (256 bits)
@@ -109,7 +116,7 @@ export default {
     analyze () {
       let pub = private_key_to_public_key(Buffer.from(this.private_key, 'hex'))
       let hash = public_key_to_hash(pub, {
-        chain_id: this.$root.$data.settings.chain_id
+        chain_id: this.settings.chain_id
       })
       let address = address_from_hash(hash)
       // Vue.set(this, 'public_key', pub);
@@ -121,14 +128,12 @@ export default {
       this.generate()
     },
     add () {
-      if (!this.$root.$data.accounts.some(e => e.address === this.address)) {
-        this.$root.$data.accounts.push({
-          'name': this.address,
-          'private_key': this.private_key,
-          'public_key': this.public_key,
-          'address': this.address
-        })
-      }
+      store.commit('add_account', {
+        'name': this.address,
+        'private_key': this.private_key,
+        'public_key': this.public_key,
+        'address': this.address
+      })
       this.$router.push('/account/' + this.address)
     }
   },

@@ -84,6 +84,7 @@ import {private_key_to_public_key,
 } from 'nulsworldjs/src/model/data.js'
 import Transaction from 'nulsworldjs/src/model/transaction.js'
 import Sign from './Sign.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'stake',
@@ -117,9 +118,6 @@ export default {
     validTargetFeedback () {
       return 'Target seems valid'
     },
-    api_server() {
-      return this.$root.$data.settings.api_server
-    },
     amountState () {
       if (!this.amount) { return false }
       if (typeof this.amount === 'string' || this.amount instanceof String) { return false }
@@ -148,7 +146,12 @@ export default {
       if (this.amount > (this.stats.available_value / 100000000)) { return 'Available balance (' + this.stats.available_value / 100000000 + ') too low.' }
 
       return ''
-    }
+    },
+    ... mapState([
+      // map this.count to store.state.count
+      'accounts',
+      'settings'
+    ])
   },
   methods: {
     signTx () {
@@ -206,7 +209,7 @@ export default {
       this.$emit('message-broadcasted', msg)
     },
     async getOutputs () {
-      let response = await axios.get(`${this.api_server}addresses/outputs/${this.account.address}.json`)
+      let response = await axios.get(`${this.settings.api_server}addresses/outputs/${this.account.address}.json`)
       this.$set(this, 'stats', response.data.unspent_info)
       this.$set(this, 'outputs', response.data.outputs)
       this.$set(this, 'last_sync_height', response.data.last_height)

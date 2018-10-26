@@ -42,6 +42,7 @@ import {private_key_to_public_key,
   public_key_to_hash
 } from 'nulsworldjs/src/model/data.js'
 import Transaction from 'nulsworldjs/src/model/transaction.js'
+import { mapState } from 'vuex'
 
 export default {
   name: 'sign',
@@ -63,9 +64,11 @@ export default {
     tx_dict () {
       return this.tx.to_dict()
     },
-    api_server() {
-      return this.$root.$data.settings.api_server
-    }
+    ... mapState([
+      // map this.count to store.state.count
+      'accounts',
+      'settings'
+    ])
   },
   methods: {
     prepareTx () {
@@ -77,7 +80,7 @@ export default {
       this.signed_tx = this.tx.serialize().toString('hex')
     },
     async broadcast () {
-      let response = await axios.post(`${this.api_server}broadcast`, {
+      let response = await axios.post(`${this.settings.api_server}broadcast`, {
         txHex: this.signed_tx
       })
       if ((response.data !== null) && (response.data.value !== undefined)) {

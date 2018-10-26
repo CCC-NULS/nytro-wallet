@@ -79,6 +79,8 @@ import {private_key_to_public_key,
   address_from_hash,
   public_key_to_hash
 } from 'nulsworldjs/src/model/data.js'
+import { mapState } from 'vuex'
+import store from '../store'
 
 var hexRegEx = /([0-9]|[a-f])/gim
 
@@ -114,7 +116,12 @@ export default {
       } catch (e) {
         return false
       }
-    }
+    },
+    ... mapState([
+      // map this.count to store.state.count
+      'accounts',
+      'settings'
+    ])
   },
   methods: {
     analyze () {
@@ -122,7 +129,7 @@ export default {
         let prvbuffer = Buffer.from(this.private_key, 'hex')
         let pub = private_key_to_public_key(prvbuffer)
         let hash = public_key_to_hash(pub, {
-          chain_id: this.$root.$data.settings.chain_id
+          chain_id: this.settings.chain_id
         })
         let address = address_from_hash(hash)
         // Vue.set(this, 'public_key', pub);
@@ -136,14 +143,12 @@ export default {
       }
     },
     add () {
-      if (!this.$root.$data.accounts.some(e => e.address === this.address)) {
-        this.$root.$data.accounts.push({
-          'name': this.address,
-          'private_key': this.private_key,
-          'public_key': this.public_key,
-          'address': this.address
-        })
-      }
+      store.commit('add_account', {
+        'name': this.address,
+        'private_key': this.private_key,
+        'public_key': this.public_key,
+        'address': this.address
+      })
       this.$router.push('/account/' + this.address)
     },
     paste () {

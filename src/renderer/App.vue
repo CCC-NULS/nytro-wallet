@@ -28,7 +28,7 @@
             Accounts
         </h6>
         <ul class="navbar-nav vertical">
-          <li v-for="account of this.$root.$data.accounts" class="nav-item account-name">
+          <li v-for="account of this.accounts" class="nav-item account-name">
             <router-link class="nav-link" active-class="active"
                v-bind:to="'/account/' + account.address">{{account.name}}</router-link>
           </li>
@@ -60,15 +60,21 @@
 <script>
 import {storage} from 'nulsworldjs/src/model/store';
 import { PlusIcon, LogInIcon, BookmarkIcon } from 'vue-feather-icons'
+import { mapState } from 'vuex'
+
 export default {
   name: 'nworld-wallet',
   data() {
     return {
       //msg: 'Welcome to Your Vue.js App'
-      'accounts': this.$root.$data.accounts,
       'warningShow': true
     }
   },
+  computed: mapState([
+    // map this.count to store.state.count
+    'accounts',
+    'settings'
+  ]),
   mounted() {
   },
   components: {

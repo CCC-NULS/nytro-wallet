@@ -10,6 +10,8 @@ import Notifications from 'vue-notification'
 import store from './store'
 import ElectronStore from 'electron-store'
 
+import { mapState } from 'vuex'
+
 import vSelect from 'vue-select'
 var {ipcRenderer, remote} = require('electron')
 let {machineIdSync} = remote.require('node-machine-id')
@@ -43,13 +45,19 @@ var storage = {
 new Vue({
   components: { App },
   router,
-  store,
-  data: storage,
+  store: store,
   template: '<App/>',
+  computed: {
+    ...mapState({
+      accounts: state => state.accounts,
+      settings: state => state.settings
+    })
+  },
   watch: {
     'accounts': {
         handler() {
           console.log('Accounts changed!')
+          console.log(store.state, store.state.accounts, this.accounts)
           elect_store.set('accounts', this.accounts)
         },
         deep: true,
@@ -57,6 +65,7 @@ new Vue({
     'settings': {
         handler() {
           console.log('Settings changed!')
+          console.log(store.state, store.state.settings, this.settings)
           elect_store.set('settings', this.settings)
         },
         deep: true,
@@ -66,7 +75,8 @@ new Vue({
     try{
       if (elect_store.get('accounts'))
       {
-        this.accounts = elect_store.get('accounts')
+        console.log(elect_store.get('accounts'))
+        store.commit('set_accounts', elect_store.get('accounts'))
       }
     } catch (e) {
       console.warn("Can't import data", e);
@@ -74,11 +84,10 @@ new Vue({
     try{
       if (elect_store.get('settings'))
       {
-        this.settings = elect_store.get('settings')
+        store.commit('set_settings', elect_store.get('settings'))
       }
     } catch (e) {
       console.warn("Can't import data", e);
     }
-    console.log(elect_store.store)
   }
 }).$mount('#app')

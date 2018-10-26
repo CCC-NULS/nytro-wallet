@@ -196,6 +196,8 @@ import Stake from './Stake.vue'
 import Sign from './Sign.vue'
 import {hash_from_address} from 'nulsworldjs/src/model/data.js'
 import {Coin, Transaction} from 'nulsworldjs/src/model/transaction.js'
+import { mapState } from 'vuex'
+import store from '../store'
 
 import {
   Edit3Icon, EyeIcon, InboxIcon,
@@ -263,30 +265,30 @@ export default {
       await this.update()
     }
   },
-  computed: {
-    api_server() {
-      return this.$root.$data.settings.api_server
-    }
-  },
+  computed: mapState([
+    // map this.count to store.state.count
+    'accounts',
+    'settings'
+  ]),
   methods: {
     dateformat (dt) {
       return moment.unix(dt / 1000).format('lll')
     },
     async updateConsensus () {
-      let response = await axios.get(`${this.api_server}consensus/agents.json`)
+      let response = await axios.get(`${this.settings.api_server}consensus/agents.json`)
       this.$set(this, 'consensus', response.data.agents)
     },
     async updateTxs (min_height) {
-      let response = await axios.get(`${this.api_server}addresses/${this.address}/summary/all.json?min_height=${min_height}`)
+      let response = await axios.get(`${this.settings.api_server}addresses/${this.address}/summary/all.json?min_height=${min_height}`)
       this.transactions = this.transactions.concat(response.data.transactions)
       this.totalRows = this.transactions.length
       this.last_sync_height = response.data.last_height
     },
     async updateStatus () {
-      let response = await axios.get(`${this.api_server}addresses/consensus/${this.address}.json`)
+      let response = await axios.get(`${this.settings.api_server}addresses/consensus/${this.address}.json`)
       this.$set(this, 'account_stakes', response.data.positions)
 
-      response = await axios.get(`${this.api_server}addresses/stats`, {
+      response = await axios.get(`${this.settings.api_server}addresses/stats`, {
         params: {
           addresses: [this.address]
         }
@@ -295,7 +297,7 @@ export default {
       if (stats !== undefined) { this.$set(this, 'stats', stats) } else { this.$set(this, 'stats', {}) }
     },
     async update () {
-      this.$set(this, 'account', this.$root.$data.accounts.find(obj => {
+      this.$set(this, 'account', this.accounts.find(obj => {
         return obj.address === this.address
       }))
       await this.updateStatus()
@@ -378,7 +380,7 @@ export default {
       this.signShow = true
     },
     async getOutputs () {
-      let response = await axios.get(`${this.api_server}addresses/outputs/${this.account.address}.json`)
+      let response = await axios.get(`${this.settings.api_server}addresses/outputs/${this.account.address}.json`)
       return response.data
     },
     rename () {
