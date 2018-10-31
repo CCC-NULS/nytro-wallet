@@ -25,8 +25,8 @@ import {private_key_to_public_key,
   public_key_to_hash,
   get_outputs_for_sum
 } from 'nulsworldjs/src/model/data.js'
-import Transaction from 'nulsworldjs/src/model/transaction.js'
-import Sign from './Sign.vue'
+import { mapState } from 'vuex'
+import store from '../store'
 
 export default {
   name: 'transfer',
@@ -34,7 +34,12 @@ export default {
     return {
       'name': '',
       'address': ''
-    }
+    },
+    ... mapState([
+      // map this.count to store.state.count
+      'accounts',
+      'settings'
+    ])
   },
   computed: {
     nameState () {

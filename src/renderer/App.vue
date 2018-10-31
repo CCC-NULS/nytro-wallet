@@ -11,6 +11,10 @@
         <p>If you want to play, play with accounts holding small amounts or verify everything and remove accounts when not in use.</p>
       </div>
     </b-modal>
+    <b-modal id="renameModal" ref="renameModal" hide-footer title="Rename Account"
+              :visible="renameShow" @hidden="$store.commit('renamed_end')">
+      <rename v-if="renameShow" :account="renameAccount"></sign>
+    </b-modal>
 
     <div class="d-md-flex flex-row">
       <div class="col-md-4 col-xl-3 navbar-light app-navbar">
