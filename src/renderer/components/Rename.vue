@@ -6,13 +6,13 @@
       label-for="name"
       :state="nameState"
   >
-      <b-form-input id="name" :state="nametate" v-model.trim="name"></b-form-input>
+      <b-form-input id="name" :state="nameState" v-model.trim="name"></b-form-input>
       <b-form-text id="amountHelp">
         Account address: {{address}}
       </b-form-text>
     </b-form-group>
 
-    <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="sign" :disabled="tx==null">
+    <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="rename" :disabled="!nameState">
       Save
     </button>
   </form>
@@ -29,17 +29,12 @@ import { mapState } from 'vuex'
 import store from '../store'
 
 export default {
-  name: 'transfer',
+  name: 'rename',
   data () {
     return {
       'name': '',
       'address': ''
-    },
-    ... mapState([
-      // map this.count to store.state.count
-      'accounts',
-      'settings'
-    ])
+    }
   },
   computed: {
     nameState () {
@@ -47,7 +42,12 @@ export default {
       if (this.name.length > 50) { return false }
 
       return true
-    }
+    },
+    ... mapState([
+      // map this.count to store.state.count
+      'accounts',
+      'settings'
+    ])
   },
   watch: {
     account() {
@@ -56,13 +56,13 @@ export default {
     }
   },
   methods: {
-    save () {
+    rename () {
      // save the name here...
+     store.commit('rename_account', this.account, this.name)
     }
   },
   props: ['account'],
   components: {
-    Sign
   },
   async created () {
     await this.getOutputs()

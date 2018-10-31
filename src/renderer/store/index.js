@@ -13,7 +13,9 @@ export default new Vuex.Store({
     'settings': {
       'api_server': 'https://nuls.world/',
       'chain_id': 8964
-    }
+    },
+    'rename_show': false,
+    'rename_account': null
   },
   mutations: {
     set_accounts(state, accounts) {
@@ -34,6 +36,19 @@ export default new Vuex.Store({
     set_settings(state, settings) {
       console.log(settings)
       state.settings = settings
+    },
+    start_rename(state, account) {
+      state.rename_account = account
+      state.rename_show = true
+    },
+    rename_account(state, account, name) {
+      account.name = name
+      state.rename_account = null
+      state.rename_show = false
+    },
+    cancel_rename(state) {
+      state.rename_account = null
+      state.rename_show = false
     }
   },
   actions: {

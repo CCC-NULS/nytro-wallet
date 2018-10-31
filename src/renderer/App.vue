@@ -12,8 +12,8 @@
       </div>
     </b-modal>
     <b-modal id="renameModal" ref="renameModal" hide-footer title="Rename Account"
-              :visible="renameShow" @hidden="$store.commit('renamed_end')">
-      <rename v-if="renameShow" :account="renameAccount"></sign>
+              :visible="rename_show" @hidden="$store.commit('end_rename')">
+      <rename v-if="rename_show" :account="rename_account"></rename>
     </b-modal>
 
     <div class="d-md-flex flex-row">
@@ -65,6 +65,7 @@
 import {storage} from 'nulsworldjs/src/model/store';
 import { PlusIcon, LogInIcon, BookmarkIcon } from 'vue-feather-icons'
 import { mapState } from 'vuex'
+import Rename from './components/Rename.vue'
 
 export default {
   name: 'nworld-wallet',
@@ -77,14 +78,17 @@ export default {
   computed: mapState([
     // map this.count to store.state.count
     'accounts',
-    'settings'
+    'settings',
+    'rename_show',
+    'rename_account'
   ]),
   mounted() {
   },
   components: {
     PlusIcon,
     LogInIcon,
-    BookmarkIcon
+    BookmarkIcon,
+    Rename
   }
 };
 </script>

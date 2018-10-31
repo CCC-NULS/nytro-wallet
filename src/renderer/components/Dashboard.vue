@@ -173,6 +173,7 @@ import {
   PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
 } from 'vue-feather-icons'
 import { mapState } from 'vuex'
+import store from '../store'
 
 
 const colors = {
@@ -349,10 +350,7 @@ export default {
       }
     },
     rename_account (account) {
-      let new_name = prompt(
-        `Renaming account ${account.address}\n\nPlease input a new name:`,
-        account.name)
-      if (new_name !== null) { account.name = new_name }
+      store.commit('start_rename', account)
     },
     delete_account (account) {
       if (confirm(`Delete account ${account.name} ?\n\nPlease backup your private key before doing this!`)) {
