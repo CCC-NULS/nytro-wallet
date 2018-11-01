@@ -41,12 +41,13 @@ export default new Vuex.Store({
       state.rename_account = account
       state.rename_show = true
     },
-    rename_account(state, account, name) {
+    rename_account(state, {account, name}) {
       account.name = name
       state.rename_account = null
       state.rename_show = false
+      state.accounts = state.accounts
     },
-    cancel_rename(state) {
+    end_rename(state) {
       state.rename_account = null
       state.rename_show = false
     }

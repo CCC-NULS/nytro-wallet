@@ -384,10 +384,7 @@ export default {
       return response.data
     },
     rename () {
-      let new_name = prompt(
-        `Renaming account ${this.account.address}\n\nPlease input a new name:`,
-        this.account.name)
-      if (new_name !== null) { this.account.name = new_name }
+      store.commit('start_rename', this.account)
     }
   },
   components: {

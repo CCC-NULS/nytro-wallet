@@ -1,5 +1,5 @@
 <template>
-  <form :class="outputs === null ? 'is-loading is-loading-lg' : ''">
+  <form>
     <b-form-group
       id="name-group"
       label="Account Name"
@@ -51,6 +51,7 @@ export default {
   },
   watch: {
     account() {
+      console.log(this.account)
       this.name = this.account.name
       this.address = this.account.address
     }
@@ -58,14 +59,18 @@ export default {
   methods: {
     rename () {
      // save the name here...
-     store.commit('rename_account', this.account, this.name)
+     store.commit('rename_account', {
+       account: this.account,
+       name: this.name
+     })
     }
   },
   props: ['account'],
   components: {
   },
   async created () {
-    await this.getOutputs()
+    this.name = this.account.name
+    this.address = this.account.address
   }
 }
 </script>
