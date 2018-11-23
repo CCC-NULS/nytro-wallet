@@ -5,7 +5,7 @@ import Login from '../components/Login.vue'
 import New from '../components/New.vue'
 import Account from '../components/Account.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [

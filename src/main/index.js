@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import { app, BrowserWindow } from 'electron'
 import {machineId, machineIdSync} from 'node-machine-id'
@@ -11,49 +11,49 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let mainWindow
+let mainWindow;
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080/?`
-  : `file://${__dirname}/index.html`
+  : `file://${__dirname}/index.html`;
 
 function createWindow () {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
+    height: 750,
     useContentSize: true,
-    width: 1000,
-    autoHideMenuBar: true
-  })
+    width: 1400,
+    autoHideMenuBar: false
+  });
 
-  mainWindow.loadURL(winURL)
+  mainWindow.loadURL(winURL);
 
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
+});
 
 app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
   }
-})
+});
 
 function getMachineId() {
-    let id = machineIdSync()
+    let id = machineIdSync();
     return id
 }
 
-exports.getMachineId = getMachineId
+exports.getMachineId = getMachineId;
 
 
 /**
