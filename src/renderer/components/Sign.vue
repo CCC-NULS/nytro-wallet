@@ -63,12 +63,7 @@ export default {
     },
     tx_dict () {
       return this.tx.to_dict()
-    },
-    ... mapState([
-      // map this.count to store.state.count
-      'accounts',
-      'settings'
-    ])
+    }
   },
   methods: {
     prepareTx () {
@@ -80,7 +75,7 @@ export default {
       this.signed_tx = this.tx.serialize().toString('hex')
     },
     async broadcast () {
-      let response = await axios.post(`${this.settings.api_server}broadcast`, {
+      let response = await axios.post(`${this.api_server}broadcast`, {
         txHex: this.signed_tx
       })
       if ((response.data !== null) && (response.data.value !== undefined)) {
@@ -101,7 +96,7 @@ export default {
       this.$emit('message-broadcasted', response.data)
     }
   },
-  props: ['account', 'tx', 'reason'],
+  props: ['account', 'tx', 'reason', 'api_server'],
   filters: {
     pretty: function (value) {
       return JSON.stringify(value, null, 2)
