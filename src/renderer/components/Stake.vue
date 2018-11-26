@@ -70,7 +70,7 @@
       </b-input-group>
     </b-form-group>
 
-    <sign :account="account" :tx="tx" @message-broadcasted="broadcasted" />
+    <sign :account="account" :tx="tx" :api_server="settings.api_server" @message-broadcasted="broadcasted" />
 
   </form>
 </template>

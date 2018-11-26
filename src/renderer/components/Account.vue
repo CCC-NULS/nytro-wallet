@@ -10,7 +10,7 @@
       <stake v-if="stakeShow" :account="account" :stats="stats" :consensus="consensus" @message-broadcasted="stakeShow = !stakeShow"></stake>
     </b-modal>
     <b-modal id="signModal" ref="signModal" hide-footer :title="signReason" v-model="signShow">
-      <sign v-if="signShow" :account="account" :tx="signTx" :reason="signReason" @message-broadcasted="signShow = !signShow"></sign>
+      <sign v-if="signShow" :account="account" :tx="signTx" :reason="signReason" :api_server="settings.api_server" @message-broadcasted="signShow = !signShow"></sign>
     </b-modal>
     <b-modal id="backupModal" ref="backupModal" title="Backup Account" v-model="backupShow" ok-variant>
       <div v-if="backupShow">
