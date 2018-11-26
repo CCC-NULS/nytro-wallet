@@ -34,14 +34,6 @@ Vue.config.productionTip = false;
 
 console.log(process.env.IS_WEB);
 
-const storage = {
-    'settings': {
-        'api_server': 'https://nuls.world/',
-        'chain_id': 8964
-    },
-    'accounts': []
-};
-
 /* eslint-disable no-new */
 new Vue({
     components: {App},
