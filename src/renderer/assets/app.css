@@ -164,7 +164,7 @@ h4, .h4, h5, .h5, h6, .h6
   margin-top: -2.25rem !important;
 }
 
-.header-body
+/* .header-body
 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -197,7 +197,7 @@ h4, .h4, h5, .h5, h6, .h6
 
 .nuls-blue {
     background-image: linear-gradient(-133deg, #002e5e 0%, #092243 89%, #0a2140 100%);
-}
+} */
 
 table{
   font-size: 90%;
@@ -273,7 +273,7 @@ pre code {
   color: #2c7be5;
 }
 
-.card {
+/* .card {
   background: #fff;
   margin-bottom: 1.5rem;
   box-shadow: 0 .75rem 1.5rem rgba(18,36,62,.04);
@@ -304,8 +304,8 @@ pre code {
 
 .card-header:first-child {
   border-radius: calc(.5rem - 1px) calc(.5rem - 1px) 0 0;
-}
-
+} */
+/*
 .table
 {
     width: 100%;
@@ -473,7 +473,7 @@ pre code {
     top: 50%;
 
     transform: translateY(-50%);
-}
+} */
 
 .navbar-nav a.nav-link>.feather {
   min-width: 1.5em;
