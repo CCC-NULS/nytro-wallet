@@ -4,8 +4,7 @@
     <b-modal ref="myModalRef" hide-footer :title="$t('public.warning')" v-model="warningShow">
       <div>
         <h3 class="head-500">This is a beta-quality software.</h3>
-        <p>This is just a beta-quality software.</p>
-        <p>Security is not ideal, no password implemented yet.
+        <p>Security is not ideal, no password implemented yet.</p>
         <p>If someone accesses your computer, it has access to funds on accounts still logged in.</p>
         <p>I am not responsible if you lose any fund with it.</p>
         <p>If you want to play, play with accounts holding small amounts or verify everything and remove
@@ -17,75 +16,52 @@
       <rename v-if="rename_show" :account="rename_account"></rename>
     </b-modal>
 
-    <div class="d-md-flex flex-row">
-      <div class="col-md-4 col-xl-3 navbar-light app-navbar">
-        <a class="wallet-logo mb-5 d-block"><img src="./assets/logo1.png"/>{{$t('public.wallet')}}</a>
-        <hr class="my-3"/>
-        <ul class="navbar-nav vertical">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/">
-              <BookmarkIcon/>
-              {{$t('nav.dashboard')}}
+    <header>
+      <b-container fluid class="app-header">
+        <b-row>
+          <b-col cols="auto" class="justify-content-center align-self-center">
+            <router-link class="nav-link app-logo" to="/">
+              <img src="./assets/logo1.png"/>
+              Nytro
             </router-link>
-          </li>
-        </ul>
-        <hr class="my-3"/>
-        <h6 class="navbar-heading text-muted">
-          {{$t('nav.accounts')}}
-        </h6>
-        <ul class="navbar-nav vertical">
-          <li v-for="account of this.accounts" class="nav-item account-name">
-            <router-link class="nav-link" active-class="active"
-                         v-bind:to="'/account/' + account.address">{{account.name}}
-            </router-link>
-          </li>
-        </ul>
-        <hr class="my-3"/>
-        <h6 class="navbar-heading text-muted">
-          {{$t('nav.actions')}}
-        </h6>
-        <ul class="navbar-nav vertical">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/login/">
-              <LogInIcon/>
-              {{$t('nav.addAccount')}}
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/new/">
-              <PlusIcon/>
-              {{$t('nav.createAccount')}}
-            </router-link>
-          </li>
-        </ul>
-
-        <hr class="my-3"/>
-        <h6 class="navbar-heading text-muted">
-          <!--{{$t('nav.actions')}}-->
-          SetUp
-        </h6>
-
-        <ul class="navbar-nav vertical">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/">
-              <SettingsIcon/>
-              Set API
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link router-link-exact-active router-link-active">
-              <MapPinIcon />
-              <label @click="changeLang()">{{lang}}</label>
-            </a>
-
-          </li>
-        </ul>
-
-      </div>
-      <div class="grow">
-        <router-view></router-view>
-      </div>
-    </div>
+          </b-col>
+          <b-col class="text-center justify-content-center align-self-center">
+            <h1 class="app-name head-400">
+              wallet
+              <small class="body-200">v1.0.0-beta1</small>
+            </h1>
+          </b-col>
+          <b-col cols="auto" class="justify-content-center align-self-center">
+            Last block XXX
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-container class="app-selector">
+        <b-row>
+           <b-col>
+             <b-dropdown id="ddown1" text="Select account" size="lg">
+              <b-dropdown-item class="first-level" to="/" active-class="n">All</b-dropdown-item>
+              <b-dropdown-header>Configured wallets</b-dropdown-header>
+              <b-dropdown-item v-for="account of this.accounts"
+                          v-bind:to="'/account/' + account.address">
+                {{account.name}}
+              </b-dropdown-item>
+              <b-dropdown-separator></b-dropdown-separator>
+              <b-dropdown-header>Actions</b-dropdown-header>
+              <b-dropdown-item to="/login/">
+                <LogInIcon/>
+                {{$t('nav.addAccount')}}
+              </b-dropdown-item>
+              <b-dropdown-item to="/new/">
+                <PlusIcon/>
+                {{$t('nav.createAccount')}}
+              </b-dropdown-item>
+            </b-dropdown>
+           </b-col>
+        </b-row>
+      </b-container>
+    </header>
+    <router-view></router-view>
   </div>
 </template>
 
