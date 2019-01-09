@@ -1,5 +1,11 @@
+.modal-dialog, .modal-header, .modal-body, .modal-content {
+  border: 0;
+  border-radius: 0;
+}
+
 .modal-content {
   background: $color-secondary-blue-004;
+  padding: 1em;
 }
 
 .modal-body {
@@ -8,4 +14,20 @@
 
 .modal-header {
   border-bottom: 0;
+}
+
+.modal-dialog header h5 {
+  font-size: 2.4rem;
+}
+
+.modal-header button.close {
+  text-shadow: none;
+  font-weight: bold;
+  color: $color-secondary-blue-001;
+  opacity: 1;
+  font-size: 2.4rem;
+}
+
+.modal-header button.close:hover {
+  color: $color-secondary-white;
 }
