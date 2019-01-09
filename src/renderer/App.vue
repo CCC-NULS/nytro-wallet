@@ -22,13 +22,13 @@
           <b-col cols="auto" class="justify-content-center align-self-center">
             <router-link class="nav-link app-logo" to="/">
               <img src="./assets/logo1.png"/>
-              Nytro
+              ytro
             </router-link>
           </b-col>
           <b-col class="text-center justify-content-center align-self-center">
             <h1 class="app-name head-400">
               wallet
-              <small class="body-200">v1.0.0-beta1</small>
+              <small class="body-200 text-muted">v1.0.0-beta1</small>
             </h1>
           </b-col>
           <b-col cols="auto" class="justify-content-center align-self-center">
@@ -36,7 +36,7 @@
           </b-col>
         </b-row>
       </b-container>
-      <b-container class="app-selector">
+      <b-container class="app-selector py-5">
         <b-row>
            <b-col>
              <b-dropdown id="ddown1" text="Select account" size="lg">
