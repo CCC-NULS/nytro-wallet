@@ -1,0 +1,23 @@
+/**
+ *
+ * COLORS: GENERAL
+ *
+ */
+
+body {
+
+	color: $color-secondary-white;
+	background-color: $color-primary-blue;
+
+}
+
+::selection {
+	color: $color-secondary-black;
+	background: $color-secondary-white;
+}
+
+::-moz-selection {
+	color: $color-secondary-black;
+	background: $color-secondary-white;
+}
+ 

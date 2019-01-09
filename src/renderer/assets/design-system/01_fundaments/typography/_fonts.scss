@@ -1,0 +1,14 @@
+/*
+* @Author: Steven Thijs
+* @Date:   2018-08-14 16:19:26
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-11 01:28:10
+*/
+
+@import "./__settings/__vars";
+@import "./__settings/_functions";
+@import "./__settings/_mixins";
+
+@include font-face-gen('Regular', 'regular', 'SofiaPro');
+@include font-face-gen('Bold', 'bold', 'SofiaPro');
+@include font-face-gen('Bold', 'bold', 'NeuzeitGrotesk');

@@ -1,0 +1,58 @@
+/*
+* @Author: Steven Thijs
+* @Date:   2018-08-19 17:32:17
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-12 06:09:08
+*/
+
+// GENERAL LINK STYLES
+
+.nav-link {
+	cursor: pointer;
+	@extend .head-300;
+	font-family: font('headings');
+
+	display: block;
+    padding: 1rem 1rem;
+
+	color: $color-secondary-white;
+	font-weight: $font-weight-bold;
+
+	&:visited {
+		color: $color-secondary-white;
+	}
+
+	&:hover {
+		color: $color-primary-green;
+		text-decoration: none;
+	}
+
+	&:active,
+	&:focus {
+		color: $color-primary-green;
+		text-decoration: none;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+
+	.navbar-subnav & {
+		color: $color-shades-blue-40;
+
+		&:visited {
+			color: $color-shades-blue-40;
+		}
+
+		&:hover {
+			color: $color-primary-green;
+			text-decoration: none;
+		}
+
+		&:active,
+		&:focus {
+			color: $color-primary-green;
+			text-decoration: none;
+		}
+	}
+}

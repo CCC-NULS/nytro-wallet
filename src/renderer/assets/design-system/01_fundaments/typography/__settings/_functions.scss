@@ -1,0 +1,13 @@
+/**
+ *
+ * TYPOGRAPHY: FUNCTIONS
+ *
+ */
+
+@function font($face: main) {
+
+	$font: map-get($fonts, quote($face));
+
+	@return unquote($font);
+
+}

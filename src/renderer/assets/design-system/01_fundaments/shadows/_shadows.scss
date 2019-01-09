@@ -1,0 +1,17 @@
+/*
+* @Author: steven
+* @Date:   2018-10-11 22:57:07
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-11 23:48:01
+*/
+@import "__settings/_vars";
+@import "__settings/mixins";
+
+@each $bs in $box-shadows {
+    $bs-blur: nth($bs, 1);
+    $bs-op: nth($bs, 2);
+
+    .bs-#{$bs-blur}-#{$bs-op} {
+    	@include box-shadow(#{($bs-blur / 10)}rem, ($bs-op / 100));
+    }
+}

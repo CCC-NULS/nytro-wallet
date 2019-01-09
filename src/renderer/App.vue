@@ -1,9 +1,9 @@
 <template>
   <div id="app" class="">
     <notifications group="wallet"/>
-    <b-modal ref="myModalRef" hide-footer title="Warning" v-model="warningShow">
-      <div class="d-block text-center">
-        <h3>{{$t('public.warning')}}</h3>
+    <b-modal ref="myModalRef" hide-footer :title="$t('public.warning')" v-model="warningShow">
+      <div>
+        <h3 class="head-500">This is a beta-quality software.</h3>
         <p>This is just a beta-quality software.</p>
         <p>Security is not ideal, no password implemented yet.
         <p>If someone accesses your computer, it has access to funds on accounts still logged in.</p>
@@ -135,9 +135,9 @@
     };
 </script>
 
-<style>
-  @import "~bootstrap/dist/css/bootstrap.css";
+<style lang="scss">
+  // @import "~bootstrap/dist/css/bootstrap.css";
+  @import "./assets/design-system/00_global/styles/main";
   @import "~bootstrap-vue/dist/bootstrap-vue.css";
-  @import "./assets/css/main.css";
-  @import "./assets/app.css";
+  @import "./assets/app.scss";
 </style>

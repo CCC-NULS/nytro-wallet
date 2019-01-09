@@ -1,0 +1,61 @@
+/**
+ *
+ * TYPOGRAPHY: MIXINS
+ *
+ */
+
+@mixin font-face-gen ($filename, $type, $family: 'SofiaPro') {
+    @font-face {
+        //$filename: 'SFProDisplay#{$filename}';
+        //$prefix: '_old';
+
+        $filename: '#{$family}#{$filename}';
+
+        font-family: unquote($family);
+        //src: url('#{$font-folder}raw/#{$filename}.otf?#iefix') format('opentype');
+        src: url('#{$font-folder}/#{$filename}.eot?#iefix') format('embedded-opentype'),
+        url('#{$font-folder}/#{$filename}.woff2') format('woff2'),
+        url('#{$font-folder}/#{$filename}.woff') format('woff'),
+        url('#{$font-folder}/#{$filename}.ttf') format('truetype');
+        font-weight: map-get($font-weight-specs, $type);
+    }
+}
+
+@mixin font-prop-gen ($values, $fs-key, $op-key, $size-key, $name) {
+    @if (map-has-key($values, $fs-key)) {
+        $values: map-get($values, $fs-key);
+        @if (map-has-key($values, $op-key)) {
+            $values: map-get($values, $op-key);
+            @if (map-has-key($values, $size-key)) {
+                #{$name}: map-get($values, $size-key);
+            }
+        }
+    }
+}
+
+
+// @mixin font-props ($type: 'body', $weight: 300) {
+//     @each $fs in $font-sizes {
+//         $fs-key: nth($fs, 1);
+//         $fs-val: nth($fs, 2);
+
+//         @include media-breakpoint-up(#{$fs-key}) {
+//             @each $op in $fs-val {
+//                 $op-key: nth($op, 1);
+
+//                 @if ($op-key == $type) {
+//                     @each $size in nth($op, 2) {
+//                         $size-key: nth($size, 1);
+
+//                         @if ($size-key == $weight) {
+//                             @include font-prop-gen($font-sizes, $fs-key, $op-key, $size-key, font-size);
+//                             @include font-prop-gen($line-heights, $fs-key, $op-key, $size-key, line-height);
+//                             @include font-prop-gen($font-weights, $fs-key, $op-key, $size-key, font-weight);
+//                             //@include font-prop-gen($letter-spacing, $fs-key, $op-key, $size-key, letter-spacing);
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

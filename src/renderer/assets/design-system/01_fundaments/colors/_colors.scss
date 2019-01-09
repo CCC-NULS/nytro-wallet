@@ -1,0 +1,23 @@
+/**
+ *
+ * COLORS
+ *
+ */
+@import "./__settings/__vars";
+@import "./__settings/_maps";
+
+.text {
+	@each $name, $color in $text-colors {
+		&-#{$name} {
+			color: $color !important;
+		}
+	}
+}
+
+.bg {
+	@each $name, $color in $background-colors {
+		&-#{$name} {
+			background-color: $color !important;
+		}
+	}
+}

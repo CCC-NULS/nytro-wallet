@@ -1,0 +1,32 @@
+/*
+* @Author: steven
+* @Date:   2018-10-09 00:57:47
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-09 01:07:29
+*/
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 375px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1200px
+) !default;
+
+$container-max-widths: (
+  xs: 374px,
+  sm: 767px,
+  md: 1023px,
+  lg: 1224px,
+) !default;
+
+$enable-grid-classes: true;
+$theme-colors: ();
+$enable-gradients: false;
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:                12 !default;
+$grid-gutter-width:           2.4rem !default;

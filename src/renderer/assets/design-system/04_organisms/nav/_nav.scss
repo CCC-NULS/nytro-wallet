@@ -1,0 +1,187 @@
+/*
+* @Author: steven
+* @Date:   2018-10-10 02:26:40
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-18 21:07:13
+*/
+
+
+
+// This class inherits from the Bootstrap default navbar styles.
+.navbar.navbar--customized {
+
+	&.fixed-top {
+		position: fixed !important;
+	}
+
+	& .container {
+		padding-right: ($grid-gutter-width / 2) !important;
+		padding-left: ($grid-gutter-width / 2) !important;
+	}
+
+	// navbar brand
+	& .navbar-brand {
+
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+
+		& .logo {
+			height: 2.5rem;
+			display: block;
+		}
+
+	}
+
+	& .navbar-toggler {
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	@include media-breakpoint-down(md) {
+
+		& .navbar-collapse {
+
+			&.collapse {
+
+				overflow: hidden;
+
+				&.show {
+					max-height: 90rem;
+					transition: max-height 1s ease-in-out;
+					padding-bottom: ($grid-gutter-width / 2);
+				}
+
+				&:not(.show) {
+					display: block;
+					max-height: 0;
+					transition: max-height .5s cubic-bezier(0, 1, 0, 1); 
+				}
+			}
+		}
+	}
+
+	& .nav-item {
+
+		&.dropdown {
+
+			transition: box-shadow .2s ease-in-out;
+
+			&.show {
+
+				@include box-shadow( 2.4rem, 0.4);
+
+				& .icon {
+					transform: rotate(0deg);
+				}
+			}
+
+			& .icon {
+				vertical-align: middle;
+				display: inline-block;
+				transform: rotate(180deg);
+				transition: transform 0.3s ease-in-out;
+			}
+
+		}
+	}
+
+	& .nav-link {
+
+		&.dropdown-toggle {
+
+			&::after {
+				content: '';
+				display: none;
+			}
+
+		}
+
+	}
+
+	& .navbar-nav {
+
+		& .nav-item {
+
+		}
+
+		& .nav-link {
+
+			@include media-breakpoint-up(lg) {
+				padding-right: 3.15rem;
+				padding-left: 3.15rem;
+				padding-top: 2.15rem;
+				padding-bottom: 2.15rem;
+			}
+
+			&.dropdown-toggle {
+
+			}
+
+		}
+
+	}	
+
+	& .navbar-subnav {
+
+		width: 100%;
+		background-color: $color-primary-blue;
+		border: 0;
+		border-radius: 0;
+		padding-left: ($grid-gutter-width / 2);
+
+		@include media-breakpoint-up(lg) {
+			@include box-shadow( 2.4rem, 0.3, 0, 1.2rem );
+			padding-left: 0;
+		}
+
+		//max-height: 0;
+		//transition: max-height .5s cubic-bezier(0, 1, 0, 1); 
+		transition: opacity 0.25s ease-in-out;
+		overflow: hidden;
+		opacity: 0;
+		display: block;
+
+		&.show {
+			opacity: 1;
+			display: block;
+			//max-height: 90rem;
+			//transition: max-height 1s ease-in-out;
+		}
+
+		& .nav-item {
+
+			white-space: normal;
+
+			@include media-breakpoint-up(lg) {
+				&:first-child {
+					margin-top: 1rem;
+				}
+				&:last-child {
+					margin-bottom: 1rem;
+				}
+			}
+
+			&:hover,
+			&:focus {
+				background-color: transparent;
+			}
+
+			&.active,
+			&:active {
+				background-color: transparent;
+			}
+
+		}
+
+		& .nav-link {
+
+		}
+	}
+}
+
+.navbar-space {
+	padding-top: 6.5rem;
+}
+

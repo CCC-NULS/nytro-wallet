@@ -1,0 +1,17 @@
+/*
+* @Author: steven
+* @Date:   2018-10-11 02:53:23
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-11 22:56:25
+*/
+
+// BOX SHADOW
+@mixin box-shadow($blur: 4.8rem, $op: .4, $x: 0, $y: .2rem) {
+  $shadow-color: rgba($color-secondary-black, $op);
+  box-shadow: $x $y $blur 0 $shadow-color;
+}
+
+@mixin text-shadow($blur: 4.8rem, $op: .4, $x: 0, $y: 0) {
+  $shadow-color: rgba($color-secondary-black, $op);
+  text-shadow: $x $y $blur 0 $shadow-color;
+}
