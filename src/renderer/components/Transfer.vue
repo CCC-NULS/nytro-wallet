@@ -55,7 +55,7 @@
       </b-input-group>
     </b-form-group>
 
-    <sign :tx="tx" :account="account" @message-broadcasted="broadcasted" />
+    <sign :tx="tx" :account="account" :api_server="settings.api_server" @message-broadcasted="broadcasted" />
 
   </form>
 </template>
