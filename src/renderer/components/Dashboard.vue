@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="container">
+      <b-card class="bs-24-40 my-5">
+      </b-card>
+    </div>
+
     <div class="header bg-dark pb-4 mb-0 nuls-blue">
       <div class="container">
         <div class="header-body">

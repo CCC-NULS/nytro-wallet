@@ -17,7 +17,8 @@ export default new Vuex.Store({
       'chain_id': 261
     },
     'rename_show': false,
-    'rename_account': null
+    'rename_account': null,
+    'price_info': null
   },
   mutations: {
     set_accounts(state, accounts) {
@@ -52,6 +53,9 @@ export default new Vuex.Store({
     end_rename(state) {
       state.rename_account = null
       state.rename_show = false
+    },
+    set_price_info(state, price_info) {
+      state.price_info = price_info
     }
   },
   actions: {
