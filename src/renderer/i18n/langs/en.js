@@ -12,6 +12,11 @@ const en = {
     actions:'Actions',
     addAccount:'Add an account',
     createAccount:'Create an account',
+    configuredWallets: 'Configured Wallets'
   },
+
+  header: {
+    lastBlock: 'Last Block'
+  }
 };
 export default en
