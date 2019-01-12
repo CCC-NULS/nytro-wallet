@@ -26,7 +26,7 @@
           </b-col>
           <b-col class="text-center justify-content-center align-self-center">
             <h1 class="app-name head-400">
-              wallet
+              {{$t('public.wallet')}}
               <small class="caption-200 text-muted">v1.0.0-beta1</small>
             </h1>
           </b-col>

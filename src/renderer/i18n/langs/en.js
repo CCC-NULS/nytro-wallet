@@ -1,12 +1,11 @@
 const en = {
   public: {
     wallet:'Wallet',
-
     warning: 'Warning',
-
   },
 
   nav: {
+    all: 'All',
     dashboard: 'Dashboard',
     accounts:'Accounts',
     actions:'Actions',
