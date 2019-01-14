@@ -1,173 +1,80 @@
 <template>
   <div>
-    <div class="container">
+    <b-container>
       <b-card class="bs-24-40 my-5">
-      </b-card>
-    </div>
-
-    <div class="header bg-dark pb-4 mb-0 nuls-blue">
-      <div class="container">
-        <div class="header-body">
-          <div class="row align-items-end">
-            <div class="col">
-              <h6 class="header-pretitle text-secondary">Accounts overview</h6>
-              <h1 class="header-title text-white">Dashboard</h1>
-            </div>
-            <div class="col-auto text-center">
-              <h6 class="header-pretitle text-secondary">
-                Staked
-              </h6>
-              <h3 class="text-white mb-0">
-                {{(total_consensus_locked || 0)/100000000}} <i class="nuls-dark"></i>
-              </h3>
-            </div>
-            <div class="col-auto text-center">
-              <h6 class="header-pretitle text-secondary">
-                Time Locked
-              </h6>
-              <h3 class="text-white mb-0">
-                 {{(total_time_locked || 0)/100000000}}  <i class="nuls-dark"></i>
-              </h3>
-            </div>
-            <div class="col-auto text-center">
-              <h6 class="header-pretitle text-secondary">
-                Available
-              </h6>
-              <h3 class="text-white mb-0">
-                {{(total_available || 0)/100000000}} <i class="nuls-dark"></i>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container mt--5">
-      <b-row>
-        <b-col md="6">
-          <b-card no-body
-                  title="Amounts"
-                  class="mb-2 table-responsive-sm">
-            <div class="card-header">
-              <h4 class="card-header-title">
-                Amounts
-              </h4>
-            </div>
-            <div class="card-body chart">
-              <doughnut-chart :chart-data="amounts_chart"
-                              :height="250"></doughnut-chart>
-            </div>
+        <b-row>
+          <b-col md="6">
+            <h4 class="text-center">
+              Amounts
+            </h4>
+            <doughnut-chart :chart-data="amounts_chart"
+                            :height="200" :width="200"></doughnut-chart>
             <div class="chart-middle-caption">
               <h6 class="text-secondary">Total:</h6>
               <h3 class="text-primary">{{total_unspent/100000000}}</h3>
               <h6 class="text-secondary">Available:</h6>
               <h3 class="text-primary">{{total_available/100000000}}</h3>
             </div>
-          </b-card>
-        </b-col>
-        <b-col md="6">
-          <b-card no-body
-                  title="Amounts"
-                  class="mb-2 table-responsive-sm">
-            <div class="card-header">
-              <h4 class="card-header-title">
-                Accounts
-              </h4>
-            </div>
-            <div class="card-body vchart">
-              <doughnut-chart :chart-data="accounts_chart"
-                              :height="250"></doughnut-chart>
-            </div>
+          </b-col>
+          <b-col md="6">
+            <h4 class="text-center">
+              Accounts
+            </h4>
+            <doughnut-chart :chart-data="accounts_chart"
+                            :height="200" :width="200"></doughnut-chart>
             <div class="chart-middle-caption">
               <h6 class="text-secondary">Total accounts:</h6>
               <h3 class="text-primary">{{accounts.length}}</h3>
             </div>
+          </b-col>
+          <b-col>
+          </b-col>
+        </b-row>
+      </b-card>
+    </b-container>
+
+    <b-container>
+      <b-row>
+        <b-col>
+          <b-card class="mb-4">
+            <h4 slot="header"><i class="nuls-green"></i> Balance <span class="text-muted">(incl. locked)</span></h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(total_unspent || 0)/100000000}}</p>
+          </b-card>
+        </b-col>
+        <b-col>
+          <b-card class="mb-4">
+            <h4 slot="header">Total Balance</h4>
+            <p class="card-price"></p>
+          </b-card>
+        </b-col>
+        <b-col>
+          <b-card class="mb-4">
+            <h4 slot="header">Price</h4>
+            <p class="card-price"></p>
           </b-card>
         </b-col>
       </b-row>
-      <b-card no-body
-              title="Accounts"
-              class="mb-2 table-responsive-sm">
-        <div class="card-header">
-          <!-- Title -->
-          <b-row>
-            <b-col>
-              <h4 class="card-header-title">
-                Accounts
-              </h4>
-            </b-col>
-            <b-col cols="auto" class="text-muted">
-              <router-link to="/login" v-b-tooltip.hover title="Add an account">
-                <LogInIcon />
-              </router-link>
-              <router-link to="/new" v-b-tooltip.hover title="Create an account">
-                <PlusIcon />
-              </router-link>
-            </b-col>
-          </b-row>
-        </div>
-        <b-table
-             v-if="accounts"
-             show-empty
-             stacked="md"
-             class="card-table table-sm table-stripped"
-             :items="accounts"
-             :fields="account_fields"
-             :sort-by.sync="address_sortBy"
-             :sort-desc.sync="address_sortDesc"
-             empty-text="No accounts (yet ?)"
-          >
-          <template slot="name" slot-scope="data">
-            <span v-if="data.item.address!==data.item.name">
-              <router-link
-                 v-bind:to="'/account/' + data.item.address">{{data.item.name}}</router-link>
-            </span>
-            <span v-else class="text-muted">
-              ...
-            </span>
-          </template>
-          <template slot="address" slot-scope="data">
-            <router-link
-               v-bind:to="'/account/' + data.item.address">{{data.item.address}}</router-link>
-              <span class="badge badge-primary" v-if="(unspent_info[data.item.address] == undefined)">
-                new
-              </span>
-          </template>
-          <template slot="available_value" slot-scope="data">
-            <span v-if="unspent_info[data.item.address] != undefined">
-              {{(unspent_info[data.item.address].available_value/100000000).toFixed(2)}} <i class="nuls"></i>
-            </span>
-          </template>
-          <template slot="consensus_locked_value" slot-scope="data">
-            <span v-if="unspent_info[data.item.address] != undefined">
-              {{(unspent_info[data.item.address].consensus_locked_value/100000000).toFixed(2)}} <i class="nuls"></i>
-            </span>
-          </template>
-          <template slot="time_locked_value" slot-scope="data">
-            <span v-if="unspent_info[data.item.address] != undefined">
-              {{(unspent_info[data.item.address].time_locked_value/100000000).toFixed(2)}} <i class="nuls"></i>
-            </span>
-          </template>
-          <template slot="balance" slot-scope="data">
-            <span v-if="unspent_info[data.item.address] != undefined">
-              {{(unspent_info[data.item.address].unspent_value/100000000).toFixed(2)}} <i class="nuls"></i>
-            </span>
-          </template>
-          <template slot="actions" slot-scope="data">
-            <b-dropdown variant="link" class="menu-btn" no-caret right>
-              <template slot="button-content">
-                <MoreVerticalIcon /><span class="sr-only">actions</span>
-              </template>
-              <b-dropdown-item href="#" @click="rename_account(data.item)"><Edit3Icon /> Rename</b-dropdown-item>
-              <b-dropdown-item href="#" @click="delete_account(data.item)"><DeleteIcon /> Delete</b-dropdown-item>
-            </b-dropdown>
-          </template>
-        </b-table>
-        <b-card-body v-else>
-          No account found. You can <router-link to="/new">Create one</router-link> or <router-link to="/login">Import one</router-link>.
-        </b-card-body>
-      </b-card>
-    </div>
+      <b-row>
+        <b-col>
+          <b-card class="mb-4">
+            <h4 slot="header"><i class="nuls-green"></i> Available balance</h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(total_available || 0)/100000000}}</p>
+          </b-card>
+        </b-col>
+        <b-col>
+          <b-card class="mb-4">
+            <h4 slot="header"><i class="nuls-green"></i> Consensus Locked Balance</h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(total_consensus_locked || 0)/100000000}}</p>
+          </b-card>
+        </b-col>
+        <b-col>
+          <b-card class="mb-4">
+            <h4 slot="header"><i class="nuls-green"></i> Time locked balance</h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(total_time_locked || 0)/100000000}}</p>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -181,82 +88,6 @@ import { mapState } from 'vuex'
 import store from '../store'
 
 
-const colors = {
-  gray: {
-    100: '#95AAC9',
-    300: '#E3EBF6',
-    600: '#95AAC9',
-    700: '#6E84A3',
-    900: '#283E59'
-  },
-  primary: {
-    100: '#D2DDEC',
-    300: '#A6C5F7',
-    700: '#2C7BE5'
-  },
-  black: '#12263F',
-  white: '#FFFFFF',
-  transparent: 'transparent'
-}
-
-var colours = [
-  { // blue
-    fillColor: 'rgba(151,187,205,0.2)',
-    strokeColor: 'rgba(151,187,205,1)',
-    pointColor: 'rgba(151,187,205,1)',
-    pointStrokeColor: '#fff',
-    pointHighlightFill: '#fff',
-    pointHighlightStroke: 'rgba(151,187,205,0.8)'
-  },
-  { // light grey
-    fillColor: 'rgba(220,220,220,0.2)',
-    strokeColor: 'rgba(220,220,220,1)',
-    pointColor: 'rgba(220,220,220,1)',
-    pointStrokeColor: '#fff',
-    pointHighlightFill: '#fff',
-    pointHighlightStroke: 'rgba(220,220,220,0.8)'
-  },
-  { // red
-    fillColor: 'rgba(247,70,74,0.2)',
-    strokeColor: 'rgba(247,70,74,1)',
-    pointColor: 'rgba(247,70,74,1)',
-    pointStrokeColor: '#fff',
-    pointHighlightFill: '#fff',
-    pointHighlightStroke: 'rgba(247,70,74,0.8)'
-  },
-  { // green
-    fillColor: 'rgba(70,191,189,0.2)',
-    strokeColor: 'rgba(70,191,189,1)',
-    pointColor: 'rgba(70,191,189,1)',
-    pointStrokeColor: '#fff',
-    pointHighlightFill: '#fff',
-    pointHighlightStroke: 'rgba(70,191,189,0.8)'
-  },
-  { // yellow
-    fillColor: 'rgba(253,180,92,0.2)',
-    strokeColor: 'rgba(253,180,92,1)',
-    pointColor: 'rgba(253,180,92,1)',
-    pointStrokeColor: '#fff',
-    pointHighlightFill: '#fff',
-    pointHighlightStroke: 'rgba(253,180,92,0.8)'
-  },
-  { // grey
-    fillColor: 'rgba(148,159,177,0.2)',
-    strokeColor: 'rgba(148,159,177,1)',
-    pointColor: 'rgba(148,159,177,1)',
-    pointStrokeColor: '#fff',
-    pointHighlightFill: '#fff',
-    pointHighlightStroke: 'rgba(148,159,177,0.8)'
-  },
-  { // dark grey
-    fillColor: 'rgba(77,83,96,0.2)',
-    strokeColor: 'rgba(77,83,96,1)',
-    pointColor: 'rgba(77,83,96,1)',
-    pointStrokeColor: '#fff',
-    pointHighlightFill: '#fff',
-    pointHighlightStroke: 'rgba(77,83,96,1)'
-  }
-]
 
 export default {
   name: 'dashboard',
@@ -334,23 +165,22 @@ export default {
         labels: ['Available Balance', 'Time Locked', 'Consensus locked'],
         datasets: [{
           data: [
-            this.total_available,
-            this.total_time_locked,
-            this.total_consensus_locked
+            this.total_available / 100000000,
+            this.total_time_locked / 100000000,
+            this.total_consensus_locked / 100000000
           ],
-          backgroundColor: [
-            colors.primary[700],
-            colors.primary[300],
-            colors.primary[100]
-          ],
-          hoverBorderColor: colors.white
+          backgroundColor: ["#FFFFFF", "#0A3B89", "#002E78"],
+          borderColor: "#001E4F",
+          hoverBorderColor: "#001E4F"
         }]
       }
       this.accounts_chart = {
         labels: this.accounts.map((a) => a.name),
         datasets: [{
           data: this.accounts.map((a) => (Object.keys(this.unspent_info).includes(a.address) ? this.unspent_info[a.address].unspent_value / 100000000 : 0)),
-          backgroundColor: this.accounts.map((a, i) => ((i < colours.length) ? colours[i].strokeColor : colors.primary[100]))
+          backgroundColor: "#FFFFFF",
+          borderColor: "#001E4F",
+          hoverBorderColor: "#001E4F"
         }]
       }
     },

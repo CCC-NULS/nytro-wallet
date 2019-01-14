@@ -55,6 +55,18 @@ header .app-logo:hover img {
     padding: 3rem;
   }
 
+  .card-body {
+
+    p.card-price {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      font-family: unquote(map-get($fonts, headings));
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
   .card-header {
     background-color: $color-secondary-blue-003;
     border: 0;
@@ -63,7 +75,7 @@ header .app-logo:hover img {
     h4 {
       margin: 0;
       padding: 0;
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: normal;
     }
   }
@@ -204,15 +216,21 @@ table{
 }
 
 i.nuls,
-i.nuls-dark {
+i.nuls-dark,
+i.nuls-green {
   display: inline-block;
+  vertical-align:middle;
   height: 0.8em;
   width: 0.5em;
   background: url('assets/logo1.png');
   background-size: contain;
-  background-position: center bottom;
+  background-position: center top;
   background-repeat: no-repeat;
   filter: grayscale(100%) contrast(1000%) brightness(1.0);
+}
+
+i.nuls-green {
+filter: none;
 }
 
 i.nuls-dark {
