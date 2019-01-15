@@ -48,7 +48,9 @@
       </b-row>
       <carousel :scrollPerPage="true" :perPageCustom="[[480, 2], [768, 3]]"
                 paginationActiveColor="#FFFFFF" paginationColor="#5376AC"
-                paginationPadding="3.5" paginationSize="7">
+                paginationPadding="3.5" paginationSize="7"
+                navigationEnabled="true" navigationPrevLabel="🢀"
+                navigationNextLabel="🢂">
         <slide>
           <b-card class="m-2">
             <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
@@ -79,58 +81,16 @@
             <p class="card-price"><i class="nuls-green"></i> {{(stats.consensus_locked_value || 0)/100000000}}</p>
           </b-card>
         </slide>
+        <slide>
+          <b-card class="m-2">
+            <h4 slot="header">{{$t('wallet.unspent_outputs')}}</span></h4>
+            <p class="card-price">{{(stats.unspent_count || 0)}}</p>
+          </b-card>
+        </slide>
       </carousel>
     </b-container>
-    <div class="header pb-4 mb-0 nuls-blue">
-      <div class="container">
-        <div class="header-body">
-          <div class="row align-items-end">
-            <div class="col">
-              <h6 class="header-pretitle text-secondary">Account {{account.address}}</h6>
-              <h1 class="header-title text-white">
-                <CreditCardIcon />
-                {{account.name}}
-                <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="'Rename'">
-                  <small>
-                    <Edit3Icon />
-                  </small>
-                </b-link>
-                <b-link @click="backupShow = !backupShow" class="text-muted" v-b-popover.hover.bottom="'Backup'">
-                  <small>
-                    <EyeIcon />
-                  </small>
-                </b-link>
-              </h1>
-            </div>
-            <div class="col-auto text-center">
-              <h6 class="header-pretitle text-secondary">
-                Staked
-              </h6>
-              <h3 class="text-white mb-0">
-                {{(stats.consensus_locked_value || 0)/100000000}}&nbsp;<i class="nuls-dark"></i>
-              </h3>
-            </div>
-            <div class="col-auto text-center">
-              <h6 class="header-pretitle text-secondary">
-                Time Locked
-              </h6>
-              <h3 class="text-white mb-0">
-                 {{(stats.time_locked_value || 0)/100000000}}&nbsp;<i class="nuls-dark"></i>
-              </h3>
-            </div>
-            <div class="col-auto text-center">
-              <h6 class="header-pretitle text-secondary">
-                Available
-              </h6>
-              <h3 class="text-white mb-0">
-                {{(stats.available_value || 0)/100000000}}&nbsp;<i class="nuls-dark"></i>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container mt--5">
+
+    <b-container>
       <div class="row">
         <div class="col-12 col-md-6">
           <b-button-group>
@@ -199,50 +159,40 @@
           </div>
         </div>
       </div>
-      <b-card no-body
-              title="Transactions"
-              class="mb-2 table-responsive-sm">
-        <div class="card-header">
-          <!-- Title -->
-          <h4 class="card-header-title">
-            Summary
-          </h4>
-        </div>
-        <b-table show-empty
-             stacked="md"
-             class="card-table table-sm table-stripped"
-             :items="transactions"
-             :fields="tx_fields"
-             :current-page="currentPage"
-             :per-page="perPage"
-             :sort-by.sync="tx_sortBy"
-             :sort-desc.sync="tx_sortDesc"
-          >
-          <template slot="source" slot-scope="data">
-            {{data.item.source}}
-          </template>
-          <template slot="tags" slot-scope="data">
-            <span class="badge badge-primary">
-              {{data.item.display_type}}
-            </span>&nbsp;<span v-if="data.item.remark"
-                  v-b-popover.hover="data.item.remark" title="Remark">
-                  <InfoIcon />
-            </span>
-          </template>
-          <template slot="value" slot-scope="data">
-            {{(data.item.value/100000000).toFixed(3)}}&nbsp;<i class="nuls"></i>
-          </template>
-          <template slot="fee" slot-scope="data">
-            {{(data.item.fee/100000000).toFixed(3)}}
-          </template>
-        </b-table>
-        <b-row>
-          <b-col md="6" class="my-1">
-            <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
-          </b-col>
-        </b-row>
-      </b-card>
-    </div>
+      <b-table show-empty
+           stacked="md"
+           class="card-table table-sm table-stripped bg-blue-003"
+           :items="transactions"
+           :fields="tx_fields"
+           :current-page="currentPage"
+           :per-page="perPage"
+           :sort-by.sync="tx_sortBy"
+           :sort-desc.sync="tx_sortDesc"
+        >
+        <template slot="source" slot-scope="data">
+          {{data.item.source}}
+        </template>
+        <template slot="tags" slot-scope="data">
+          <span class="badge badge-primary">
+            {{data.item.display_type}}
+          </span>&nbsp;<span v-if="data.item.remark"
+                v-b-popover.hover="data.item.remark" title="Remark">
+                <InfoIcon />
+          </span>
+        </template>
+        <template slot="value" slot-scope="data">
+          {{(data.item.value/100000000).toFixed(3)}}&nbsp;<i class="nuls"></i>
+        </template>
+        <template slot="fee" slot-scope="data">
+          {{(data.item.fee/100000000).toFixed(3)}}
+        </template>
+      </b-table>
+      <b-row>
+        <b-col md="6" class="my-1">
+          <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 

@@ -1,0 +1,27 @@
+.table {
+  tr, th, td {
+    border: 0;
+  }
+
+  th, td {
+    line-height: 2em;
+  }
+
+  &.table-sm {
+    th, td {
+      font-size: 1rem;
+    }
+  }
+
+  thead {
+    tr, th {
+      border: 0;
+    }
+
+    th {
+      background: $color-secondary-blue-001;
+    }
+
+    border: 0;
+  }
+}

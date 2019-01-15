@@ -1,5 +1,6 @@
 @import "css/modals";
 @import "css/dropdowns";
+@import "css/tables";
 
 html {
   font-size: 12px;
@@ -64,6 +65,7 @@ header .app-logo:hover img {
       font-family: unquote(map-get($fonts, headings));
       margin-bottom: 0;
       padding-bottom: 0;
+      line-height: .8em;
     }
   }
 
@@ -97,6 +99,19 @@ a:hover {
   color: $color-shades-green-90;
 }
 
+.VueCarousel-navigation-button {
+  color: #fff !important;
+  opacity: .3;
+}
+
+.VueCarousel-navigation-button:hover {
+  opacity: 1;
+}
+
+
+.VueCarousel-navigation--disabled {
+  opacity: .1 !important;
+}
 
 
 
@@ -219,7 +234,7 @@ i.nuls,
 i.nuls-dark,
 i.nuls-green {
   display: inline-block;
-  vertical-align:middle;
+  vertical-align: middle;
   height: 0.8em;
   width: 0.5em;
   background: url('assets/logo1.png');
