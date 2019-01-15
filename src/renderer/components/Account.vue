@@ -24,6 +24,63 @@
         </div>
       </div>
     </b-modal>
+    <b-container class="mt-4">
+      <b-row>
+        <b-col>
+          <h1 class="head-400">
+            <CreditCardIcon />
+            {{account.name}}
+            <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="'Rename'">
+              <small>
+                <Edit3Icon />
+              </small>
+            </b-link>
+            <b-link @click="backupShow = !backupShow" class="text-muted" v-b-popover.hover.bottom="'Backup'">
+              <small>
+                <EyeIcon />
+              </small>
+            </b-link>
+          </h1>
+        </b-col>
+        <b-col cols="auto" class="text-right">
+          <h3 class="body-200 text-blue-30">{{account.address}}</h3>
+        </b-col>
+      </b-row>
+      <carousel :scrollPerPage="true" :perPageCustom="[[480, 2], [768, 3]]"
+                paginationActiveColor="#FFFFFF" paginationColor="#5376AC"
+                paginationPadding="3.5" paginationSize="7">
+        <slide>
+          <b-card class="m-2">
+            <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
+            <p class="card-price"></p>
+          </b-card>
+        </slide>
+        <slide>
+          <b-card class="m-2">
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">{{$t('public.including_locked')}}</span></h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(stats.unspent_value || 0)/100000000}}</p>
+          </b-card>
+        </slide>
+        <slide>
+          <b-card class="m-2">
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available')}}</span></h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(stats.available_value || 0)/100000000}}</p>
+          </b-card>
+        </slide>
+        <slide>
+          <b-card class="m-2">
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked')}}</span></h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(stats.time_locked_value || 0)/100000000}}</p>
+          </b-card>
+        </slide>
+        <slide>
+          <b-card class="m-2">
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.staked')}}</span></h4>
+            <p class="card-price"><i class="nuls-green"></i> {{(stats.consensus_locked_value || 0)/100000000}}</p>
+          </b-card>
+        </slide>
+      </carousel>
+    </b-container>
     <div class="header pb-4 mb-0 nuls-blue">
       <div class="container">
         <div class="header-body">
@@ -201,6 +258,7 @@ import {hash_from_address} from 'nulsworldjs/src/model/data.js'
 import {Coin, Transaction} from 'nulsworldjs/src/model/transaction.js'
 import { mapState } from 'vuex'
 import store from '../store'
+import { Carousel, Slide } from 'vue-carousel';
 
 import {
   Edit3Icon, EyeIcon, InboxIcon,
@@ -408,7 +466,8 @@ export default {
     Sign,
     Edit3Icon, EyeIcon, InboxIcon,
     GitMergeIcon, SendIcon, XIcon,
-    InfoIcon, CreditCardIcon
+    InfoIcon, CreditCardIcon,
+    Carousel, Slide
   },
   async created () {
     this.last_sync_height = 0

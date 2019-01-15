@@ -70,6 +70,7 @@
     "secp256k1": "^3.5.2",
     "sha.js": "^2.4.11",
     "vue": "^2.5.16",
+    "vue-carousel": "^0.17.0",
     "vue-chartjs": "^3.4.0",
     "vue-electron": "^1.0.6",
     "vue-feather-icons": "^4.7.1",

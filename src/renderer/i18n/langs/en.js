@@ -6,11 +6,14 @@ const en = {
     balance: 'Balance',
     accounts: 'Accounts',
     total_balance: 'Total Balance',
+    available: 'Available',
     price: 'Price',
     staked: 'Staked',
     available_balance: 'Available Balance',
     consensus_locked_balance: 'Consensus Locked Balance',
-    time_locked_balance: 'Time Locked Balance'
+    time_locked_balance: 'Time Locked Balance',
+    time_locked: 'Time Locked',
+    including_locked: '(incl. locked)'
   },
 
   nav: {
@@ -35,6 +38,10 @@ const en = {
     rename: 'Rename',
     delete: 'Delete',
     backup: 'Backup'
+  },
+
+  wallet: {
+    wallet_value: 'Wallet Value'
   }
 };
 export default en

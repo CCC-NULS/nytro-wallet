@@ -48,6 +48,7 @@
             </b-dropdown-item>
           </b-dropdown>
          </b-col>
+         <slot></slot>
       </b-row>
     </b-container>
   </header>
