@@ -1,6 +1,12 @@
 <template>
   <div>
-    <AppHeader :select-title="account.name" />
+    <AppHeader :select-title="account.name">
+      <b-col class="btn-icn" cols="auto">
+        <b-button variant="primary" @click="transferShow = !transferShow"><UploadIcon /> Send</b-button>
+        <b-button @click="requestShow = !requestShow"><DownloadIcon /> Request</b-button>
+        <b-button :disabled="(stats.unspent_count < 30)" @click="consolidate"><GitMergeIcon /> Consolidate</b-button>
+      </b-col>
+    </AppHeader>
     <b-modal id="transferModal" ref="transferModal" hide-footer title="Transfer" v-model="transferShow">
       <transfer v-if="transferShow" :account="account" :stats="stats" @message-broadcasted="transferShow = !transferShow"></transfer>
     </b-modal>
@@ -48,9 +54,9 @@
       </b-row>
       <carousel :scrollPerPage="true" :perPageCustom="[[480, 2], [768, 3]]"
                 paginationActiveColor="#FFFFFF" paginationColor="#5376AC"
-                paginationPadding="3.5" paginationSize="7"
-                navigationEnabled="true" navigationPrevLabel="🢀"
-                navigationNextLabel="🢂">
+                :paginationPadding="3.5" :paginationSize="7"
+                :navigationEnabled="true" navigationPrevLabel="˂"
+                navigationNextLabel="˃" :navigationClickTargetSize="2">
         <slide>
           <b-card class="m-2">
             <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
@@ -91,77 +97,42 @@
     </b-container>
 
     <b-container>
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <b-button-group>
-            <b-button variant="primary" @click="transferShow = !transferShow"><SendIcon /> Send</b-button>
-            <b-button @click="requestShow = !requestShow"><InboxIcon /> Request</b-button>
-            <b-button :disabled="(stats.unspent_count < 30)" @click="consolidate"><GitMergeIcon /> Consolidate</b-button>
-            <!--<b-button disabled><i class="fe fe-sunrise"></i> Create Agent</b-button>-->
-          </b-button-group>
-          <!-- Devices -->
-          <b-card class="mt-3" no-body>
-            <div slot="header">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h4 class="card-header-title">Current Staking</h4>
-                </div>
-                <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
-                  <b-button size="sm" @click="stakeShow = !stakeShow" variant="outline-primary"><i class="fa fa-hand-holding-usd"></i> Stake</b-button>
-                </div>
-              </div>
+      <b-card class="my-3" no-body>
+        <div slot="header">
+          <div class="row align-items-center">
+            <div class="col">
+              <h4 class="card-header-title">Current Staking</h4>
             </div>
-            <div class=" card-body text-muted" v-if="account_value <= 2000">
-              No staking available (you need more than 2000 <i class="nuls"></i>).
+            <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
+              <b-button size="sm" @click="stakeShow = !stakeShow" variant="outline-primary"><i class="fa fa-hand-holding-usd"></i> Stake</b-button>
             </div>
-            <div v-if="account_value > 2000">
-              <p class="text-muted" v-if="!account_stakes.length">No staking yet. You are losing out!</p>
-              <b-list-group class="list-group-flush">
-                <b-list-group-item v-for="stake in account_stakes"
-                v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" class="d-flex justify-content-between align-items-center">
-                  <span>
-                    {{ consensus[stake['agentHash']].agentName || consensus[stake['agentHash']].agentId }} ({{stake.value/100000000}} <i class="nuls"></i>)
-                  </span>
-                  <div>
-                    <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
-                    <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
-                  </div>
-                </b-list-group-item>
-              </b-list-group>
-            </div>
-          </b-card>
-        </div>
-        <div class="col-12 col-md-6">
-          <!-- Devices -->
-          <div class="card">
-            <div class="card-header">
-              <!-- Title -->
-              <h4 class="card-header-title">
-                Summary
-              </h4>
-            </div>
-            <table class="card-table table table-sm table-striped table-responsive-sm">
-              <tbody>
-                <tr>
-                  <td>Address</td>
-                  <td class="text-right">{{address}}</td>
-                </tr>
-                <tr>
-                  <td>Unspent outputs (including locked)</td>
-                  <td class="text-right">{{stats.unspent_count}}</td>
-                </tr>
-                <tr>
-                  <td>Unspent Balance (including locked)</td>
-                  <td class="text-right">{{stats.unspent_value/100000000}} <i class="nuls"></i></td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
-      </div>
+        <div class=" card-body text-muted" v-if="account_value <= 2000">
+          No staking available (you need more than 2000 <i class="nuls"></i>).
+        </div>
+        <div v-if="account_value > 2000">
+          <div class="card-body text-muted"
+              v-if="!(account_stakes.filter(st=>(st.active&& Object.keys(consensus).includes(st.agentHash))).length)">
+              No staking yet. You are losing out!
+          </div>
+          <b-list-group class="list-group-flush">
+            <b-list-group-item v-for="stake in account_stakes"
+            v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" class="d-flex justify-content-between align-items-center">
+              <span>
+                {{ consensus[stake['agentHash']].agentName || consensus[stake['agentHash']].agentId }} ({{stake.value/100000000}} <i class="nuls"></i>)
+              </span>
+              <div>
+                <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
+                <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
+              </div>
+            </b-list-group-item>
+          </b-list-group>
+        </div>
+      </b-card>
       <b-table show-empty
            stacked="md"
-           class="card-table table-sm table-stripped bg-blue-003"
+           class="card-table table-sm table-striped bg-blue-003"
            :items="transactions"
            :fields="tx_fields"
            :current-page="currentPage"
@@ -213,7 +184,8 @@ import { Carousel, Slide } from 'vue-carousel';
 import {
   Edit3Icon, EyeIcon, InboxIcon,
   GitMergeIcon, SendIcon, XIcon,
-  InfoIcon, CreditCardIcon} from 'vue-feather-icons'
+  InfoIcon, CreditCardIcon,
+  UploadIcon, DownloadIcon, MenuIcon} from 'vue-feather-icons'
 
 export default {
   name: 'accounts',
@@ -417,6 +389,7 @@ export default {
     Edit3Icon, EyeIcon, InboxIcon,
     GitMergeIcon, SendIcon, XIcon,
     InfoIcon, CreditCardIcon,
+    UploadIcon, DownloadIcon, MenuIcon,
     Carousel, Slide
   },
   async created () {

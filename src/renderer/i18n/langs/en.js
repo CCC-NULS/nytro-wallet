@@ -41,7 +41,8 @@ const en = {
   },
 
   wallet: {
-    wallet_value: 'Wallet Value'
+    wallet_value: 'Wallet Value',
+    unspent_outputs: 'Unspent Outputs'
   }
 };
 export default en
