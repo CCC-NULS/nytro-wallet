@@ -1,11 +1,12 @@
 <template>
   <div>
+    <AppHeader />
     <b-container>
       <b-card class="bs-24-40 my-5">
         <b-row>
           <b-col md="6">
             <h4 class="text-center">
-              Amounts
+              {{$t('public.amounts')}}
             </h4>
             <doughnut-chart :chart-data="amounts_chart"
                             :height="200" :width="200"></doughnut-chart>
@@ -18,7 +19,7 @@
           </b-col>
           <b-col md="6">
             <h4 class="text-center">
-              Accounts
+              {{$t('public.accounts')}}
             </h4>
             <doughnut-chart :chart-data="accounts_chart"
                             :height="200" :width="200"></doughnut-chart>
@@ -37,19 +38,19 @@
       <b-row>
         <b-col>
           <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> Balance <span class="text-muted">(incl. locked)</span></h4>
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">(incl. locked)</span></h4>
             <p class="card-price"><i class="nuls-green"></i> {{(total_unspent || 0)/100000000}}</p>
           </b-card>
         </b-col>
         <b-col>
           <b-card class="mb-4">
-            <h4 slot="header">Total Balance</h4>
+            <h4 slot="header">{{$t('public.total_balance')}}</h4>
             <p class="card-price"></p>
           </b-card>
         </b-col>
         <b-col>
           <b-card class="mb-4">
-            <h4 slot="header">Price</h4>
+            <h4 slot="header">{{$t('public.price')}}</h4>
             <p class="card-price"></p>
           </b-card>
         </b-col>
@@ -57,19 +58,19 @@
       <b-row>
         <b-col>
           <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> Available balance</h4>
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available_balance')}}</h4>
             <p class="card-price"><i class="nuls-green"></i> {{(total_available || 0)/100000000}}</p>
           </b-card>
         </b-col>
         <b-col>
           <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> Consensus Locked Balance</h4>
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.consensus_locked_balance')}}</h4>
             <p class="card-price"><i class="nuls-green"></i> {{(total_consensus_locked || 0)/100000000}}</p>
           </b-card>
         </b-col>
         <b-col>
           <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> Time locked balance</h4>
+            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked_balance')}}</h4>
             <p class="card-price"><i class="nuls-green"></i> {{(total_time_locked || 0)/100000000}}</p>
           </b-card>
         </b-col>
@@ -81,6 +82,7 @@
 <script>
 import axios from 'axios'
 import DoughnutChart from './DoughnutChart.js'
+import AppHeader from './AppHeader.vue'
 import {
   PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
 } from 'vue-feather-icons'
@@ -137,7 +139,7 @@ export default {
     }
   },
   components: {
-    DoughnutChart,
+    DoughnutChart, AppHeader,
     PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
   },
   computed: mapState([
@@ -159,6 +161,7 @@ export default {
       this.total_consensus_locked = Object.values(this.unspent_info).map((u) => u.consensus_locked_value).reduce((e, i) => e + i)
       this.total_time_locked = Object.values(this.unspent_info).map((u) => u.time_locked_value).reduce((e, i) => e + i)
       this.update_charts()
+      store.commit('set_last_height', result.data.last_height)
     },
     update_charts () {
       this.amounts_chart = {

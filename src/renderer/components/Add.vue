@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <AppHeader />
-    <b-container>
+  <div class="container">
+
       <div class="row justify-content-center">
         <div class="col-12 my-5">
 
@@ -58,8 +57,7 @@
 
         </div>
       </div> <!-- / .row -->
-    </b-container>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -70,17 +68,23 @@ import {private_key_to_public_key,
 } from 'nulsworldjs/src/model/data'
 import store from '../store'
 import { mapState } from 'vuex'
-import AppHeader from './AppHeader.vue'
 
 const secp256k1 = require('secp256k1')
 export default {
-  name: 'new',
+  name: 'add',
   data () {
     return {
       // msg: 'Welcome to Your Vue.js App'
+      'mode': 'new',
       'private_key': '',
       'public_key': null,
-      'address': null
+      'address': null,
+      'modes': [
+        'create',
+        'import_privkey',
+        'import_encrypted_privkey',
+        'add_view_only'
+      ]
     }
   },
   computed: mapState([
@@ -128,9 +132,6 @@ export default {
   },
   mounted () {
     this.generate()
-  },
-  components: {
-    AppHeader
   }
 
 }

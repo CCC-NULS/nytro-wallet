@@ -1,20 +1,7 @@
 <template>
-  <div class="container">
-
-    <div class="header">
-      <div class="header-body">
-
-        <h6 class="header-pretitle">
-          Wallet Accounts
-        </h6>
-
-        <h1 class="header-title">
-          Adding an account
-        </h1>
-
-      </div>
-    </div>
-
+  <div>
+    <AppHeader />
+    <b-container>
       <div class="row justify-content-center">
         <div class="col-12 my-5">
 
@@ -71,7 +58,8 @@
 
         </div>
       </div> <!-- / .row -->
-    </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -81,6 +69,7 @@ import {private_key_to_public_key,
 } from 'nulsworldjs/src/model/data.js'
 import { mapState } from 'vuex'
 import store from '../store'
+import AppHeader from './AppHeader.vue'
 
 var hexRegEx = /([0-9]|[a-f])/gim
 
@@ -155,6 +144,9 @@ export default {
       this.analyze()
       return true
     }
+  },
+  components: {
+    AppHeader
   }
 }
 </script>

@@ -15,59 +15,6 @@
              :visible="rename_show" @hidden="$store.commit('end_rename')">
       <rename v-if="rename_show" :account="rename_account"></rename>
     </b-modal>
-
-    <header>
-      <b-container fluid class="app-header">
-        <b-row>
-          <b-col cols="auto" class="justify-content-center align-self-center">
-            <router-link class="nav-link app-logo" to="/">
-              <img src="./assets/logo1.png" alt="N"/>ytro
-            </router-link>
-          </b-col>
-          <b-col class="text-center justify-content-center align-self-center">
-            <h1 class="app-name head-400">
-              {{$t('public.wallet')}}
-              <small class="caption-200 text-muted">v1.0.0-beta1</small>
-            </h1>
-          </b-col>
-          <b-col cols="auto" class="justify-content-center align-self-center">
-            <small class="caption-100 text-muted">{{$t('header.lastBlock')}} XXX</small>
-          </b-col>
-          <b-col cols="auto" class="justify-content-center align-self-center">
-            <b-dropdown id="ddown1" :text="this.langs[this.lang]" size="s">
-              <b-dropdown-item v-for="lang of Object.entries(this.langs)"
-                          @click="changeLang(lang[0])">
-                {{lang[1]}}
-              </b-dropdown-item>
-            </b-dropdown>
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-container class="app-selector py-5">
-        <b-row>
-           <b-col>
-             <b-dropdown id="ddown1" text="Select account" size="lg">
-              <b-dropdown-item class="first-level" to="/" active-class="n">{{$t('nav.all')}}</b-dropdown-item>
-              <b-dropdown-header>{{$t('nav.configuredWallets')}}</b-dropdown-header>
-              <b-dropdown-item v-for="account of this.accounts"
-                          v-bind:to="'/account/' + account.address">
-                {{account.name}}
-              </b-dropdown-item>
-              <b-dropdown-separator></b-dropdown-separator>
-              <b-dropdown-header>{{$t('nav.actions')}}</b-dropdown-header>
-              <b-dropdown-item to="/login/">
-                <LogInIcon/>
-                {{$t('nav.addAccount')}}
-              </b-dropdown-item>
-              <b-dropdown-item to="/new/">
-                <PlusIcon/>
-                {{$t('nav.createAccount')}}
-              </b-dropdown-item>
-            </b-dropdown>
-           </b-col>
-        </b-row>
-      </b-container>
-    </header>
     <router-view></router-view>
   </div>
 </template>
@@ -83,14 +30,7 @@ export default {
   data() {
     return {
       //msg: 'Welcome to Your Vue.js App'
-      'warningShow': true,
-      'langs': {
-        'en': 'English',
-        'cn': '简体中文',
-        'fr': 'Français',
-        'es': 'Español'
-      },
-      lang: 'en',
+      'warningShow': true
     }
   },
   computed: mapState([
@@ -112,9 +52,6 @@ export default {
     Rename
   },
   methods: {
-    changeLang(lang) {
-      this.lang = this.$i18n.locale = lang
-    },
   },
 };
 </script>

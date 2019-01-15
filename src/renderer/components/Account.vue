@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppHeader :select-title="account.name" />
     <b-modal id="transferModal" ref="transferModal" hide-footer title="Transfer" v-model="transferShow">
       <transfer v-if="transferShow" :account="account" :stats="stats" @message-broadcasted="transferShow = !transferShow"></transfer>
     </b-modal>
@@ -23,13 +24,14 @@
         </div>
       </div>
     </b-modal>
-    <div class="header bg-dark pb-4 mb-0 nuls-blue">
+    <div class="header pb-4 mb-0 nuls-blue">
       <div class="container">
         <div class="header-body">
           <div class="row align-items-end">
             <div class="col">
               <h6 class="header-pretitle text-secondary">Account {{account.address}}</h6>
               <h1 class="header-title text-white">
+                <CreditCardIcon />
                 {{account.name}}
                 <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="'Rename'">
                   <small>
@@ -74,7 +76,7 @@
     <div class="container mt--5">
       <div class="row">
         <div class="col-12 col-md-6">
-          <b-button-group size="sm">
+          <b-button-group>
             <b-button variant="primary" @click="transferShow = !transferShow"><SendIcon /> Send</b-button>
             <b-button @click="requestShow = !requestShow"><InboxIcon /> Request</b-button>
             <b-button :disabled="(stats.unspent_count < 30)" @click="consolidate"><GitMergeIcon /> Consolidate</b-button>
@@ -190,6 +192,7 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import AppHeader from './AppHeader.vue'
 import Transfer from './Transfer.vue'
 import Request from './Request.vue'
 import Stake from './Stake.vue'
@@ -202,7 +205,7 @@ import store from '../store'
 import {
   Edit3Icon, EyeIcon, InboxIcon,
   GitMergeIcon, SendIcon, XIcon,
-  InfoIcon} from 'vue-feather-icons'
+  InfoIcon, CreditCardIcon} from 'vue-feather-icons'
 
 export default {
   name: 'accounts',
@@ -295,6 +298,7 @@ export default {
       })
       let stats = response.data.unspent_info[this.address]
       if (stats !== undefined) { this.$set(this, 'stats', stats) } else { this.$set(this, 'stats', {}) }
+      store.commit('set_last_height', response.data.last_height)
     },
     async update () {
       this.$set(this, 'account', this.accounts.find(obj => {
@@ -385,16 +389,26 @@ export default {
     },
     rename () {
       store.commit('start_rename', this.account)
+    },
+    delete_account () {
+      if (confirm(`Delete account ${this.account.name} ?\n\nPlease backup your private key before doing this!`)) {
+        if (confirm(`The address is ${this.account.address}\n\nAre you really sure? There is no way to going back!`)) {
+          alert(`Ok, deleting address ${this.account.address}`)
+          store.commit('remove_account', this.account)
+          this.$router.push('/')
+        }
+      }
     }
   },
   components: {
+    AppHeader,
     Transfer,
     Request,
     Stake,
     Sign,
     Edit3Icon, EyeIcon, InboxIcon,
     GitMergeIcon, SendIcon, XIcon,
-    InfoIcon
+    InfoIcon, CreditCardIcon
   },
   async created () {
     this.last_sync_height = 0

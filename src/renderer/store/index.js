@@ -18,7 +18,8 @@ export default new Vuex.Store({
     },
     'rename_show': false,
     'rename_account': null,
-    'price_info': null
+    'price_info': null,
+    'last_height': 0
   },
   mutations: {
     set_accounts(state, accounts) {
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     },
     set_price_info(state, price_info) {
       state.price_info = price_info
+    },
+    set_last_height(state, last_height) {
+      state.last_height = last_height
     }
   },
   actions: {

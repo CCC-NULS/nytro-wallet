@@ -241,6 +241,19 @@ i.nuls:hover {
   filter: none;
 }
 
+.btn {
+  border: none;
+  border-radius: 0;
+}
+
+.btn-primary {
+  background: $color-primary-blue;
+}
+
+.btn-primary:hover {
+  background: $color-primary-green;
+}
+
 a.address, span.address {
   display: inline-block;
   vertical-align: bottom;
@@ -294,7 +307,6 @@ code {
 
 .feather {
   height: 1em;
-  width: 1rem;
   line-height: inherit;
   display: inline-block;
   padding-bottom: .125em;
