@@ -1,0 +1,23 @@
+.dropdown.v-select {
+  background: $color-secondary-blue-003;
+  box-shadow: none;
+
+  .selected-tag {
+    color: #fff !important;
+  }
+
+  .dropdown-toggle {
+    border: 0;
+
+    .open-indicator:before {
+      border-color: #fff !important;
+    }
+
+    input {
+      color: #fff !important;
+    }
+  }
+
+  .dropdown-menu {
+  }
+}

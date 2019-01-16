@@ -5,6 +5,8 @@
 * @Last Modified time: 2018-10-09 01:07:29
 */
 
+@import '../../../01_fundaments/colors/__settings/__vars';
+
 $grid-breakpoints: (
   xs: 0,
   sm: 375px,
@@ -30,3 +32,32 @@ $enable-gradients: false;
 
 $grid-columns:                12 !default;
 $grid-gutter-width:           2.4rem !default;
+
+$component-active-color: #fff;
+$dropdown-border-radius: 0;
+$dropdown-link-active-color: $white;
+$dropdown-link-active-bg: $color-secondary-blue-002;
+$dropdown-bg: $color-secondary-blue-004;
+$dropdown-box-shadow: 0 8px 24px 0 rgba(0,0,0,0.3);
+$dropdown-border-width: 0;
+
+$custom-select-bg: #000;
+
+$border-radius: 0;
+$border-radius-lg: 0;
+$border-radius-sm: 0;
+
+$input-bg: $color-secondary-blue-003;
+$input-focus-bg: $color-secondary-blue-002;
+$input-focus-color: $white;
+$input-group-addon-bg: $color-secondary-blue-002;
+$input-disabled-bg: $color-secondary-blue-002;
+
+$input-color: $white;
+$list-group-border-radius: 0;
+$input-border-radius: 0;
+$input-border-radius-sm: 0;
+$input-border-radius-lg: 0;
+$input-border-color: transparent;
+$input-border-width: 0;
+$input-box-shadow: none;
