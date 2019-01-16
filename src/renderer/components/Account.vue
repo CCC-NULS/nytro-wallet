@@ -55,8 +55,8 @@
       <carousel :scrollPerPage="true" :perPageCustom="[[480, 2], [768, 3]]"
                 paginationActiveColor="#FFFFFF" paginationColor="#5376AC"
                 :paginationPadding="3.5" :paginationSize="7"
-                :navigationEnabled="true" navigationPrevLabel="˂"
-                navigationNextLabel="˃" :navigationClickTargetSize="2">
+                :navigationEnabled="true" navigationPrevLabel=" "
+                navigationNextLabel=" " :navigationClickTargetSize="2">
         <slide>
           <b-card class="m-2">
             <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
