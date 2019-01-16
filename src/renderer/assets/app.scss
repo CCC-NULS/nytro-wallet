@@ -1,6 +1,7 @@
 @import "css/modals";
 @import "css/dropdowns";
 @import "css/tables";
+@import "css/forms";
 
 html {
   font-size: 12px;
@@ -105,16 +106,27 @@ a:hover {
 
 .VueCarousel-navigation-button {
   color: #fff !important;
-  opacity: .3;
 }
 
-.VueCarousel-navigation-button:hover {
-  opacity: 1;
+
+.VueCarousel-navigation-button:before {
+  border-color: #fff;
+  border-style: solid;
+  border-width: 3px 3px 0 0;
+  content: ' ';
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  transform: rotate(43deg);
+}
+
+.VueCarousel-navigation-prev:before {
+  transform: rotate(223deg);
 }
 
 
 .VueCarousel-navigation--disabled {
-  opacity: .1 !important;
+  opacity: .3 !important;
 }
 
 
