@@ -1,10 +1,27 @@
 <template>
   <div>
     <AppHeader :select-title="account.name">
-      <b-col class="btn-icn" cols="auto">
-        <b-button variant="primary" @click="transferShow = !transferShow"><UploadIcon /> Send</b-button>
-        <b-button @click="requestShow = !requestShow"><DownloadIcon /> Request</b-button>
-        <b-button :disabled="(stats.unspent_count < 30)" @click="consolidate"><GitMergeIcon /> Consolidate</b-button>
+      <b-col class="py-1 justify-content-center align-self-center" cols="auto">
+        <b-button variant="icon-lg" @click="transferShow = !transferShow" v-b-popover.hover.bottom="$t('actions.send')"><UploadIcon /></b-button>
+        <b-button variant="icon-lg" @click="requestShow = !requestShow" v-b-popover.hover.bottom="$t('actions.request')"><DownloadIcon /></b-button>
+
+        <b-button
+          variant="icon-lg" :disabled="((stats.available_value || 0)/100000000) <= 2000"
+          @click="stakeShow = !stakeShow"
+          v-b-popover.hover.bottom="$t('actions.stake')"><CommandIcon /></b-button>
+      </b-col>
+      <b-col class="py-1 justify-content-center align-self-center" cols="auto">
+        <b-dropdown variant="link" size="lg" no-caret right>
+          <template slot="button-content">
+            <MoreVerticalIcon /><span class="sr-only">actions</span>
+          </template>
+          <b-dropdown-item href="#" :disabled="((stats.unspent_count || 0)< 30)" @click="consolidate"><GitMergeIcon /> {{$t('actions.consolidate')}}</b-dropdown-item>
+          <b-dropdown-divider />
+          <b-dropdown-item href="#" @click="backupShow = !backupShow"><EyeIcon /> {{$t('actions.backup')}}</b-dropdown-item>
+          <b-dropdown-item href="#" @click="rename"><Edit3Icon /> {{$t('actions.rename')}}</b-dropdown-item>
+          <b-dropdown-divider />
+          <b-dropdown-item href="#" @click="delete_account"><DeleteIcon /> {{$t('actions.delete')}}</b-dropdown-item>
+        </b-dropdown>
       </b-col>
     </AppHeader>
     <b-modal id="transferModal" ref="transferModal" hide-footer title="Transfer" v-model="transferShow">
@@ -48,7 +65,7 @@
             </b-link>
           </h1>
         </b-col>
-        <b-col cols="auto" class="text-right">
+        <b-col cols="auto" class="text-right align-self-center">
           <h3 class="body-200 text-blue-30">{{account.address}}</h3>
         </b-col>
       </b-row>
@@ -60,7 +77,7 @@
         <slide>
           <b-card class="m-2">
             <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
-            <p class="card-price"></p>
+            <p class="card-price"><DollarSignIcon />A</p>
           </b-card>
         </slide>
         <slide>
@@ -104,7 +121,7 @@
               <h4 class="card-header-title">Current Staking</h4>
             </div>
             <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
-              <b-button size="sm" @click="stakeShow = !stakeShow" variant="outline-primary"><i class="fa fa-hand-holding-usd"></i> Stake</b-button>
+              <b-button @click="stakeShow = !stakeShow" size="lg"><CommandIcon /> {{$t('actions.stake')}}</b-button>
             </div>
           </div>
         </div>
@@ -184,8 +201,10 @@ import { Carousel, Slide } from 'vue-carousel';
 import {
   Edit3Icon, EyeIcon, InboxIcon,
   GitMergeIcon, SendIcon, XIcon,
-  InfoIcon, CreditCardIcon,
-  UploadIcon, DownloadIcon, MenuIcon} from 'vue-feather-icons'
+  InfoIcon, CreditCardIcon, DeleteIcon,
+  UploadIcon, DownloadIcon, MenuIcon,
+  DollarSignIcon, MoreVerticalIcon, LockIcon, UnlockIcon,
+  CommandIcon} from 'vue-feather-icons'
 
 export default {
   name: 'accounts',
@@ -385,12 +404,13 @@ export default {
     Transfer,
     Request,
     Stake,
-    Sign,
+    Sign, Carousel, Slide,
     Edit3Icon, EyeIcon, InboxIcon,
     GitMergeIcon, SendIcon, XIcon,
-    InfoIcon, CreditCardIcon,
+    InfoIcon, CreditCardIcon, DeleteIcon,
     UploadIcon, DownloadIcon, MenuIcon,
-    Carousel, Slide
+    DollarSignIcon, MoreVerticalIcon, LockIcon, UnlockIcon,
+    CommandIcon
   },
   async created () {
     this.last_sync_height = 0

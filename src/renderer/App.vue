@@ -41,7 +41,7 @@ export default {
     'rename_account'
   ]),
   mounted() {
-
+    this.update_price()
   },
   components: {
     PlusIcon,
@@ -52,6 +52,9 @@ export default {
     Rename
   },
   methods: {
+    async update_price() {
+      
+    }
   },
 };
 </script>

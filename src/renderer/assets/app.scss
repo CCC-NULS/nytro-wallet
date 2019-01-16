@@ -272,17 +272,49 @@ i.nuls:hover {
   filter: none;
 }
 
-.btn {
-  border: none;
-  border-radius: 0;
+.btn-icon-lg {
+  font-size: 20px;
+  line-height: 20px;
+  width: 98px;
+  height: 98px;
+  padding: 38px;
+  border: 0;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+  background-color: $color-secondary-blue-002;
 }
 
-.btn-primary {
-  background: $color-primary-blue;
+.btn-icon-lg:hover {
+  background-color: $color-secondary-blue-004;
 }
 
-.btn-primary:hover {
-  background: $color-primary-green;
+.btn-icon-lg .feather {
+  width: 20px;
+  height: 20px;
+  padding-bottom: 0;
+}
+
+.btn-link,
+.dropdown button.btn-link {
+  background: transparent;
+
+  header &.btn-lg {
+    font-size: 20px;
+  }
+
+  a,
+  &:hover,
+  a:hover {
+    color: #fff;
+  }
+
+  &:hover {
+    color: #fff;
+    background: transparent;
+    box-shadow: none;
+  }
 }
 
 a.address, span.address {
@@ -338,7 +370,17 @@ code {
 
 .feather {
   height: 1em;
+  width: 1em;
   line-height: inherit;
   display: inline-block;
   padding-bottom: .125em;
+}
+
+
+li.page-item {
+  margin: 0 .5rem;
+}
+
+li.page-item:first-child {
+  margin-left: 0;
 }

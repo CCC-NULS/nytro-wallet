@@ -37,7 +37,8 @@ const en = {
     consolidate: 'Consolidate',
     rename: 'Rename',
     delete: 'Delete',
-    backup: 'Backup'
+    backup: 'Backup',
+    stake: 'Stake'
   },
 
   wallet: {

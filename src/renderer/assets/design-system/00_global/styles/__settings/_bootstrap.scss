@@ -7,6 +7,7 @@
 
 @import '../../../01_fundaments/colors/__settings/__vars';
 
+/*
 $grid-breakpoints: (
   xs: 0,
   sm: 375px,
@@ -23,8 +24,9 @@ $container-max-widths: (
 ) !default;
 
 $enable-grid-classes: true;
-$theme-colors: ();
 $enable-gradients: false;
+$headings-color: $white;
+$body-color: $white;
 
 // Grid columns
 //
@@ -32,6 +34,13 @@ $enable-gradients: false;
 
 $grid-columns:                12 !default;
 $grid-gutter-width:           2.4rem !default;
+*/
+
+$theme-colors: (
+  primary: $color-primary-blue,
+  secondary: $color-secondary-blue-004,
+  success: $color-primary-green
+);
 
 $component-active-color: #fff;
 $dropdown-border-radius: 0;
@@ -42,6 +51,10 @@ $dropdown-box-shadow: 0 8px 24px 0 rgba(0,0,0,0.3);
 $dropdown-border-width: 0;
 
 $custom-select-bg: #000;
+
+$btn-border-radius: 0;
+$btn-border-radius-lg: 0;
+$btn-border-radius-sm: 0;
 
 $border-radius: 0;
 $border-radius-lg: 0;
@@ -61,3 +74,18 @@ $input-border-radius-lg: 0;
 $input-border-color: transparent;
 $input-border-width: 0;
 $input-box-shadow: none;
+
+$popover-border-radius: 0;
+$popover-box-shadow: 0 8px 24px 0 rgba(0,0,0,0.3);
+$popover-bg: $color-secondary-blue-001;
+$popover-body-color: $white;
+$popover-arrow-color: $color-secondary-blue-001;
+$popover-header-bg: $color-secondary-blue-003;
+$popover-border-color: $color-secondary-blue-001;
+
+$pagination-bg: $color-secondary-blue-003;
+$pagination-color: $white;
+$pagination-border-width: 0;
+$pagination-disabled-color: $color-shades-blue-40;
+$pagination-disabled-bg: $color-secondary-blue-003;
+$pagination-active-bg: $color-secondary-blue-002;

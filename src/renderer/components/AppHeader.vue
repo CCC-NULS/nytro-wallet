@@ -26,9 +26,9 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container class="app-selector py-5">
+    <b-container class="app-selector">
       <b-row>
-         <b-col>
+         <b-col class="py-5 align-self-center">
            <b-dropdown id="ddown1" :text="this.selectTitle ? this.selectTitle : $t('nav.select')" size="lg">
             <b-dropdown-item class="first-level" to="/" active-class="n">{{$t('nav.all')}}</b-dropdown-item>
             <b-dropdown-header>{{$t('nav.configuredWallets')}}</b-dropdown-header>
@@ -36,7 +36,7 @@
                         v-bind:to="'/account/' + account.address">
               {{account.name}}
             </b-dropdown-item>
-            <b-dropdown-separator></b-dropdown-separator>
+            <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-header>{{$t('nav.actions')}}</b-dropdown-header>
             <b-dropdown-item to="/login/">
               <LogInIcon/>
@@ -54,13 +54,7 @@
   </header>
 </template>
 <script>
-import axios from 'axios'
-import {private_key_to_public_key,
-  address_from_hash,
-  hash_from_address,
-  public_key_to_hash,
-  get_outputs_for_sum
-} from 'nulsworldjs/src/model/data.js'
+import {PlusIcon, LogInIcon, BookmarkIcon,MapPinIcon,SettingsIcon } from 'vue-feather-icons'
 import { mapState } from 'vuex'
 import store from '../store'
 
@@ -101,6 +95,11 @@ export default {
   },
   props: ['select-title'],
   components: {
+    PlusIcon,
+    LogInIcon,
+    BookmarkIcon,
+    MapPinIcon ,
+    SettingsIcon
   },
   async created () {
   }
