@@ -96,7 +96,7 @@ export default {
       return this.$i18n.locale
     },
     accounts() {
-      return this.$store.state.accounts
+      return this.$store.getters.chain_accounts
     },
     settings() {
       return this.$store.state.settings
@@ -113,6 +113,7 @@ export default {
     },
     applySettings(settings) {
       this.$store.commit('set_settings', settings)
+      this.$router.push('/')
     }
   },
   props: ['select-title'],

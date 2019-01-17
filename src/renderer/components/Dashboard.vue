@@ -118,12 +118,21 @@ export default {
     AppHeader,
     PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
   },
-  computed: mapState([
+  computed: {
     // map this.count to store.state.count
-    'accounts',
-    'settings',
-    'last_height'
-  ]),
+    accounts() {
+      return this.$store.getters.chain_accounts
+    },
+    settings() {
+      return this.$store.state.settings
+    },
+    last_height() {
+      return this.$store.state.last_height
+    }
+  },
+  watch: {
+    accounts() { this.update(); }
+  },
   methods: {
     async update () {
       let result = await axios.get(`${this.settings.api_server}addresses/stats`, {
