@@ -56,13 +56,16 @@
         <b-col>
           <b-card class="mb-4">
             <h4 slot="header">{{$t('public.total_balance')}}</h4>
-            <p class="card-price"></p>
+            <p class="card-price">
+              {{price_info.DISPLAY.NULS[to_symbol].TOSYMBOL}}
+              {{(((total_unspent || 0)/100000000) * price_info.RAW.NULS[to_symbol].PRICE).toFixed(2)}}
+            </p>
           </b-card>
         </b-col>
         <b-col>
           <b-card class="mb-4">
             <h4 slot="header">{{$t('public.price')}}</h4>
-            <p class="card-price"></p>
+            <p class="card-price">{{price_info.DISPLAY.NULS[to_symbol].PRICE}}</p>
           </b-card>
         </b-col>
       </b-row>
@@ -130,6 +133,12 @@ export default {
     },
     last_height() {
       return this.$store.state.last_height
+    },
+    to_symbol() {
+      return this.$store.state.to_symbol
+    },
+    price_info() {
+      return this.$store.state.price_info
     }
   },
   watch: {
