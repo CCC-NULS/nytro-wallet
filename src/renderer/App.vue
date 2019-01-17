@@ -24,6 +24,7 @@ import {storage} from 'nulsworldjs/src/model/store';
 import {PlusIcon, LogInIcon, BookmarkIcon,MapPinIcon,SettingsIcon } from 'vue-feather-icons'
 import {mapState} from 'vuex'
 import Rename from './components/Rename.vue'
+import axios from 'axios'
 
 export default {
   name: 'nworld-wallet',
@@ -53,7 +54,8 @@ export default {
   },
   methods: {
     async update_price() {
-      
+      let response = await axios('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=NULS&tsyms=USD,EUR,BTC,ETH,CNY')
+      this.$store.commit('set_price_info', response.data)
     }
   },
 };
