@@ -53,14 +53,9 @@
           <h1 class="head-400">
             <CreditCardIcon />
             {{account.name}}
-            <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="'Rename'">
+            <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="$t('actions.rename')">
               <small>
                 <Edit3Icon />
-              </small>
-            </b-link>
-            <b-link @click="backupShow = !backupShow" class="text-muted" v-b-popover.hover.bottom="'Backup'">
-              <small>
-                <EyeIcon />
               </small>
             </b-link>
           </h1>
@@ -121,7 +116,7 @@
         <div slot="header">
           <div class="row align-items-center">
             <div class="col">
-              <h4 class="card-header-title">Current Staking</h4>
+              <h4 class="card-header-title">{{$t('wallet.current_staking')}}</h4>
             </div>
             <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
               <b-button @click="stakeShow = !stakeShow" size="lg"><CommandIcon /> {{$t('actions.stake')}}</b-button>
@@ -129,12 +124,12 @@
           </div>
         </div>
         <div class=" card-body text-muted" v-if="account_value <= 2000">
-          No staking available (you need more than 2000 <i class="nuls"></i>).
+          {{$t('wallet.more_than_2000_required')}}
         </div>
         <div v-if="account_value > 2000">
           <div class="card-body text-muted"
               v-if="!(account_stakes.filter(st=>(st.active&& Object.keys(consensus).includes(st.agentHash))).length)">
-              No staking yet. You are losing out!
+              {{$t('wallet.no_staking_yet')}}
           </div>
           <b-list-group class="list-group-flush">
             <b-list-group-item v-for="stake in account_stakes"

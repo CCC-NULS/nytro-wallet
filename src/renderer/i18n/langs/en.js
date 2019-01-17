@@ -46,7 +46,10 @@ const en = {
 
   wallet: {
     wallet_value: 'Wallet Value',
-    unspent_outputs: 'Unspent Outputs'
+    unspent_outputs: 'Unspent Outputs',
+    current_staking: 'Current Staking',
+    more_than_2000_required: 'No staking available (you need more than 2000).',
+    no_staking_yet: 'No staking yet. You are losing out!'
   }
 };
 export default en

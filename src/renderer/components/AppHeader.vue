@@ -14,7 +14,7 @@
           </h1>
         </b-col>
         <b-col cols="auto" class="justify-content-center align-self-center">
-          <small class="caption-100 text-muted">{{$t('header.lastBlock')}} {{last_height}} ({{settings.api_server}})</small>
+          <small class="caption-100 text-muted">{{$t('header.lastBlock')}} {{last_height}}</small>
         </b-col>
         <b-col cols="auto" class="justify-content-center align-self-center">
           <b-dropdown id="ddown1" :text="to_symbol" size="s">
