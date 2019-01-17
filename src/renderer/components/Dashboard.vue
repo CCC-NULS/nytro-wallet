@@ -143,7 +143,6 @@ export default {
       this.total_consensus_locked = Object.values(this.unspent_info).map((u) => u.consensus_locked_value).reduce((e, i) => e + i)
       this.total_time_locked = Object.values(this.unspent_info).map((u) => u.time_locked_value).reduce((e, i) => e + i)
       this.update_charts()
-      store.commit('set_last_height', result.data.last_height)
     },
     update_charts () {
       this.amounts_chart = [{

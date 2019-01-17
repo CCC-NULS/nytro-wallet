@@ -71,6 +71,7 @@ export default {
         }
       })
       this.$store.commit('set_unspent_info', result.data.unspent_info)
+      this.$store.commit('set_last_height', result.data.last_height)
     }
   },
 };
