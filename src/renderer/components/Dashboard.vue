@@ -11,17 +11,17 @@
             <vc-donut
               background="#00235B"
               :sections="amounts_chart"
-              :total="total_unspent/100000000"
+              :total="(total_unspent/100000000)+0.01"
               :size="200"
               :thickness="10"
               :hasLegend="true"
             >
             {{$t('public.usable')}}<br />
-            <i class="nuls-green"></i> {{(total_unspent || 0)/100000000}}<br />
+            <i class="nuls-green"></i> {{((total_unspent || 0)/100000000).toFixed(2)}}<br />
             {{$t('public.staked')}}<br />
-            <i class="nuls-green"></i> {{(total_consensus_locked || 0)/100000000}}<br />
+            <i class="nuls-green"></i> {{((total_consensus_locked || 0)/100000000).toFixed(2)}}<br />
             {{$t('public.time_locked')}}<br />
-            <i class="nuls-green"></i> {{(total_time_locked || 0)/100000000}}
+            <i class="nuls-green"></i> {{((total_time_locked || 0)/100000000).toFixed(2)}}
           </vc-donut>
           </b-col>
           <b-col md="6">
@@ -50,7 +50,7 @@
         <b-col>
           <b-card class="mb-4">
             <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">(incl. locked)</span></h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(total_unspent || 0)/100000000}}</p>
+            <p class="card-price"><i class="nuls-green"></i> {{((total_unspent || 0)/100000000).toFixed(2)}}</p>
           </b-card>
         </b-col>
         <b-col>
@@ -70,19 +70,19 @@
         <b-col>
           <b-card class="mb-4">
             <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available_balance')}}</h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(total_available || 0)/100000000}}</p>
+            <p class="card-price"><i class="nuls-green"></i> {{((total_available || 0)/100000000).toFixed(2)}}</p>
           </b-card>
         </b-col>
         <b-col>
           <b-card class="mb-4">
             <h4 slot="header"><i class="nuls-green"></i> {{$t('public.consensus_locked_balance')}}</h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(total_consensus_locked || 0)/100000000}}</p>
+            <p class="card-price"><i class="nuls-green"></i> {{((total_consensus_locked || 0)/100000000).toFixed(2)}}</p>
           </b-card>
         </b-col>
         <b-col>
           <b-card class="mb-4">
             <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked_balance')}}</h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(total_time_locked || 0)/100000000}}</p>
+            <p class="card-price"><i class="nuls-green"></i> {{((total_time_locked || 0)/100000000).toFixed(2)}}</p>
           </b-card>
         </b-col>
       </b-row>
