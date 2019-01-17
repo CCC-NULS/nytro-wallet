@@ -43,7 +43,14 @@
             <b-dropdown-header>{{$t('nav.configuredWallets')}}</b-dropdown-header>
             <b-dropdown-item v-for="account of this.accounts"
                         v-bind:to="'/account/' + account.address">
-              {{account.name}}
+              <b-row class="justify-content-between">
+                <b-col cols="6">
+                  {{account.name}}
+                </b-col>
+                <b-col cols="4" class="text-right">
+                  <small><i class="nuls"></i> {{Math.round((Object.keys(unspent_info).includes(account.address) ? unspent_info[account.address].unspent_value / 100000000 : 0))}}</small>
+                </b-col>
+              </b-row>
             </b-dropdown-item>
             <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-header>{{$t('nav.actions')}}</b-dropdown-header>
@@ -103,6 +110,9 @@ export default {
     },
     last_height() {
       return this.$store.state.last_height
+    },
+    unspent_info() {
+      return this.$store.state.unspent_info
     }
   },
   watch: {
