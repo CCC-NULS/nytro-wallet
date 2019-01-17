@@ -17,6 +17,15 @@
           <small class="caption-100 text-muted">{{$t('header.lastBlock')}} {{last_height}} ({{settings.api_server}})</small>
         </b-col>
         <b-col cols="auto" class="justify-content-center align-self-center">
+          <b-dropdown id="ddown1" text="Chain" size="s">
+            <b-dropdown-item v-for="chain of Object.entries(this.chains)"
+                        @click="applySettings(chain[1])"
+                        :active="settings.chain_id==chain[1].chain_id">
+              {{chain[0]}}
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-col>
+        <b-col cols="auto" class="justify-content-center align-self-center">
           <b-dropdown id="ddown1" :text="this.langs[this.lang]" size="s">
             <b-dropdown-item v-for="lang of Object.entries(this.langs)"
                         @click="changeLang(lang[0])">
@@ -69,6 +78,16 @@ export default {
         'es': 'Español',
         'fr': 'Français',
         'pt': 'Português',
+      },
+      'chains': {
+        'Main-Net': {
+          'api_server': 'https://nuls.world/',
+          'chain_id': 8964
+        },
+        'Test-Net': {
+          'api_server': 'https://testnet.nuls.world/',
+          'chain_id': 261
+        }
       }
     }
   },
@@ -92,6 +111,9 @@ export default {
     changeLang(lang) {
       this.$i18n.locale = lang
     },
+    applySettings(settings) {
+      this.$store.commit('set_settings', settings)
+    }
   },
   props: ['select-title'],
   components: {
