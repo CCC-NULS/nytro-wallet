@@ -35,7 +35,6 @@ export default new Vuex.Store({
       state.accounts = accounts
     },
     add_account(state, account) {
-      console.log(state.accounts)
       if (!state.accounts.some(e => e.address === account.address)) {
         state.accounts.push(account)
       }
@@ -47,7 +46,6 @@ export default new Vuex.Store({
       }
     },
     set_settings(state, settings) {
-      console.log(settings)
       state.settings = settings
     },
     start_rename(state, account) {
@@ -72,6 +70,9 @@ export default new Vuex.Store({
     },
     set_last_height(state, last_height) {
       state.last_height = last_height
+    },
+    set_to_symbol(state, to_symbol) {
+      state.to_symbol = to_symbol
     }
   },
   actions: {

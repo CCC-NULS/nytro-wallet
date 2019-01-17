@@ -17,6 +17,15 @@
           <small class="caption-100 text-muted">{{$t('header.lastBlock')}} {{last_height}} ({{settings.api_server}})</small>
         </b-col>
         <b-col cols="auto" class="justify-content-center align-self-center">
+          <b-dropdown id="ddown1" :text="to_symbol" size="s">
+            <b-dropdown-item v-for="sym of symbols"
+                        @click="changeSymbol(sym)"
+                        :active="to_symbol==sym">
+              {{sym}}
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-col>
+        <b-col cols="auto" class="justify-content-center align-self-center">
           <b-dropdown id="ddown1" text="Chain" size="s">
             <b-dropdown-item v-for="chain of Object.entries(this.chains)"
                         @click="applySettings(chain[1])"
@@ -38,7 +47,7 @@
     <b-container class="app-selector">
       <b-row>
          <b-col class="py-5 align-self-center">
-           <b-dropdown id="ddown1" :text="this.selectTitle ? this.selectTitle : $t('nav.select')" size="lg">
+           <b-dropdown id="mainnav" :text="this.selectTitle ? this.selectTitle : $t('nav.select')" size="lg">
             <b-dropdown-item class="first-level" to="/" active-class="n">{{$t('nav.all')}}</b-dropdown-item>
             <b-dropdown-header>{{$t('nav.configuredWallets')}}</b-dropdown-header>
             <b-dropdown-item v-for="account of this.accounts"
@@ -86,6 +95,7 @@ export default {
         'fr': 'Français',
         'pt': 'Português',
       },
+      'symbols': ['USD', 'EUR', 'CNY', 'BTC', 'ETH'],
       'chains': {
         'Main-Net': {
           'api_server': 'https://nuls.world/',
@@ -113,6 +123,9 @@ export default {
     },
     unspent_info() {
       return this.$store.state.unspent_info
+    },
+    to_symbol() {
+      return this.$store.state.to_symbol
     }
   },
   watch: {
@@ -120,6 +133,9 @@ export default {
   methods: {
     changeLang(lang) {
       this.$i18n.locale = lang
+    },
+    changeSymbol(sym) {
+      this.$store.commit('set_to_symbol', sym)
     },
     applySettings(settings) {
       this.$store.commit('set_settings', settings)
