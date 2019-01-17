@@ -26,11 +26,11 @@
           </b-dropdown>
         </b-col>
         <b-col cols="auto" class="justify-content-center align-self-center">
-          <b-dropdown id="ddown1" text="Chain" size="s">
-            <b-dropdown-item v-for="chain of Object.entries(this.chains)"
+          <b-dropdown id="ddown1" :text="chains[settings.chain_id].chain_name" size="s">
+            <b-dropdown-item v-for="chain of Object.entries(chains)"
                         @click="applySettings(chain[1])"
                         :active="settings.chain_id==chain[1].chain_id">
-              {{chain[0]}}
+              {{chain[1].chain_name}}
             </b-dropdown-item>
           </b-dropdown>
         </b-col>
@@ -97,11 +97,13 @@ export default {
       },
       'symbols': ['USD', 'EUR', 'CNY', 'BTC', 'ETH'],
       'chains': {
-        'Main-Net': {
+        8964: {
+          'chain_name': 'NULS mainnet',
           'api_server': 'https://nuls.world/',
           'chain_id': 8964
         },
-        'Test-Net': {
+        261: {
+          'chain_name': 'NULS testnet',
           'api_server': 'https://testnet.nuls.world/',
           'chain_id': 261
         }
