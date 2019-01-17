@@ -1,0 +1,50 @@
+/**
+ *
+ * TYPOGRAPHY: GENERAL
+ *
+ */
+
+html {
+
+	font-size: 10px;
+	-webkit-text-size-adjust: 100%;
+
+}
+
+body {
+
+	transition: font-size 100ms;
+	font-family: font('main');
+	font-weight: $font-weight-regular;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: $color-transparent;
+	text-rendering: optimizeLegibility;
+	@extend .body-200;
+
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+
+	font-family: font('headings');
+	font-weight: $font-weight-bold;
+
+}
+
+a {
+
+	cursor: pointer;
+	text-decoration: none;
+
+}
+
+strong,
+b {
+  font-weight: $font-weight-bold;
+}
+
+img {
+  user-select: none;
+}

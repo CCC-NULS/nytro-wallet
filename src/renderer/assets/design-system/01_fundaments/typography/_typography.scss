@@ -1,0 +1,28 @@
+/*
+* @Author: Steven Thijs
+* @Date:   2018-08-14 16:19:26
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-09 03:57:00
+*/
+
+@each $fs in $font-sizes {
+    $fs-key: nth($fs, 1);
+    $fs-val: nth($fs, 2);
+
+    @include media-breakpoint-up(#{$fs-key}) {
+        @each $op in $fs-val {
+            $op-key: nth($op, 1);
+
+            .#{$op-key} {
+                @each $size in nth($op, 2) {
+                    $size-key: nth($size, 1);
+
+                    &-#{$size-key} {
+                        @include font-prop-gen($font-sizes, $fs-key, $op-key, $size-key, font-size);
+                        @include font-prop-gen($line-heights, $fs-key, $op-key, $size-key, line-height);
+                    }
+                }
+            }
+        }
+    }
+}

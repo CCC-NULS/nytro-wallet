@@ -31,15 +31,15 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        defaultColor: colors.primary[600],
-        defaultFontColor: colors.gray[600],
+        defaultColor: colors.primary[700],
+        defaultFontColor: colors.gray[700],
         defaultFontFamily: fonts.base,
         defaultFontSize: 13,
         layout: {
           padding: 0
         },
         legend: {
-          display: true,
+          display: false,
           position: 'bottom',
           labels: {
             usePointStyle: true,
@@ -66,7 +66,8 @@ export default {
             backgroundColor: colors.primary[700]
           }
         },
-        cutoutPercentage: 83
+        cutoutPercentage: 83,
+        borderColor: "rgba(0,0,0,0)"
       }
     }
   },

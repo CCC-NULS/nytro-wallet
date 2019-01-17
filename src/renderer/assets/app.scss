@@ -1,0 +1,386 @@
+@import "css/modals";
+@import "css/dropdowns";
+@import "css/tables";
+@import "css/forms";
+
+html {
+  font-size: 12px;
+}
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    background: $color-secondary-blue-004;
+}
+
+#app>header {
+  background: $color-secondary-blue-002;
+}
+
+header .app-header {
+  background: $color-secondary-blue-001;
+}
+
+header .app-name {
+  vertical-align: middle;
+  padding: 1rem;
+}
+
+header .app-logo:hover {
+  color: #82bd39;
+}
+
+header .app-logo img {
+  height: 2rem;
+  margin-right: 2px;
+  filter: grayscale(100%) contrast(1000%) brightness(1.0);
+}
+
+header .app-logo:hover img {
+  filter: none;
+}
+
+.list-group-item {
+  background: $color-secondary-blue-001;
+}
+
+
+
+
+.card {
+
+  background-color: $color-secondary-blue-002;
+  border: 0;
+  border-radius: 0;
+
+  &__inner {
+
+  }
+
+  &--content {
+    padding: 3rem;
+  }
+
+  .card-body {
+
+    p.card-price {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      font-family: unquote(map-get($fonts, headings));
+      margin-bottom: 0;
+      padding-bottom: 0;
+      line-height: .8em;
+    }
+  }
+
+  .card-header {
+    background-color: $color-secondary-blue-003;
+    border: 0;
+    vertical-align: middle;
+
+    h4 {
+      margin: 0;
+      padding: 0;
+      font-size: 1.2rem;
+      font-weight: normal;
+    }
+  }
+}
+
+.card-raised {
+  box-shadow: 0 8px 24px 0 rgba(0,0,0,0.3);
+}
+
+.text-muted {
+  color: $color-shades-blue-10;
+}
+
+a {
+  color: $color-shades-green-70;
+}
+
+a:hover {
+  color: $color-shades-green-90;
+}
+
+.VueCarousel-navigation-button {
+  color: #fff !important;
+}
+
+
+.VueCarousel-navigation-button:before {
+  border-color: #fff;
+  border-style: solid;
+  border-width: 3px 3px 0 0;
+  content: ' ';
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  transform: rotate(43deg);
+}
+
+.VueCarousel-navigation-prev:before {
+  transform: rotate(223deg);
+}
+
+
+.VueCarousel-navigation--disabled {
+  opacity: .3 !important;
+}
+
+
+
+
+.app-navbar {
+  background: #fff;
+  padding-top: 2rem;
+  max-width: 18rem;
+}
+
+.wallet-logo {
+text-align: center;
+  height: 2em;
+  color: rgb(110, 132, 163);
+  font-family: Cerebri Sans,sans-serif;
+}
+
+.wallet-logo img {
+  height: 3em;
+  margin-right: 1em;
+}
+
+.navbar-nav.vertical {
+  flex-direction: column;
+  margin-right: -1.5rem;
+  margin-left: -1.5rem;
+  min-width: 100%;
+}
+
+.navbar-nav.vertical .nav-link {
+  padding: .5rem 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item.account-name {
+  font-size: 70%;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-navbar .navbar-heading {
+    font-size: .625rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.grow {
+  flex: 1;
+}
+
+.text-wrap-word {
+  word-break: break-all;
+}
+
+
+.mt--1 {
+  margin-top: -.1875rem !important;
+}
+.mt--2 {
+  margin-top: -.375rem !important;
+}
+.mt--3 {
+  margin-top: -.75rem !important;
+}
+.mt--4 {
+  margin-top: -1.5rem !important;
+}
+.mt--5 {
+  margin-top: -2.25rem !important;
+}
+
+/* .header-body
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.header-footer
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.header-pretitleapp-name
+{
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #95aac9;
+}
+
+.header-title
+{
+    margin-bottom: 0;
+}
+
+.header-subtitle
+{
+    margin-top: .375rem;
+    margin-bottom: 0;
+    color: #95aac9;
+}
+
+.nuls-blue {
+    background-image: linear-gradient(-133deg, #002e5e 0%, #092243 89%, #0a2140 100%);
+} */
+
+table{
+  font-size: 90%;
+}
+
+.navbar-brand-img, .navbar-brand > img {
+  max-height: 2.5rem;
+}
+
+i.nuls,
+i.nuls-dark,
+i.nuls-green {
+  display: inline-block;
+  vertical-align: middle;
+  height: 0.8em;
+  width: 0.5em;
+  background: url('assets/logo1.png');
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+  filter: grayscale(100%) contrast(1000%) brightness(1.0);
+}
+
+i.nuls-green {
+filter: none;
+}
+
+i.nuls-dark {
+filter: grayscale(100%) contrast(160%) brightness(0.1);
+}
+
+i.nuls:hover {
+  filter: none;
+}
+
+.btn-icon-lg {
+  font-size: 20px;
+  line-height: 20px;
+  width: 98px;
+  height: 98px;
+  padding: 38px;
+  border: 0;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+  background-color: $color-secondary-blue-002;
+}
+
+.btn-icon-lg:hover {
+  background-color: $color-secondary-blue-004;
+}
+
+.btn-icon-lg .feather {
+  width: 20px;
+  height: 20px;
+  padding-bottom: 0;
+}
+
+.btn-link,
+.dropdown button.btn-link {
+  background: transparent;
+
+  header &.btn-lg {
+    font-size: 20px;
+  }
+
+  a,
+  &:hover,
+  a:hover {
+    color: #fff;
+  }
+
+  &:hover {
+    color: #fff;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+a.address, span.address {
+  display: inline-block;
+  vertical-align: bottom;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 30vw;
+}
+
+.cell-full { max-width:1px; width:100%; }
+.cell-20 { max-width:1px; width:20%;  }
+.cell-ellipsis { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.cell-noWrap { white-space:nowrap; }
+
+@media screen and (min-width: 640px) {
+  .tabbed-pagination ul {
+    margin-top: -2.8em;
+  }
+}
+
+.chart-middle-caption {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 992px) {
+  .navbar-nav .nav-link > .fe {
+    min-width: 1.5em;
+    font-size: inherit;
+    line-height: normal;
+  }
+  .navbar-nav .nav-link {
+    margin-right: 1em;
+  }
+}
+
+pre code,
+code {
+  font-size: 87.5%;
+  word-break: break-word;
+  color: $color-shades-green-90;
+}
+
+.navbar-nav a.nav-link>.feather {
+  min-width: 1.5em;
+}
+
+.feather {
+  height: 1em;
+  width: 1em;
+  line-height: inherit;
+  display: inline-block;
+  padding-bottom: .125em;
+}
+
+
+li.page-item {
+  margin: 0 .5rem;
+}
+
+li.page-item:first-child {
+  margin-left: 0;
+}

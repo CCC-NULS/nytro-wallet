@@ -1,20 +1,7 @@
 <template>
-  <div class="container">
-
-    <div class="header">
-      <div class="header-body">
-
-        <h6 class="header-pretitle">
-          Wallet Accounts
-        </h6>
-
-        <h1 class="header-title">
-          Creating account
-        </h1>
-
-      </div>
-    </div>
-
+  <div>
+    <AppHeader />
+    <b-container>
       <div class="row justify-content-center">
         <div class="col-12 my-5">
 
@@ -71,7 +58,8 @@
 
         </div>
       </div> <!-- / .row -->
-    </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -82,6 +70,7 @@ import {private_key_to_public_key,
 } from 'nulsworldjs/src/model/data'
 import store from '../store'
 import { mapState } from 'vuex'
+import AppHeader from './AppHeader.vue'
 
 const secp256k1 = require('secp256k1')
 export default {
@@ -139,6 +128,9 @@ export default {
   },
   mounted () {
     this.generate()
+  },
+  components: {
+    AppHeader
   }
 
 }

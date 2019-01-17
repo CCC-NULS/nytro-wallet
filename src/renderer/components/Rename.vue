@@ -7,7 +7,7 @@
       :state="nameState"
   >
       <b-form-input id="name" :state="nameState" v-model.trim="name"></b-form-input>
-      <b-form-text id="amountHelp">
+      <b-form-text id="amountHelp" class="text-white">
         Account address: {{address}}
       </b-form-text>
     </b-form-group>

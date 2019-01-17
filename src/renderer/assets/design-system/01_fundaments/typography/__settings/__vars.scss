@@ -1,0 +1,274 @@
+/**
+ *
+ * TYPOGRAPHY: VARS
+ *
+ */
+
+/**
+ * SF Pro Font original specs
+ * - ultralight:	100
+ * - thin: 			200
+ * - light: 		300
+ * - regular: 		400
+ * - medium:		500
+ * - semibold:		600
+ * - bold:			700
+ * - heavy:			800
+ * - black:			900
+ */
+
+$font-folder: 'assets/design-system/01_fundaments/typography/fonts'; 
+
+$fonts: (
+	'headings': "NeuzeitGrotesk, Arial, sans-serif",
+	'main': "SofiaPro, Arial, sans-serif"
+);
+
+$font-weight-regular: normal;
+$font-weight-bold: bold;
+
+$font-weight-specs: (
+  'regular': $font-weight-regular,
+  'bold': $font-weight-bold
+);
+
+$font-sizes: (
+	'xs': (
+		'body': (
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.8rem,
+			200: 1.4rem,
+			100: 1.2rem
+		),
+		'head': (
+			1000: 5rem,
+			900: 4.2rem,
+			800: 3.6rem,
+			700: 3.2rem,
+			600: 2.8rem,
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.6rem
+
+		),
+		'caption': (
+			200: 1.0rem,
+			100: 0.9rem
+		)
+	),
+	'sm': (
+		'body': (
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.8rem,
+			200: 1.4rem,
+			100: 1.2rem
+		),
+		'head': (
+			1000: 5rem,
+			900: 4.2rem,
+			800: 3.6rem,
+			700: 3.2rem,
+			600: 2.8rem,
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.6rem
+
+		),
+		'caption': (
+			200: 1.0rem,
+			100: 0.9rem
+		)
+	),
+	'md': (
+		'body': (
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.8rem,
+			200: 1.4rem,
+			100: 1.2rem
+		),
+		'head': (
+			1000: 5rem,
+			900: 4.2rem,
+			800: 3.6rem,
+			700: 3.2rem,
+			600: 2.8rem,
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.6rem
+
+		),
+		'caption': (
+			200: 1.0rem,
+			100: 0.9rem
+		)
+	),
+	'lg': (
+		'body': (
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.8rem,
+			200: 1.4rem,
+			100: 1.2rem
+		),
+		'head': (
+			1000: 5rem,
+			900: 4.2rem,
+			800: 3.6rem,
+			700: 3.2rem,
+			600: 2.8rem,
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.6rem
+
+		),
+		'caption': (
+			200: 1.0rem,
+			100: 0.9rem
+		)
+	),
+	'xl': (
+		'body': (
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.8rem,
+			200: 1.4rem,
+			100: 1.2rem
+		),
+		'head': (
+			1000: 5rem,
+			900: 4.2rem,
+			800: 3.6rem,
+			700: 3.2rem,
+			600: 2.8rem,
+			500: 2.4rem,
+			400: 2.1rem,
+			300: 1.6rem
+
+		),
+		'caption': (
+			200: 1.0rem,
+			100: 0.9rem
+		)
+	)
+);
+
+$line-heights: (
+	'xs': (
+		'body': (
+			500: 3.2rem,
+			400: 2.8rem,
+			300: 2.4rem,
+			200: 1.8rem,
+			100: 1.8rem,
+		),
+		'head': (
+			1000: 6.5rem,
+			900: 5.2rem,
+			800: 4.6rem,
+			700: 3.8rem,
+			600: 3.4rem,
+			500: 3.0rem,
+			400: 2.5rem,
+			300: 2.1rem
+		),
+		'caption': (
+			200: 1.6rem,
+			100: 1.4rem
+		)
+	),
+	'sm': (
+		'body': (
+			500: 3.2rem,
+			400: 2.8rem,
+			300: 2.4rem,
+			200: 1.8rem,
+			100: 1.8rem,
+		),
+		'head': (
+			1000: 6.5rem,
+			900: 5.2rem,
+			800: 4.6rem,
+			700: 3.8rem,
+			600: 3.4rem,
+			500: 3.0rem,
+			400: 2.5rem,
+			300: 2.1rem
+		),
+		'caption': (
+			200: 1.6rem,
+			100: 1.4rem
+		)
+	),
+	'md': (
+		'body': (
+			500: 3.2rem,
+			400: 2.8rem,
+			300: 2.4rem,
+			200: 1.8rem,
+			100: 1.8rem,
+		),
+		'head': (
+			1000: 6.5rem,
+			900: 5.2rem,
+			800: 4.6rem,
+			700: 3.8rem,
+			600: 3.4rem,
+			500: 3.0rem,
+			400: 2.5rem,
+			300: 2.1rem
+		),
+		'caption': (
+			200: 1.6rem,
+			100: 1.4rem
+		)
+	),
+	'lg': (
+		'body': (
+			500: 3.2rem,
+			400: 2.8rem,
+			300: 2.4rem,
+			200: 1.8rem,
+			100: 1.8rem,
+		),
+		'head': (
+			1000: 6.5rem,
+			900: 5.2rem,
+			800: 4.6rem,
+			700: 3.8rem,
+			600: 3.4rem,
+			500: 3.0rem,
+			400: 2.5rem,
+			300: 2.1rem
+		),
+		'caption': (
+			200: 1.6rem,
+			100: 1.4rem
+		)
+	),
+	'xl': (
+		'body': (
+			500: 3.2rem,
+			400: 2.8rem,
+			300: 2.4rem,
+			200: 1.8rem,
+			100: 1.8rem,
+		),
+		'head': (
+			1000: 6.5rem,
+			900: 5.2rem,
+			800: 4.6rem,
+			700: 3.8rem,
+			600: 3.4rem,
+			500: 3.0rem,
+			400: 2.5rem,
+			300: 2.1rem
+		),
+		'caption': (
+			200: 1.6rem,
+			100: 1.4rem
+		)
+	)
+);

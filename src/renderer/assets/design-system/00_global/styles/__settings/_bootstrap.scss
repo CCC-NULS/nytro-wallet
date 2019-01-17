@@ -1,0 +1,91 @@
+/*
+* @Author: steven
+* @Date:   2018-10-09 00:57:47
+* @Last Modified by:   steven
+* @Last Modified time: 2018-10-09 01:07:29
+*/
+
+@import '../../../01_fundaments/colors/__settings/__vars';
+
+/*
+$grid-breakpoints: (
+  xs: 0,
+  sm: 375px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1200px
+) !default;
+
+$container-max-widths: (
+  xs: 374px,
+  sm: 767px,
+  md: 1023px,
+  lg: 1224px,
+) !default;
+
+$enable-grid-classes: true;
+$enable-gradients: false;
+$headings-color: $white;
+$body-color: $white;
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:                12 !default;
+$grid-gutter-width:           2.4rem !default;
+*/
+
+$theme-colors: (
+  primary: $color-primary-blue,
+  secondary: $color-secondary-blue-004,
+  success: $color-primary-green
+);
+
+$component-active-color: #fff;
+$dropdown-border-radius: 0;
+$dropdown-link-active-color: $white;
+$dropdown-link-active-bg: $color-secondary-blue-002;
+$dropdown-bg: $color-secondary-blue-004;
+$dropdown-box-shadow: 0 8px 24px 0 rgba(0,0,0,0.3);
+$dropdown-border-width: 0;
+
+$custom-select-bg: #000;
+
+$btn-border-radius: 0;
+$btn-border-radius-lg: 0;
+$btn-border-radius-sm: 0;
+
+$border-radius: 0;
+$border-radius-lg: 0;
+$border-radius-sm: 0;
+
+$input-bg: $color-secondary-blue-003;
+$input-focus-bg: $color-secondary-blue-002;
+$input-focus-color: $white;
+$input-group-addon-bg: $color-secondary-blue-002;
+$input-disabled-bg: $color-secondary-blue-002;
+
+$input-color: $white;
+$list-group-border-radius: 0;
+$input-border-radius: 0;
+$input-border-radius-sm: 0;
+$input-border-radius-lg: 0;
+$input-border-color: transparent;
+$input-border-width: 0;
+$input-box-shadow: none;
+
+$popover-border-radius: 0;
+$popover-box-shadow: 0 8px 24px 0 rgba(0,0,0,0.3);
+$popover-bg: $color-secondary-blue-001;
+$popover-body-color: $white;
+$popover-arrow-color: $color-secondary-blue-001;
+$popover-header-bg: $color-secondary-blue-003;
+$popover-border-color: $color-secondary-blue-001;
+
+$pagination-bg: $color-secondary-blue-003;
+$pagination-color: $white;
+$pagination-border-width: 0;
+$pagination-disabled-color: $color-shades-blue-40;
+$pagination-disabled-bg: $color-secondary-blue-003;
+$pagination-active-bg: $color-secondary-blue-002;

@@ -1,0 +1,65 @@
+/**
+ *
+ * TYPOGRAPHY: TEXT
+ *
+ */
+
+.text {
+  // Alignment
+  &-nowrap {
+    white-space: nowrap !important;
+  }
+
+  &-wrap {
+    white-space: initial !important;
+  }
+
+  &-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Responsive alignment
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint);
+
+      &#{$infix}-left {
+        text-align: left !important;
+      }
+
+      &#{$infix}-right {
+        text-align: right !important;
+      }
+
+      &#{$infix}-center {
+        text-align: center !important;
+      }
+
+      &#{$infix}-justify {
+        text-align: justify !important;
+      }
+    }
+  }
+
+  // Transformation
+
+  &-lowercase {
+    text-transform: lowercase !important;
+  }
+
+  &-uppercase {
+    text-transform: uppercase !important;
+  }
+
+  &-capitalize {
+    text-transform: capitalize !important;
+  }
+
+  // Decoration
+
+  &-underline {
+    text-decoration: underline !important;
+  }
+}
