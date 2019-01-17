@@ -77,7 +77,10 @@
         <slide>
           <b-card class="m-2">
             <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
-            <p class="card-price"><DollarSignIcon />A</p>
+            <p class="card-price">
+              {{price_info.DISPLAY.NULS[to_symbol].TOSYMBOL}}
+              {{(((stats.unspent_value || 0)/100000000) * price_info.RAW.NULS[to_symbol].PRICE).toFixed(2)}}
+            </p>
           </b-card>
         </slide>
         <slide>
@@ -270,7 +273,9 @@ export default {
   computed: mapState([
     // map this.count to store.state.count
     'accounts',
-    'settings'
+    'settings',
+    'price_info',
+    'to_symbol'
   ]),
   methods: {
     dateformat (dt) {
