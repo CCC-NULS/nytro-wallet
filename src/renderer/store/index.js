@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+const bs58 = require('bs58')
 //import modules from './modules'
 
 Vue.use(Vuex)
@@ -19,7 +19,15 @@ export default new Vuex.Store({
     'rename_show': false,
     'rename_account': null,
     'price_info': null,
-    'last_height': 0
+    'last_height': 0,
+    'to_symbol': 'USD'
+  },
+  getters: {
+    chain_accounts: state => {
+      return state.accounts.filter(account =>
+        bs58.decode(account.address).readInt16LE(0) == state.settings.chain_id
+      )
+    }
   },
   mutations: {
     set_accounts(state, accounts) {
