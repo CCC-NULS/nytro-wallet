@@ -45,6 +45,8 @@ export default {
   mounted() {
     this.update_price()
     this.update_unspent_info()
+    setInterval(this.update_price.bind(this), 120000)
+    setInterval(this.update_unspent_info.bind(this), 30000)
   },
   watch: {
     settings() {
