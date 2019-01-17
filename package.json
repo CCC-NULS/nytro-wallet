@@ -1,6 +1,6 @@
 {
   "name": "nworld-wallet",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "author": "Moshe Malawach <moshe.malawach@protonmail.com>",
   "description": "Desktop wallet for the NULS blockchain using the NULS.World API",
   "license": null,
