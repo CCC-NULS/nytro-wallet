@@ -39,10 +39,17 @@ export default {
     'accounts',
     'settings',
     'rename_show',
-    'rename_account'
+    'rename_account',
+    'unspent_info'
   ]),
   mounted() {
     this.update_price()
+    this.update_unspent_info()
+  },
+  watch: {
+    settings() {
+      this.update_unspent_info()
+    }
   },
   components: {
     PlusIcon,
@@ -56,6 +63,14 @@ export default {
     async update_price() {
       let response = await axios('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=NULS&tsyms=USD,EUR,BTC,ETH,CNY')
       this.$store.commit('set_price_info', response.data)
+    },
+    async update_unspent_info() {
+      let result = await axios.get(`${this.settings.api_server}addresses/stats`, {
+        params: {
+          addresses: this.$store.getters.chain_accounts.map((acct) => acct.address)
+        }
+      })
+      this.$store.commit('set_unspent_info', result.data.unspent_info)
     }
   },
 };

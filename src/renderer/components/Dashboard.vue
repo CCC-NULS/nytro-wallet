@@ -109,7 +109,6 @@ export default {
       total_consensus_locked: 0,
       total_time_locked: 0,
       total_available: 0,
-      unspent_info: {},
       amounts_chart: [],
       accounts_chart:  []
     }
@@ -123,6 +122,9 @@ export default {
     accounts() {
       return this.$store.getters.chain_accounts
     },
+    unspent_info() {
+      return this.$store.state.unspent_info
+    },
     settings() {
       return this.$store.state.settings
     },
@@ -131,16 +133,11 @@ export default {
     }
   },
   watch: {
-    accounts() { this.update(); }
+    accounts() { this.update(); },
+    unspent_info() { this.update(); }
   },
   methods: {
     async update () {
-      let result = await axios.get(`${this.settings.api_server}addresses/stats`, {
-        params: {
-          addresses: this.accounts.map((acct) => acct.address)
-        }
-      })
-      this.unspent_info = result.data.unspent_info
       this.total_unspent = Object.values(this.unspent_info).map((u) => u.unspent_value).reduce((e, i) => e + i)
       this.total_available = Object.values(this.unspent_info).map((u) => u.available_value).reduce((e, i) => e + i)
       this.total_consensus_locked = Object.values(this.unspent_info).map((u) => u.consensus_locked_value).reduce((e, i) => e + i)
