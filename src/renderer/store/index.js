@@ -11,10 +11,10 @@ export default new Vuex.Store({
   state: {
     'accounts': [],
     'settings': {
-     /* 'api_server': 'https://nuls.world/',
-      'chain_id': 8964*/
-      'api_server': 'https://testnet.nuls.world/',
-      'chain_id': 261
+      'api_server': 'https://nuls.world/',
+      'chain_id': 8964
+      // 'api_server': 'https://testnet.nuls.world/',
+      // 'chain_id': 261
     },
     'rename_show': false,
     'rename_account': null,
