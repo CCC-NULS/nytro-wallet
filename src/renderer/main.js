@@ -14,6 +14,9 @@ import {mapState} from 'vuex'
 
 import vSelect from 'vue-select'
 
+import Donut from 'vue-css-donut-chart';
+import 'vue-css-donut-chart/dist/vcdonut.css';
+
 let {ipcRenderer, remote} = require('electron');
 let {machineIdSync} = remote.require('node-machine-id');
 
@@ -26,6 +29,7 @@ const elect_store = new ElectronStore({
 Vue.use(BootstrapVue);
 Vue.use(VueQriously);
 Vue.use(Notifications);
+Vue.use(Donut);
 Vue.component('v-select', vSelect);
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));

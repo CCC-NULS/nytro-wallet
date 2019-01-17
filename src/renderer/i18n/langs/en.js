@@ -1,11 +1,14 @@
 const en = {
   public: {
     wallet:'Wallet',
+    wallets:'Wallets',
     warning: 'Warning',
     amounts: 'Amounts',
     balance: 'Balance',
+    balances: 'Balances',
     accounts: 'Accounts',
     total_balance: 'Total Balance',
+    usable: 'Usable',
     available: 'Available',
     price: 'Price',
     staked: 'Staked',

@@ -5,28 +5,39 @@
       <b-card class="bs-24-40 my-5">
         <b-row>
           <b-col md="6">
-            <h4 class="text-center">
-              {{$t('public.amounts')}}
+            <h4 class="text-center pb-2">
+              {{$t('public.balances')}}
             </h4>
-            <doughnut-chart :chart-data="amounts_chart"
-                            :height="200" :width="200"></doughnut-chart>
-            <div class="chart-middle-caption">
-              <h6 class="text-secondary">Total:</h6>
-              <h3 class="text-primary">{{total_unspent/100000000}}</h3>
-              <h6 class="text-secondary">Available:</h6>
-              <h3 class="text-primary">{{total_available/100000000}}</h3>
-            </div>
+            <vc-donut
+              background="#00235B"
+              :sections="amounts_chart"
+              :total="total_unspent/100000000"
+              :size="200"
+              :thickness="10"
+              :hasLegend="true"
+            >
+            {{$t('public.usable')}}<br />
+            <i class="nuls-green"></i> {{(total_unspent || 0)/100000000}}<br />
+            {{$t('public.staked')}}<br />
+            <i class="nuls-green"></i> {{(total_consensus_locked || 0)/100000000}}<br />
+            {{$t('public.time_locked')}}<br />
+            <i class="nuls-green"></i> {{(total_time_locked || 0)/100000000}}
+          </vc-donut>
           </b-col>
           <b-col md="6">
-            <h4 class="text-center">
+            <h4 class="text-center pb-2">
               {{$t('public.accounts')}}
             </h4>
-            <doughnut-chart :chart-data="accounts_chart"
-                            :height="200" :width="200"></doughnut-chart>
-            <div class="chart-middle-caption">
-              <h6 class="text-secondary">Total accounts:</h6>
-              <h3 class="text-primary">{{accounts.length}}</h3>
-            </div>
+            <vc-donut
+              background="#00235B"
+              :sections="accounts_chart"
+              :total="total_unspent/100000000"
+              :size="200"
+              :thickness="10"
+              :hasLegend="true"
+            >
+            <h6 class="head-900 pb-0 mb-0">{{accounts.length}}</h6>{{$t('public.wallets')}}
+            </vc-donut>
           </b-col>
           <b-col>
           </b-col>
@@ -81,7 +92,6 @@
 
 <script>
 import axios from 'axios'
-import DoughnutChart from './DoughnutChart.js'
 import AppHeader from './AppHeader.vue'
 import {
   PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
@@ -95,57 +105,24 @@ export default {
   name: 'dashboard',
   data () {
     return {
+      total_unspent: 0,
       total_consensus_locked: 0,
       total_time_locked: 0,
       total_available: 0,
       unspent_info: {},
-      last_height: 0,
-      amounts_chart: {},
-      accounts_chart: {},
-      account_fields: [
-        {
-          key: 'name',
-          sortable: true
-        },
-        { key: 'address',
-          sortable: true,
-          class: 'text-small'
-        },
-        {
-          key: 'consensus_locked_value',
-          'class': 'text-right',
-          label: 'Consensus locked'
-        },
-        {
-          key: 'time_locked_value',
-          'class': 'text-right',
-          label: 'Time locked'
-        },
-        {
-          key: 'available_value',
-          'class': 'text-right',
-          label: 'Available'
-        },
-        {
-          key: 'balance',
-          'class': 'text-right'
-        },
-        {
-          key: 'actions',
-          label: '',
-          'class': 'text-right'
-        }
-      ]
+      amounts_chart: [],
+      accounts_chart:  []
     }
   },
   components: {
-    DoughnutChart, AppHeader,
+    AppHeader,
     PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
   },
   computed: mapState([
     // map this.count to store.state.count
     'accounts',
-    'settings'
+    'settings',
+    'last_height'
   ]),
   methods: {
     async update () {
@@ -155,7 +132,6 @@ export default {
         }
       })
       this.unspent_info = result.data.unspent_info
-      this.last_height = result.data.last_block_height
       this.total_unspent = Object.values(this.unspent_info).map((u) => u.unspent_value).reduce((e, i) => e + i)
       this.total_available = Object.values(this.unspent_info).map((u) => u.available_value).reduce((e, i) => e + i)
       this.total_consensus_locked = Object.values(this.unspent_info).map((u) => u.consensus_locked_value).reduce((e, i) => e + i)
@@ -164,28 +140,24 @@ export default {
       store.commit('set_last_height', result.data.last_height)
     },
     update_charts () {
-      this.amounts_chart = {
-        labels: ['Available Balance', 'Time Locked', 'Consensus locked'],
-        datasets: [{
-          data: [
-            this.total_available / 100000000,
-            this.total_time_locked / 100000000,
-            this.total_consensus_locked / 100000000
-          ],
-          backgroundColor: ["#FFFFFF", "#0A3B89", "#002E78"],
-          borderColor: "#001E4F",
-          hoverBorderColor: "#001E4F"
+      this.amounts_chart = [{
+          label: 'Available Balance',
+          value: this.total_available / 100000000,
+          color: "#FFFFFF"
+        }, {
+          label: 'Time Locked',
+          value: this.total_time_locked / 100000000,
+          color: "#0A3B89"
+        }, {
+          label: 'Consensus locked',
+          value: this.total_consensus_locked / 100000000,
+          color: "#002E78"
         }]
-      }
-      this.accounts_chart = {
-        labels: this.accounts.map((a) => a.name),
-        datasets: [{
-          data: this.accounts.map((a) => (Object.keys(this.unspent_info).includes(a.address) ? this.unspent_info[a.address].unspent_value / 100000000 : 0)),
-          backgroundColor: "#FFFFFF",
-          borderColor: "#001E4F",
-          hoverBorderColor: "#001E4F"
-        }]
-      }
+      this.accounts_chart = this.accounts.map((a) => ({
+        label: a.name,
+        value: (Object.keys(this.unspent_info).includes(a.address) ? this.unspent_info[a.address].unspent_value / 100000000 : 0)
+      }))
+
     },
     rename_account (account) {
       store.commit('start_rename', account)
