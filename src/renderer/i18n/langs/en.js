@@ -19,6 +19,15 @@ const en = {
     including_locked: '(incl. locked)'
   },
 
+  resource: {
+    keystore_file: "Keystore File",
+    encrypted_private_key: "Encrypted Private Key",
+    private_key: "Private Key",
+    public_key: "Public Key",
+    address: "Address",
+    passphrase: "Passphrase"
+  },
+
   nav: {
     select: 'Select account',
     all: 'All',
@@ -68,6 +77,9 @@ Enter your private key to access your account.
 Enter your encrypted private key and corresponding password to access your account.
 
 The resulting address should correspond to the one you are willing to import.
+    `,
+  import_keystore_text: `
+Please upload your keystore file to import your account.
     `,
     heading: "Add new wallet",
     create: "Create new wallet",

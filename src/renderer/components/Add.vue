@@ -29,13 +29,13 @@
               <div class="form-group my-5">
 
                 <!-- Label -->
-                <label>Private Key</label>
+                <label>{{$t('resource.private_key')}}</label>
                 <code class="d-block text-truncate my-2">{{private_key}}</code>
 
-                <label>Public Key</label>
+                <label>{{$t('resource.public_key')}}</label>
                 <code class="d-block text-truncate my-2">{{public_key}}</code>
 
-                <label>Address</label>
+                <label>{{$t('resource.address')}}</label>
                 <code class="d-block text-truncate my-2">{{address}}</code>
 
               </div>
@@ -61,7 +61,7 @@
               <div class="form-group my-5">
 
                 <b-form-group
-                  label="Private Key"
+                  :label="$t('resource.private_key')"
                   label-for="private_key"
                   :state="prvState"
               >
@@ -72,10 +72,10 @@
                                 :rows="1"></b-form-textarea>
                 </b-form-group>
 
-                <label>Public Key</label>
+                <label>{{$t('resource.public_key')}}</label>
                 <code class="d-block text-truncate">{{public_key||'--'}}</code>
 
-                <label>Address</label>
+                <label>{{$t('resource.address')}}</label>
                 <code class="d-block text-truncate">{{address||'--'}}</code>
 
               </div>
@@ -98,7 +98,7 @@
             <div class="form-group my-5">
 
                 <b-form-group
-                  label="Encrypted Private Key"
+                  :label="$t('resource.encrypted_private_key')"
                   label-for="encrypted_private_key"
               >
                   <b-form-textarea id="encrypted_private_key"
@@ -108,7 +108,7 @@
                 </b-form-group>
 
                 <b-form-group
-                  label="Passphrase"
+                  :label="$t('resource.passphrase')"
                   label-for="passphrase"
                   :state="prvState"
               >
@@ -120,13 +120,13 @@
                 </b-form-group>
 
                 <!-- Label -->
-                <label>Private Key</label>
+                <label>{{$t('resource.private_key')}}</label>
                 <code class="d-block text-truncate">{{private_key||'--'}}</code>
 
-                <label>Public Key</label>
+                <label>{{$t('resource.public_key')}}</label>
                 <code class="d-block text-truncate">{{public_key||'--'}}</code>
 
-                <label>Address</label>
+                <label>{{$t('resource.address')}}</label>
                 <code class="d-block text-truncate">{{address||'--'}}</code>
 
               </div>
@@ -149,8 +149,8 @@
 
                 <b-form-group
                   id="name"
-                  label="Profile Picture"
-                  label-for="ppic_file"
+                  :label="$t('resource.keystore_file')"
+                  label-for="keystore_file"
                   >
                   <b-input-group>
                     <b-form-file v-model="keystore_file"
