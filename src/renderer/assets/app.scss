@@ -359,7 +359,7 @@ a.address, span.address {
 
 pre code,
 code {
-  font-size: 87.5%;
+  font-size: 1.2rem;
   word-break: break-word;
   color: $color-shades-green-90;
 }
@@ -368,6 +368,15 @@ form code {
   font-weight: bold;
   color: $white;
   padding: 0 2rem;
+}
+
+form .form-group label {
+  padding-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+form .form-control {
+  padding: 0.5rem 2rem;
 }
 
 .navbar-nav a.nav-link>.feather {

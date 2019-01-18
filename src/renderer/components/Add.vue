@@ -20,7 +20,7 @@
 
           <div v-if="mode == 'create'">
             <div class="text-center">
-              <vue-markdown :html="false">{{$t('create.new_text')}}</vue-markdown>
+              <vue-markdown :html="false" :source="$t('create.new_text')"></vue-markdown>
             </div>
             <!-- Form -->
             <form>
@@ -53,47 +53,115 @@
 
           <div v-if="mode == 'import_privkey'">
             <div class="text-center">
-              <vue-markdown :html="false">{{$t('create.import_text')}}</vue-markdown>
+              <vue-markdown :html="false" :source="$t('create.import_text')"></vue-markdown>
             </div>
-            <!-- Form -->
-            <form>
-
               <!-- Form -->
-              <form>
+            <form>
+              <!-- Email address -->
+              <div class="form-group my-5">
 
-                <!-- Email address -->
-                <div class="form-group my-5">
+                <b-form-group
+                  label="Private Key"
+                  label-for="private_key"
+                  :state="prvState"
+              >
+                  <b-form-textarea id="private_key" :state="prvState"
+                                v-model="private_key"
+                                v-on:input="analyze"
+                                :maxlength="66"
+                                :rows="1"></b-form-textarea>
+                </b-form-group>
 
-                  <b-form-group
-                    label="Private Key"
-                    label-for="private_key"
-                    :state="prvState"
-                >
-                    <b-form-textarea id="private_key" :state="prvState"
-                                  v-model="private_key"
-                                  v-on:input="analyze"
-                                  :maxlength="66"
-                                  :rows="1"></b-form-textarea>
-                  </b-form-group>
+                <label>Public Key</label>
+                <code class="d-block text-truncate">{{public_key||'--'}}</code>
 
-                  <label>Public Key</label>
-                  <code class="d-block text-truncate">{{public_key}}</code>
+                <label>Address</label>
+                <code class="d-block text-truncate">{{address||'--'}}</code>
 
-                  <label>Address</label>
-                  <code class="d-block text-truncate">{{address}}</code>
+              </div>
 
-                </div>
-
-                <!-- Submit -->
-                <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
-                  {{$t('actions.add_it')}}
-                </button>
-
-              </form>
-
-            </form>
+              <!-- Submit -->
+              <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
+                {{$t('actions.add_it')}}
+              </button>
+          </form>
           </div>
 
+          <div v-if="mode == 'import_encrypted_privkey'">
+            <div class="text-center">
+              <vue-markdown :html="false" :source="$t('create.import_encrypted_text')"></vue-markdown>
+            </div>
+              <!-- Form -->
+            <form>
+              <!-- Email address -->
+
+            <div class="form-group my-5">
+
+                <b-form-group
+                  label="Encrypted Private Key"
+                  label-for="encrypted_private_key"
+              >
+                  <b-form-textarea id="encrypted_private_key"
+                                v-model="encrypted_private_key"
+                                v-on:input="analyze"
+                                :rows="1"></b-form-textarea>
+                </b-form-group>
+
+                <b-form-group
+                  label="Passphrase"
+                  label-for="passphrase"
+                  :state="prvState"
+              >
+                  <b-form-input id="passphrase"
+                                v-model="passphrase"
+                                v-on:input="analyze"
+                                :state="prvState"
+                                type="password"></b-form-input>
+                </b-form-group>
+
+                <!-- Label -->
+                <label>Private Key</label>
+                <code class="d-block text-truncate">{{private_key||'--'}}</code>
+
+                <label>Public Key</label>
+                <code class="d-block text-truncate">{{public_key||'--'}}</code>
+
+                <label>Address</label>
+                <code class="d-block text-truncate">{{address||'--'}}</code>
+
+              </div>
+
+              <!-- Submit -->
+              <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
+                {{$t('actions.add_it')}}
+              </button>
+          </form>
+          </div>
+          <div v-if="mode == 'import_keystore'">
+            <div class="text-center">
+              <vue-markdown :html="false" :source="$t('create.import_keystore_text')"></vue-markdown>
+            </div>
+              <!-- Form -->
+            <form>
+              <!-- Email address -->
+
+              <div class="form-group my-5">
+
+                <b-form-group
+                  id="name"
+                  label="Profile Picture"
+                  label-for="ppic_file"
+                  >
+                  <b-input-group>
+                    <b-form-file v-model="keystore_file"
+                    placeholder="Choose a file..." accept="text/json, text/keystore"
+                    plain @input="keystore_upload"></b-form-file>
+                  </b-input-group>
+                </b-form-group>
+
+              </div>
+            </form>
+          </div>
         </div>
       </div> <!-- / .row -->
     </b-container>
@@ -113,8 +181,14 @@ import {
   PlusIcon
 } from 'vue-feather-icons'
 import VueMarkdown from 'vue-markdown'
+var shajs = require('sha.js')
 
 const secp256k1 = require('secp256k1')
+
+const iv = Buffer.from('00000000000000000000000000000000', 'hex')
+
+var webcrypto = window.crypto || window.msCrypto || window.webkitCrypto || window.mozCrypto
+
 
 
 var hexRegEx = /([0-9]|[a-f])/gim
@@ -124,21 +198,35 @@ function isHex (input) {
     (input.match(hexRegEx) || []).length === input.length
 }
 
+function readFile(file){
+  return new Promise((resolve, reject) => {
+    console.log(file)
+    var fr = new FileReader();
+    fr.onload = () => {
+      resolve(fr.result )
+    };
+    fr.readAsText(file);
+  });
+}
+
 export default {
   name: 'add',
   data () {
     return {
       // msg: 'Welcome to Your Vue.js App'
       'mode': 'import_privkey',
+      'encrypted_private_key': '',
       'private_key': '',
+      'passphrase': '',
       'public_key': null,
       'address': null,
+      'keystore_file': null,
       'modes': [
         'create',
         'import_privkey',
         'import_encrypted_privkey',
-        'import_keystore',
-        'add_view_only'
+        'import_keystore'//,
+        //'add_view_only' // TODO: View-only not yet implemented
       ]
     }
   },
@@ -189,7 +277,27 @@ export default {
       this.private_key = privKey.toString('hex')
       this.analyze()
     },
-    analyze () {
+    async analyze () {
+      if (this.mode == 'import_encrypted_privkey') {
+        let sha =  new shajs.sha256().update(Buffer.from(this.passphrase)).digest()
+        try {
+          let key = await webcrypto.subtle.importKey(
+              "raw",
+              sha,
+              { name: "AES-CBC" },
+              true,
+              ["encrypt", "decrypt"]
+          )
+          let out = await webcrypto.subtle.decrypt(
+              { name: "AES-CBC", iv: iv },
+              key, //from generateKey or importKey above
+              Buffer.from(this.encrypted_private_key, 'hex') //ArrayBuffer of data you want to encrypt
+          )
+          this.private_key = Buffer.from(out).toString('hex')
+        } catch(error) {
+          this.private_key = ''
+        }
+      }
       if (this.prvState) {
         let prvbuffer = Buffer.from(this.private_key, 'hex')
         let pub = private_key_to_public_key(prvbuffer)
@@ -208,6 +316,8 @@ export default {
       }
     },
     init () {
+      this.encrypted_private_key = ''
+      this.passphrase = ''
       this.private_key = ''
       this.public_key = null
       this.address = null
@@ -223,6 +333,22 @@ export default {
         'address': this.address
       })
       this.$router.push('/account/' + this.address)
+    },
+    async keystore_upload() {
+      console.log(this.keystore_file)
+      let result = await readFile(this.keystore_file)
+      console.log(result)
+      let keystore = JSON.parse(result)
+
+      if ((keystore.prikey !== undefined) && (keystore.prikey !== '') && (keystore.prikey !== null)) {
+        this.mode = 'import_privkey'
+        await this.$forceUpdate()
+        this.private_key = keystore.prikey
+      } else if ((keystore.encryptedPrivateKey !== undefined) && (keystore.encryptedPrivateKey !== '') && (keystore.encryptedPrivateKey !== null)) {
+        this.mode = 'import_encrypted_privkey'
+        await this.$forceUpdate()
+        this.encrypted_private_key = keystore.encryptedPrivateKey
+      }
     }
   },
   mounted () {
