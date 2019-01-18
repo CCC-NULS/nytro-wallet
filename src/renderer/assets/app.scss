@@ -364,6 +364,12 @@ code {
   color: $color-shades-green-90;
 }
 
+form code {
+  font-weight: bold;
+  color: $white;
+  padding: 0 2rem;
+}
+
 .navbar-nav a.nav-link>.feather {
   min-width: 1.5em;
 }
@@ -374,6 +380,13 @@ code {
   line-height: inherit;
   display: inline-block;
   padding-bottom: .125em;
+}
+
+select.custom-select-lg {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 1.4rem;
 }
 
 

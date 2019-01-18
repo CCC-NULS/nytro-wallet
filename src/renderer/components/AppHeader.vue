@@ -63,13 +63,9 @@
             </b-dropdown-item>
             <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-header>{{$t('nav.actions')}}</b-dropdown-header>
-            <b-dropdown-item to="/login/">
-              <LogInIcon/>
-              {{$t('nav.addAccount')}}
-            </b-dropdown-item>
-            <b-dropdown-item to="/new/">
+            <b-dropdown-item to="/add">
               <PlusIcon/>
-              {{$t('nav.createAccount')}}
+              {{$t('nav.addAccount')}}
             </b-dropdown-item>
           </b-dropdown>
          </b-col>
@@ -78,8 +74,10 @@
     </b-container>
   </header>
 </template>
+
 <script>
-import {PlusIcon, LogInIcon, BookmarkIcon,MapPinIcon,SettingsIcon } from 'vue-feather-icons'
+import {PlusIcon, LogInIcon, BookmarkIcon,
+  MapPinIcon,SettingsIcon } from 'vue-feather-icons'
 import { mapState } from 'vuex'
 import store from '../store'
 

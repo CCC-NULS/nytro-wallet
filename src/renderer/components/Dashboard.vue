@@ -1,7 +1,9 @@
 <template>
   <div>
     <AppHeader>
-      <b-button variant="icon-lg" to="/add" v-b-popover.hover.bottom="$t('create.heading')"><PlusIcon /></b-button>
+      <b-col class="py-1 justify-content-center align-self-center" cols="auto">
+        <b-button variant="icon-lg" to="/add" v-b-popover.hover.bottom="$t('create.heading')"><PlusIcon /></b-button>
+      </b-col>
     </AppHeader>
     <b-container>
       <b-card class="bs-24-40 my-5">

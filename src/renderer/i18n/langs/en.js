@@ -41,7 +41,9 @@ const en = {
     rename: 'Rename',
     delete: 'Delete',
     backup: 'Backup',
-    stake: 'Stake'
+    stake: 'Stake',
+    regenerate: 'Re-generate',
+    add_it: 'Add it'
   },
 
   wallet: {
@@ -54,10 +56,18 @@ const en = {
 
   create: {
     new_text: `
-    This is a new private key, just generated for you.
+This is a new private key, just generated for you.
 
-    Please write it down, this is **important**.
-    Without it, no way to access your funds.
+Please write it down, this is **important**.
+Without it, no way to access your funds.
+    `,
+    import_text: `
+Enter your private key to access your account.
+    `,
+  import_encrypted_text: `
+Enter your encrypted private key and corresponding password to access your account.
+
+The resulting address should correspond to the one you are willing to import.
     `,
     heading: "Add new wallet",
     create: "Create new wallet",

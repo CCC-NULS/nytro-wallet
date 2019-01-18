@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '../components/Dashboard.vue'
-import Login from '../components/Login.vue'
-import New from '../components/New.vue'
 import Add from '../components/Add.vue'
 import Account from '../components/Account.vue'
 
@@ -14,16 +12,6 @@ export default new Router({
       path: '/',
       name: 'Dashboard',
       component: Dashboard
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/new',
-      name: 'New',
-      component: New
     },
     {
       path: '/add',
