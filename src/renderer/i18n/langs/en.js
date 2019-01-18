@@ -50,6 +50,21 @@ const en = {
     current_staking: 'Current Staking',
     more_than_2000_required: 'No staking available (you need more than 2000).',
     no_staking_yet: 'No staking yet. You are losing out!'
+  },
+
+  create: {
+    new_text: `
+    This is a new private key, just generated for you.
+
+    Please write it down, this is **important**.
+    Without it, no way to access your funds.
+    `,
+    heading: "Add new wallet",
+    create: "Create new wallet",
+    import_privkey: "Import private key",
+    import_encrypted_privkey: "Import encrypted key",
+    import_keystore: "Import keystore",
+    add_view_only: "Add view-only account"
   }
 };
 export default en

@@ -6,54 +6,54 @@
 
           <!-- Heading -->
           <h1 class="display-4 text-center mb-3">
-            Create a new account
+            {{$t('create.heading')}}
           </h1>
 
-          <!-- Subheading -->
-          <p class="text-muted text-center">
-            This is a new private key, just generated for you.
-          </p>
-          <p class="text-muted text-center">
-            Please write it down, this is <strong>important</strong>.
-          </p>
-          <p class="text-muted text-center mb-5">
-            Without it, no way to access your funds.
-          </p>
+          <b-form-select v-model="mode" class="mb-3">
+            <option v-for="mode of modes" :value="mode">
+              {{$t('create.' + mode)}}
+            </option>
+          </b-form-select>
 
-          <!-- Form -->
-          <form>
-
-            <!-- Email address -->
-            <div class="form-group">
-
-              <!-- Label -->
-              <label>Private Key</label>
-              <code class="d-block text-truncate">{{private_key}}</code>
-
-              <label>Public Key</label>
-              <code class="d-block text-truncate">{{public_key}}</code>
-
-              <label>Address</label>
-              <code class="d-block text-truncate">{{address}}</code>
-
+          <div v-if="mode == 'new'">
+            <div class="text-muted text-center">
+              <vue-markdown :html="false">{{$t('create.new_text')}}</vue-markdown>
             </div>
+            <!-- Form -->
+            <form>
 
-            <!-- Submit -->
-            <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="generate">
-              Re-generate
-            </button>
-            <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="add">
-              Add it
-            </button>
+              <!-- Email address -->
+              <div class="form-group">
 
-            <!-- Link -->
-            <div class="text-center">
-              <small class="text-muted text-center">
-                Already have an account ? <router-link to="/login">Add it</router-link>.
-              </small>
-            </div>
+                <!-- Label -->
+                <label>Private Key</label>
+                <code class="d-block text-truncate">{{private_key}}</code>
 
-          </form>
+                <label>Public Key</label>
+                <code class="d-block text-truncate">{{public_key}}</code>
+
+                <label>Address</label>
+                <code class="d-block text-truncate">{{address}}</code>
+
+              </div>
+
+              <!-- Submit -->
+              <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="generate">
+                Re-generate
+              </button>
+              <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="add">
+                Add it
+              </button>
+
+              <!-- Link -->
+              <div class="text-center">
+                <small class="text-muted text-center">
+                  Already have an account ? <router-link to="/login">Add it</router-link>.
+                </small>
+              </div>
+
+            </form>
+          </div>
 
         </div>
       </div> <!-- / .row -->
@@ -75,7 +75,7 @@ export default {
   data () {
     return {
       // msg: 'Welcome to Your Vue.js App'
-      'mode': 'new',
+      'mode': 'import_privkey',
       'private_key': '',
       'public_key': null,
       'address': null,
@@ -83,6 +83,7 @@ export default {
         'create',
         'import_privkey',
         'import_encrypted_privkey',
+        'import_keystore',
         'add_view_only'
       ]
     }

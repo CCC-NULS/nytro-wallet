@@ -1,6 +1,8 @@
 <template>
   <div>
-    <AppHeader />
+    <AppHeader>
+      <b-button variant="icon-lg" to="/add" v-b-popover.hover.bottom="$t('create.heading')"><PlusIcon /></b-button>
+    </AppHeader>
     <b-container>
       <b-card class="bs-24-40 my-5">
         <b-row>
