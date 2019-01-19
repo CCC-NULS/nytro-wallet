@@ -286,6 +286,10 @@ i.nuls:hover {
   background-color: $color-secondary-blue-002;
 }
 
+.btn-icon-lg.disabled {
+  opacity: .1;
+}
+
 .btn-icon-lg:hover {
   background-color: $color-secondary-blue-004;
 }
