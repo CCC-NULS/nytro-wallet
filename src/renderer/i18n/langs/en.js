@@ -60,7 +60,11 @@ const en = {
     unspent_outputs: 'Unspent Outputs',
     current_staking: 'Current Staking',
     more_than_2000_required: 'No staking available (you need more than 2000).',
-    no_staking_yet: 'No staking yet. You are losing out!'
+    no_staking_yet: 'No staking yet. You are losing out!',
+
+    tab_transactions: 'Transactions',
+    tab_staking: 'Staking'
+
   },
 
   create: {
@@ -87,6 +91,15 @@ Please upload your keystore file to import your account.
     import_encrypted_privkey: "Import encrypted key",
     import_keystore: "Import keystore",
     add_view_only: "Add view-only account"
+  },
+
+
+  info: {
+    date: 'Date',
+    source: 'Source',
+    target: 'Target',
+    value: 'Value',
+    fee: 'Fee'
   }
 };
 export default en

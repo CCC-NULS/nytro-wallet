@@ -145,39 +145,52 @@
           </b-list-group>
         </div>
       </b-card>
-      <b-table show-empty
-           stacked="md"
-           class="card-table table-sm table-striped bg-blue-003"
-           :items="transactions"
-           :fields="tx_fields"
-           :current-page="currentPage"
-           :per-page="perPage"
-           :sort-by.sync="tx_sortBy"
-           :sort-desc.sync="tx_sortDesc"
-        >
-        <template slot="source" slot-scope="data">
-          {{data.item.source}}
-        </template>
-        <template slot="tags" slot-scope="data">
-          <span class="badge badge-primary">
-            {{data.item.display_type}}
-          </span>&nbsp;<span v-if="data.item.remark"
-                v-b-popover.hover="data.item.remark" title="Remark">
-                <InfoIcon />
-          </span>
-        </template>
-        <template slot="value" slot-scope="data">
-          {{(data.item.value/100000000).toFixed(3)}}&nbsp;<i class="nuls"></i>
-        </template>
-        <template slot="fee" slot-scope="data">
-          {{(data.item.fee/100000000).toFixed(3)}}
-        </template>
-      </b-table>
-      <b-row>
-        <b-col md="6" class="my-1">
-          <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
-        </b-col>
-      </b-row>
+      <b-card no-body class="my-4">
+        <b-tabs pills card>
+          <b-tab :title="$t('wallet.tab_transactions')" active>
+            <b-table show-empty
+                 stacked="md"
+                 class="card-table table-sm table-striped bg-blue-003"
+                 :items="transactions"
+                 :fields="tx_fields"
+                 :current-page="currentPage"
+                 :per-page="perPage"
+                 :sort-by.sync="tx_sortBy"
+                 :sort-desc.sync="tx_sortDesc"
+              >
+              <template slot="time" slot-scope="data">
+                {{dateformat(data.item.time)}}
+              </template>
+              <template slot="source" slot-scope="data">
+                {{data.item.source}}
+              </template>
+              <template slot="tags" slot-scope="data">
+                <span class="badge badge-primary">
+                  {{data.item.display_type}}
+                </span>&nbsp;<span v-if="data.item.remark"
+                      v-b-popover.hover="data.item.remark" title="Remark">
+                      <InfoIcon />
+                </span>
+              </template>
+              <template slot="value" slot-scope="data">
+                {{(data.item.value/100000000).toFixed(3)}}&nbsp;<i class="nuls"></i>
+              </template>
+              <template slot="fee" slot-scope="data">
+                {{(data.item.fee/100000000).toFixed(3)}}
+              </template>
+            </b-table>
+            <b-row>
+              <b-col md="6" class="my-1">
+                <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+              </b-col>
+            </b-row>
+          </b-tab>
+          <b-tab :title="$t('wallet.tab_staking')">
+            <br>I'm the second tab content
+          </b-tab>
+        </b-tabs>
+      </b-card>
+
     </b-container>
   </div>
 </template>
@@ -233,14 +246,17 @@ export default {
       tx_sortDesc: true,
       tx_fields: [
         { key: 'time',
-          label: 'Date',
+          label: this.$t('info.date'),
           formatter: 'dateformat',
-          sortable: true },
-        {
-          key: 'source'
+          sortable: true
         },
         {
-          key: 'target'
+          key: 'source',
+          label: this.$t('info.source')
+        },
+        {
+          key: 'target',
+          label: this.$t('info.target')
         },
         {
           key: 'tags',
@@ -248,10 +264,12 @@ export default {
         },
         {
           key: 'value',
+          label: this.$t('info.value'),
           sortable: true
         },
         {
           key: 'fee',
+          label: this.$t('info.fee'),
           sortable: true
         }
       ]
