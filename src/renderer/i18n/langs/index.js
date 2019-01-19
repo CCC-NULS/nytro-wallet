@@ -1,6 +1,8 @@
 import en from './en';
 import cn from './zhCHS';
+import cz from './cz';
 export default {
-    en: en,
-    cn: cn
+  cn: cn,
+  cz: cz,
+  en: en
 }
