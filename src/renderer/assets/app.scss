@@ -406,3 +406,8 @@ li.page-item {
 li.page-item:first-child {
   margin-left: 0;
 }
+
+.tx-detail::selection {
+  background: $color-secondary-blue-004; /* Gecko Browsers */
+  color: #fff;
+}
