@@ -111,42 +111,9 @@
           </slide>
         </carousel>
 
-        <b-card class="my-3" no-body>
-          <div slot="header">
-            <div class="row align-items-center">
-              <div class="col">
-                <h4 class="card-header-title">{{$t('wallet.current_staking')}}</h4>
-              </div>
-              <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
-                <b-button @click="stakeShow = !stakeShow" size="lg"><CommandIcon /> {{$t('actions.stake')}}</b-button>
-              </div>
-            </div>
-          </div>
-          <div class=" card-body text-muted" v-if="account_value <= 2000">
-            {{$t('wallet.more_than_2000_required')}}
-          </div>
-          <div v-if="account_value > 2000">
-            <div class="card-body text-muted"
-                v-if="!(account_stakes.filter(st=>(st.active&& Object.keys(consensus).includes(st.agentHash))).length)">
-                {{$t('wallet.no_staking_yet')}}
-            </div>
-            <b-list-group class="list-group-flush">
-              <b-list-group-item v-for="stake in account_stakes"
-              v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" class="d-flex justify-content-between align-items-center">
-                <span>
-                  {{ consensus[stake['agentHash']].agentName || consensus[stake['agentHash']].agentId }} ({{stake.value/100000000}} <i class="nuls"></i>)
-                </span>
-                <div>
-                  <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
-                  <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
-                </div>
-              </b-list-group-item>
-            </b-list-group>
-          </div>
-        </b-card>
         <b-card no-body class="my-4">
           <b-tabs pills card>
-            <b-tab :title="$t('wallet.tab_transactions')" active>
+            <b-tab :title="$t('wallet.tab_transactions')" active no-body>
               <b-table show-empty
                    stacked="md"
                    class="card-table table-sm table-striped bg-blue-003"
@@ -178,14 +145,46 @@
                   {{(data.item.fee/100000000).toFixed(3)}}
                 </template>
               </b-table>
-              <b-row>
+              <b-row class="pb-3 px-3">
                 <b-col md="6" class="my-1">
                   <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
                 </b-col>
               </b-row>
             </b-tab>
+
             <b-tab :title="$t('wallet.tab_staking')">
-              <br>I'm the second tab content
+              <div class="row align-items-center">
+                <div class="col">
+                  <h4 class="card-header-title">{{$t('wallet.current_staking')}}</h4>
+                </div>
+                <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
+                  <b-button @click="stakeShow = !stakeShow" size="lg"><CommandIcon /> {{$t('actions.stake')}}</b-button>
+                </div>
+              </div>
+
+              <div class="text-muted" v-if="account_value <= 2000">
+                {{$t('wallet.more_than_2000_required')}}
+              </div>
+
+              <div v-if="account_value > 2000">
+                <div class="text-muted"
+                    v-if="!(account_stakes.filter(st=>(st.active&& Object.keys(consensus).includes(st.agentHash))).length)">
+                    {{$t('wallet.no_staking_yet')}}
+                </div>
+                <b-list-group class="list-group-flush">
+                  <b-list-group-item v-for="stake in account_stakes"
+                  v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" class="d-flex justify-content-between align-items-center">
+                    <span>
+                      {{ consensus[stake['agentHash']].agentName || consensus[stake['agentHash']].agentId }} ({{stake.value/100000000}} <i class="nuls"></i>)
+                    </span>
+                    <div>
+                      <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
+                      <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
+                    </div>
+                  </b-list-group-item>
+                </b-list-group>
+              </div>
+
             </b-tab>
           </b-tabs>
         </b-card>

@@ -2,7 +2,9 @@
   <footer class="bg-blue-002 flex-shrink-0">
     <b-container fluid>
       <b-row>
-        <b-col>Blah</b-col>
+        <b-col>
+          <span>Credits</span>
+        </b-col>
       </b-row>
     </b-container>
   </footer>

@@ -98,14 +98,13 @@ export default {
   }
 
   #content {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100%;
     max-height: 100% !important;
     min-height: 0;
   }
 
   footer {
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding: 2rem 0;
   }
 </style>
