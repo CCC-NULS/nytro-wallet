@@ -350,16 +350,6 @@ a.address, span.address {
   justify-content: center;
 }
 
-@media screen and (min-width: 992px) {
-  .navbar-nav .nav-link > .fe {
-    min-width: 1.5em;
-    font-size: inherit;
-    line-height: normal;
-  }
-  .navbar-nav .nav-link {
-    margin-right: 1em;
-  }
-}
 
 pre code,
 code {
