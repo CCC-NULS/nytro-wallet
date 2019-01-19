@@ -1,105 +1,106 @@
 <template>
-  <div>
+  <div id="window">
     <AppHeader>
       <b-col class="py-1 justify-content-center align-self-center" cols="auto">
         <b-button variant="icon-lg" to="/add" v-b-popover.hover.bottom="$t('create.heading')"><PlusIcon /></b-button>
       </b-col>
     </AppHeader>
-    <b-container>
-      <b-card class="bs-24-40 my-5">
-        <b-row>
-          <b-col md="6">
-            <h4 class="text-center pb-2">
-              {{$t('public.balances')}}
-            </h4>
-            <vc-donut
-              background="#00235B"
-              :sections="amounts_chart"
-              :total="(total_unspent/100000000)+0.01"
-              :size="200"
-              :thickness="10"
-              :hasLegend="true"
-            >
-            {{$t('public.usable')}}<br />
-            <i class="nuls-green"></i> {{((total_unspent || 0)/100000000).toFixed(2)}}<br />
-            {{$t('public.staked')}}<br />
-            <i class="nuls-green"></i> {{((total_consensus_locked || 0)/100000000).toFixed(2)}}<br />
-            {{$t('public.time_locked')}}<br />
-            <i class="nuls-green"></i> {{((total_time_locked || 0)/100000000).toFixed(2)}}
-          </vc-donut>
-          </b-col>
-          <b-col md="6">
-            <h4 class="text-center pb-2">
-              {{$t('public.accounts')}}
-            </h4>
-            <vc-donut
-              background="#00235B"
-              :sections="accounts_chart"
-              :total="total_unspent/100000000"
-              :size="200"
-              :thickness="10"
-              :hasLegend="true"
-            >
-            <h6 class="head-900 pb-0 mb-0">{{accounts.length}}</h6>{{$t('public.wallets')}}
+    <div id="content">
+      <b-container class="flex-fill">
+        <b-card class="bs-24-40 my-5">
+          <b-row>
+            <b-col md="6">
+              <h4 class="text-center pb-2">
+                {{$t('public.balances')}}
+              </h4>
+              <vc-donut
+                background="#00235B"
+                :sections="amounts_chart"
+                :total="(total_unspent/100000000)+0.01"
+                :size="200"
+                :thickness="10"
+                :hasLegend="true"
+              >
+              {{$t('public.usable')}}<br />
+              <i class="nuls-green"></i> {{((total_unspent || 0)/100000000).toFixed(2)}}<br />
+              {{$t('public.staked')}}<br />
+              <i class="nuls-green"></i> {{((total_consensus_locked || 0)/100000000).toFixed(2)}}<br />
+              {{$t('public.time_locked')}}<br />
+              <i class="nuls-green"></i> {{((total_time_locked || 0)/100000000).toFixed(2)}}
             </vc-donut>
+            </b-col>
+            <b-col md="6">
+              <h4 class="text-center pb-2">
+                {{$t('public.accounts')}}
+              </h4>
+              <vc-donut
+                background="#00235B"
+                :sections="accounts_chart"
+                :total="total_unspent/100000000"
+                :size="200"
+                :thickness="10"
+                :hasLegend="true"
+              >
+              <h6 class="head-900 pb-0 mb-0">{{accounts.length}}</h6>{{$t('public.wallets')}}
+              </vc-donut>
+            </b-col>
+            <b-col>
+            </b-col>
+          </b-row>
+        </b-card>
+        <b-row>
+          <b-col>
+            <b-card class="mb-4">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">(incl. locked)</span></h4>
+              <p class="card-price"><i class="nuls-green"></i> {{((total_unspent || 0)/100000000).toFixed(2)}}</p>
+            </b-card>
           </b-col>
           <b-col>
+            <b-card class="mb-4">
+              <h4 slot="header">{{$t('public.total_balance')}}</h4>
+              <p class="card-price">
+                {{price_info.DISPLAY.NULS[to_symbol].TOSYMBOL}}
+                {{(((total_unspent || 0)/100000000) * price_info.RAW.NULS[to_symbol].PRICE).toFixed(2)}}
+              </p>
+            </b-card>
+          </b-col>
+          <b-col>
+            <b-card class="mb-4">
+              <h4 slot="header">{{$t('public.price')}}</h4>
+              <p class="card-price">{{price_info.DISPLAY.NULS[to_symbol].PRICE}}</p>
+            </b-card>
           </b-col>
         </b-row>
-      </b-card>
-    </b-container>
-
-    <b-container>
-      <b-row>
-        <b-col>
-          <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">(incl. locked)</span></h4>
-            <p class="card-price"><i class="nuls-green"></i> {{((total_unspent || 0)/100000000).toFixed(2)}}</p>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card class="mb-4">
-            <h4 slot="header">{{$t('public.total_balance')}}</h4>
-            <p class="card-price">
-              {{price_info.DISPLAY.NULS[to_symbol].TOSYMBOL}}
-              {{(((total_unspent || 0)/100000000) * price_info.RAW.NULS[to_symbol].PRICE).toFixed(2)}}
-            </p>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card class="mb-4">
-            <h4 slot="header">{{$t('public.price')}}</h4>
-            <p class="card-price">{{price_info.DISPLAY.NULS[to_symbol].PRICE}}</p>
-          </b-card>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available_balance')}}</h4>
-            <p class="card-price"><i class="nuls-green"></i> {{((total_available || 0)/100000000).toFixed(2)}}</p>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.consensus_locked_balance')}}</h4>
-            <p class="card-price"><i class="nuls-green"></i> {{((total_consensus_locked || 0)/100000000).toFixed(2)}}</p>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card class="mb-4">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked_balance')}}</h4>
-            <p class="card-price"><i class="nuls-green"></i> {{((total_time_locked || 0)/100000000).toFixed(2)}}</p>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-container>
+        <b-row>
+          <b-col>
+            <b-card class="mb-4">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available_balance')}}</h4>
+              <p class="card-price"><i class="nuls-green"></i> {{((total_available || 0)/100000000).toFixed(2)}}</p>
+            </b-card>
+          </b-col>
+          <b-col>
+            <b-card class="mb-4">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.consensus_locked_balance')}}</h4>
+              <p class="card-price"><i class="nuls-green"></i> {{((total_consensus_locked || 0)/100000000).toFixed(2)}}</p>
+            </b-card>
+          </b-col>
+          <b-col>
+            <b-card class="mb-4">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked_balance')}}</h4>
+              <p class="card-price"><i class="nuls-green"></i> {{((total_time_locked || 0)/100000000).toFixed(2)}}</p>
+            </b-card>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import AppHeader from './AppHeader.vue'
+import AppFooter from './AppFooter.vue'
 import {
   PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
 } from 'vue-feather-icons'
@@ -119,7 +120,7 @@ export default {
     }
   },
   components: {
-    AppHeader,
+    AppHeader, AppFooter,
     PlusIcon, LogInIcon, MoreVerticalIcon, Edit3Icon, DeleteIcon
   },
   computed: {

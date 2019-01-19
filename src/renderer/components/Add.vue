@@ -1,170 +1,172 @@
 <template>
-  <div class="bg-blue-001">
+  <div class="bg-blue-001" id="window">
     <AppHeader>
     </AppHeader>
-    <b-container>
+    <div id="content">
+      <b-container>
+        <div class="row justify-content-center">
+          <div class="col-10 my-5 bg-blue-004 p-5">
 
-      <div class="row justify-content-center">
-        <div class="col-10 my-5 bg-blue-004 p-5">
+            <!-- Heading -->
+            <h1 class="display-4 mb-3">
+              {{$t('create.heading')}}
+            </h1>
 
-          <!-- Heading -->
-          <h1 class="display-4 mb-3">
-            {{$t('create.heading')}}
-          </h1>
+            <b-form-select v-model="mode" class="my-4" size="lg">
+              <option v-for="mode of modes" :value="mode">
+                {{$t('create.' + mode)}}
+              </option>
+            </b-form-select>
 
-          <b-form-select v-model="mode" class="my-4" size="lg">
-            <option v-for="mode of modes" :value="mode">
-              {{$t('create.' + mode)}}
-            </option>
-          </b-form-select>
-
-          <div v-if="mode == 'create'">
-            <div class="text-center">
-              <vue-markdown :html="false" :source="$t('create.new_text')"></vue-markdown>
-            </div>
-            <!-- Form -->
-            <form>
-
-              <!-- Email address -->
-              <div class="form-group my-5">
-
-                <!-- Label -->
-                <label>{{$t('resource.private_key')}}</label>
-                <code class="d-block text-truncate my-2">{{private_key}}</code>
-
-                <label>{{$t('resource.public_key')}}</label>
-                <code class="d-block text-truncate my-2">{{public_key}}</code>
-
-                <label>{{$t('resource.address')}}</label>
-                <code class="d-block text-truncate my-2">{{address}}</code>
-
+            <div v-if="mode == 'create'">
+              <div class="text-center">
+                <vue-markdown :html="false" :source="$t('create.new_text')"></vue-markdown>
               </div>
+              <!-- Form -->
+              <form>
 
-              <!-- Submit -->
-              <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="generate">
-                {{$t('actions.regenerate')}}
-              </button>
-              <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="add">
-                {{$t('actions.add_it')}}
-              </button>
+                <!-- Email address -->
+                <div class="form-group my-5">
 
+                  <!-- Label -->
+                  <label>{{$t('resource.private_key')}}</label>
+                  <code class="d-block text-truncate my-2">{{private_key}}</code>
+
+                  <label>{{$t('resource.public_key')}}</label>
+                  <code class="d-block text-truncate my-2">{{public_key}}</code>
+
+                  <label>{{$t('resource.address')}}</label>
+                  <code class="d-block text-truncate my-2">{{address}}</code>
+
+                </div>
+
+                <!-- Submit -->
+                <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="generate">
+                  {{$t('actions.regenerate')}}
+                </button>
+                <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="add">
+                  {{$t('actions.add_it')}}
+                </button>
+
+              </form>
+            </div>
+
+            <div v-if="mode == 'import_privkey'">
+              <div class="text-center">
+                <vue-markdown :html="false" :source="$t('create.import_text')"></vue-markdown>
+              </div>
+                <!-- Form -->
+              <form>
+                <!-- Email address -->
+                <div class="form-group my-5">
+
+                  <b-form-group
+                    :label="$t('resource.private_key')"
+                    label-for="private_key"
+                    :state="prvState"
+                >
+                    <b-form-textarea id="private_key" :state="prvState"
+                                  v-model="private_key"
+                                  v-on:input="analyze"
+                                  :maxlength="66"
+                                  :rows="1"></b-form-textarea>
+                  </b-form-group>
+
+                  <label>{{$t('resource.public_key')}}</label>
+                  <code class="d-block text-truncate">{{public_key||'--'}}</code>
+
+                  <label>{{$t('resource.address')}}</label>
+                  <code class="d-block text-truncate">{{address||'--'}}</code>
+
+                </div>
+
+                <!-- Submit -->
+                <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
+                  {{$t('actions.add_it')}}
+                </button>
             </form>
-          </div>
-
-          <div v-if="mode == 'import_privkey'">
-            <div class="text-center">
-              <vue-markdown :html="false" :source="$t('create.import_text')"></vue-markdown>
             </div>
-              <!-- Form -->
-            <form>
-              <!-- Email address -->
-              <div class="form-group my-5">
 
-                <b-form-group
-                  :label="$t('resource.private_key')"
-                  label-for="private_key"
-                  :state="prvState"
-              >
-                  <b-form-textarea id="private_key" :state="prvState"
-                                v-model="private_key"
-                                v-on:input="analyze"
-                                :maxlength="66"
-                                :rows="1"></b-form-textarea>
-                </b-form-group>
-
-                <label>{{$t('resource.public_key')}}</label>
-                <code class="d-block text-truncate">{{public_key||'--'}}</code>
-
-                <label>{{$t('resource.address')}}</label>
-                <code class="d-block text-truncate">{{address||'--'}}</code>
-
+            <div v-if="mode == 'import_encrypted_privkey'">
+              <div class="text-center">
+                <vue-markdown :html="false" :source="$t('create.import_encrypted_text')"></vue-markdown>
               </div>
-
-              <!-- Submit -->
-              <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
-                {{$t('actions.add_it')}}
-              </button>
-          </form>
-          </div>
-
-          <div v-if="mode == 'import_encrypted_privkey'">
-            <div class="text-center">
-              <vue-markdown :html="false" :source="$t('create.import_encrypted_text')"></vue-markdown>
-            </div>
-              <!-- Form -->
-            <form>
-              <!-- Email address -->
-
-            <div class="form-group my-5">
-
-                <b-form-group
-                  :label="$t('resource.encrypted_private_key')"
-                  label-for="encrypted_private_key"
-              >
-                  <b-form-textarea id="encrypted_private_key"
-                                v-model="encrypted_private_key"
-                                v-on:input="analyze"
-                                :rows="1"></b-form-textarea>
-                </b-form-group>
-
-                <b-form-group
-                  :label="$t('resource.passphrase')"
-                  label-for="passphrase"
-                  :state="prvState"
-              >
-                  <b-form-input id="passphrase"
-                                v-model="passphrase"
-                                v-on:input="analyze"
-                                :state="prvState"
-                                type="password"></b-form-input>
-                </b-form-group>
-
-                <!-- Label -->
-                <label>{{$t('resource.private_key')}}</label>
-                <code class="d-block text-truncate">{{private_key||'--'}}</code>
-
-                <label>{{$t('resource.public_key')}}</label>
-                <code class="d-block text-truncate">{{public_key||'--'}}</code>
-
-                <label>{{$t('resource.address')}}</label>
-                <code class="d-block text-truncate">{{address||'--'}}</code>
-
-              </div>
-
-              <!-- Submit -->
-              <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
-                {{$t('actions.add_it')}}
-              </button>
-          </form>
-          </div>
-          <div v-if="mode == 'import_keystore'">
-            <div class="text-center">
-              <vue-markdown :html="false" :source="$t('create.import_keystore_text')"></vue-markdown>
-            </div>
-              <!-- Form -->
-            <form>
-              <!-- Email address -->
+                <!-- Form -->
+              <form>
+                <!-- Email address -->
 
               <div class="form-group my-5">
 
-                <b-form-group
-                  id="name"
-                  :label="$t('resource.keystore_file')"
-                  label-for="keystore_file"
-                  >
-                  <b-input-group>
-                    <b-form-file v-model="keystore_file"
-                    placeholder="Choose a file..." accept="text/json, text/keystore"
-                    plain @input="keystore_upload"></b-form-file>
-                  </b-input-group>
-                </b-form-group>
+                  <b-form-group
+                    :label="$t('resource.encrypted_private_key')"
+                    label-for="encrypted_private_key"
+                >
+                    <b-form-textarea id="encrypted_private_key"
+                                  v-model="encrypted_private_key"
+                                  v-on:input="analyze"
+                                  :rows="1"></b-form-textarea>
+                  </b-form-group>
 
-              </div>
+                  <b-form-group
+                    :label="$t('resource.passphrase')"
+                    label-for="passphrase"
+                    :state="prvState"
+                >
+                    <b-form-input id="passphrase"
+                                  v-model="passphrase"
+                                  v-on:input="analyze"
+                                  :state="prvState"
+                                  type="password"></b-form-input>
+                  </b-form-group>
+
+                  <!-- Label -->
+                  <label>{{$t('resource.private_key')}}</label>
+                  <code class="d-block text-truncate">{{private_key||'--'}}</code>
+
+                  <label>{{$t('resource.public_key')}}</label>
+                  <code class="d-block text-truncate">{{public_key||'--'}}</code>
+
+                  <label>{{$t('resource.address')}}</label>
+                  <code class="d-block text-truncate">{{address||'--'}}</code>
+
+                </div>
+
+                <!-- Submit -->
+                <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
+                  {{$t('actions.add_it')}}
+                </button>
             </form>
+            </div>
+            <div v-if="mode == 'import_keystore'">
+              <div class="text-center">
+                <vue-markdown :html="false" :source="$t('create.import_keystore_text')"></vue-markdown>
+              </div>
+                <!-- Form -->
+              <form>
+                <!-- Email address -->
+
+                <div class="form-group my-5">
+
+                  <b-form-group
+                    id="name"
+                    :label="$t('resource.keystore_file')"
+                    label-for="keystore_file"
+                    >
+                    <b-input-group>
+                      <b-form-file v-model="keystore_file"
+                      placeholder="Choose a file..." accept="text/json, text/keystore"
+                      plain @input="keystore_upload"></b-form-file>
+                    </b-input-group>
+                  </b-form-group>
+
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      </div> <!-- / .row -->
-    </b-container>
+        </div> <!-- / .row -->
+      </b-container>
+    </div>
+    <AppFooter />
   </div>
 </template>
 
@@ -177,6 +179,7 @@ import {private_key_to_public_key,
 import store from '../store'
 import { mapState } from 'vuex'
 import AppHeader from './AppHeader.vue'
+import AppFooter from './AppFooter.vue'
 import {
   PlusIcon
 } from 'vue-feather-icons'
@@ -232,7 +235,7 @@ export default {
   },
   components: {
     PlusIcon,
-    AppHeader,
+    AppHeader, AppFooter,
     VueMarkdown
   },
   computed: {

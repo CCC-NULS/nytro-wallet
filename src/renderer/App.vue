@@ -84,4 +84,28 @@ export default {
   @import "./assets/design-system/00_global/styles/main";
   @import "~bootstrap-vue/dist/bootstrap-vue.css";
   @import "./assets/app.scss";
+  html,body {
+      height: 100%;
+  }
+
+  #window, #app {
+    height: 100%;
+  }
+
+  #window {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #content {
+    overflow-y: scroll;
+    height: 100%;
+    max-height: 100% !important;
+    min-height: 0;
+  }
+
+  footer {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
 </style>

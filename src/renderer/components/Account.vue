@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="window">
     <AppHeader :select-title="account.name">
       <b-col class="py-1 justify-content-center align-self-center" cols="auto">
         <b-button variant="icon-lg" @click="transferShow = !transferShow" v-b-popover.hover.bottom="$t('actions.send')"><UploadIcon /></b-button>
@@ -24,174 +24,174 @@
         </b-dropdown>
       </b-col>
     </AppHeader>
-    <b-modal id="transferModal" ref="transferModal" hide-footer title="Transfer" v-model="transferShow">
-      <transfer v-if="transferShow" :account="account" :stats="stats" @message-broadcasted="transferShow = !transferShow"></transfer>
-    </b-modal>
-    <b-modal id="requestModal" ref="requestModal" hide-footer title="Request" v-model="requestShow">
-      <request v-if="requestShow" :account="account"></request>
-    </b-modal>
-    <b-modal id="stakeModal" ref="stakeModal" hide-footer title="Stake" v-model="stakeShow">
-      <stake v-if="stakeShow" :account="account" :stats="stats" :consensus="consensus" @message-broadcasted="stakeShow = !stakeShow"></stake>
-    </b-modal>
-    <b-modal id="signModal" ref="signModal" hide-footer :title="signReason" v-model="signShow">
-      <sign v-if="signShow" :account="account" :tx="signTx" :reason="signReason" :api_server="settings.api_server" @message-broadcasted="signShow = !signShow"></sign>
-    </b-modal>
-    <b-modal id="backupModal" ref="backupModal" title="Backup Account" v-model="backupShow" ok-variant>
-      <div v-if="backupShow">
-        <h2>Backup your account</h2>
-        <div class="form-group" v-if="tx !== null">
-          <label>Address</label>
-          <pre class="tx-detail text-wrap-word">{{account.address}}</pre>
-          <label>Private Key</label>
-          <pre class="tx-detail text-wrap-word">{{account.private_key}}</pre>
-        </div>
-      </div>
-    </b-modal>
-    <b-container class="mt-4">
-      <b-row>
-        <b-col>
-          <h1 class="head-400">
-            <CreditCardIcon />
-            {{account.name}}
-            <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="$t('actions.rename')">
-              <small>
-                <Edit3Icon />
-              </small>
-            </b-link>
-          </h1>
-        </b-col>
-        <b-col cols="auto" class="text-right align-self-center">
-          <h3 class="body-200 text-blue-30">{{account.address}}</h3>
-        </b-col>
-      </b-row>
-      <carousel :scrollPerPage="true" :perPageCustom="[[480, 2], [768, 3]]"
-                paginationActiveColor="#FFFFFF" paginationColor="#5376AC"
-                :paginationPadding="3.5" :paginationSize="7"
-                :navigationEnabled="true" navigationPrevLabel=" "
-                navigationNextLabel=" " :navigationClickTargetSize="2">
-        <slide>
-          <b-card class="m-2">
-            <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
-            <p class="card-price">
-              {{price_info.DISPLAY.NULS[to_symbol].TOSYMBOL}}
-              {{(((stats.unspent_value || 0)/100000000) * price_info.RAW.NULS[to_symbol].PRICE).toFixed(2)}}
-            </p>
-          </b-card>
-        </slide>
-        <slide>
-          <b-card class="m-2">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">{{$t('public.including_locked')}}</span></h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(stats.unspent_value || 0)/100000000}}</p>
-          </b-card>
-        </slide>
-        <slide>
-          <b-card class="m-2">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available')}}</span></h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(stats.available_value || 0)/100000000}}</p>
-          </b-card>
-        </slide>
-        <slide>
-          <b-card class="m-2">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked')}}</span></h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(stats.time_locked_value || 0)/100000000}}</p>
-          </b-card>
-        </slide>
-        <slide>
-          <b-card class="m-2">
-            <h4 slot="header"><i class="nuls-green"></i> {{$t('public.staked')}}</span></h4>
-            <p class="card-price"><i class="nuls-green"></i> {{(stats.consensus_locked_value || 0)/100000000}}</p>
-          </b-card>
-        </slide>
-        <slide>
-          <b-card class="m-2">
-            <h4 slot="header">{{$t('wallet.unspent_outputs')}}</span></h4>
-            <p class="card-price">{{(stats.unspent_count || 0)}}</p>
-          </b-card>
-        </slide>
-      </carousel>
-    </b-container>
+    <div id="content" class="flex-fill">
+      <b-container class="mt-4">
+        <b-modal id="transferModal" ref="transferModal" hide-footer title="Transfer" v-model="transferShow">
+          <transfer v-if="transferShow" :account="account" :stats="stats" @message-broadcasted="transferShow = !transferShow"></transfer>
+        </b-modal>
+        <b-modal id="requestModal" ref="requestModal" hide-footer title="Request" v-model="requestShow">
+          <request v-if="requestShow" :account="account"></request>
+        </b-modal>
+        <b-modal id="stakeModal" ref="stakeModal" hide-footer title="Stake" v-model="stakeShow">
+          <stake v-if="stakeShow" :account="account" :stats="stats" :consensus="consensus" @message-broadcasted="stakeShow = !stakeShow"></stake>
+        </b-modal>
+        <b-modal id="signModal" ref="signModal" hide-footer :title="signReason" v-model="signShow">
+          <sign v-if="signShow" :account="account" :tx="signTx" :reason="signReason" :api_server="settings.api_server" @message-broadcasted="signShow = !signShow"></sign>
+        </b-modal>
+        <b-modal id="backupModal" ref="backupModal" title="Backup Account" v-model="backupShow" ok-variant>
+          <div v-if="backupShow">
+            <h2>Backup your account</h2>
+            <div class="form-group" v-if="tx !== null">
+              <label>Address</label>
+              <pre class="tx-detail text-wrap-word">{{account.address}}</pre>
+              <label>Private Key</label>
+              <pre class="tx-detail text-wrap-word">{{account.private_key}}</pre>
+            </div>
+          </div>
+        </b-modal>
+        <b-row>
+          <b-col>
+            <h1 class="head-400">
+              <CreditCardIcon />
+              {{account.name}}
+              <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="$t('actions.rename')">
+                <small>
+                  <Edit3Icon />
+                </small>
+              </b-link>
+            </h1>
+          </b-col>
+          <b-col cols="auto" class="text-right align-self-center">
+            <h3 class="body-200 text-blue-30">{{account.address}}</h3>
+          </b-col>
+        </b-row>
+        <carousel :scrollPerPage="true" :perPageCustom="[[480, 2], [768, 3]]"
+                  paginationActiveColor="#FFFFFF" paginationColor="#5376AC"
+                  :paginationPadding="3.5" :paginationSize="7"
+                  :navigationEnabled="true" navigationPrevLabel=" "
+                  navigationNextLabel=" " :navigationClickTargetSize="2">
+          <slide>
+            <b-card class="m-2">
+              <h4 slot="header">{{$t('wallet.wallet_value')}}</h4>
+              <p class="card-price">
+                {{price_info.DISPLAY.NULS[to_symbol].TOSYMBOL}}
+                {{(((stats.unspent_value || 0)/100000000) * price_info.RAW.NULS[to_symbol].PRICE).toFixed(2)}}
+              </p>
+            </b-card>
+          </slide>
+          <slide>
+            <b-card class="m-2">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">{{$t('public.including_locked')}}</span></h4>
+              <p class="card-price"><i class="nuls-green"></i> {{(stats.unspent_value || 0)/100000000}}</p>
+            </b-card>
+          </slide>
+          <slide>
+            <b-card class="m-2">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available')}}</span></h4>
+              <p class="card-price"><i class="nuls-green"></i> {{(stats.available_value || 0)/100000000}}</p>
+            </b-card>
+          </slide>
+          <slide>
+            <b-card class="m-2">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked')}}</span></h4>
+              <p class="card-price"><i class="nuls-green"></i> {{(stats.time_locked_value || 0)/100000000}}</p>
+            </b-card>
+          </slide>
+          <slide>
+            <b-card class="m-2">
+              <h4 slot="header"><i class="nuls-green"></i> {{$t('public.staked')}}</span></h4>
+              <p class="card-price"><i class="nuls-green"></i> {{(stats.consensus_locked_value || 0)/100000000}}</p>
+            </b-card>
+          </slide>
+          <slide>
+            <b-card class="m-2">
+              <h4 slot="header">{{$t('wallet.unspent_outputs')}}</span></h4>
+              <p class="card-price">{{(stats.unspent_count || 0)}}</p>
+            </b-card>
+          </slide>
+        </carousel>
 
-    <b-container>
-      <b-card class="my-3" no-body>
-        <div slot="header">
-          <div class="row align-items-center">
-            <div class="col">
-              <h4 class="card-header-title">{{$t('wallet.current_staking')}}</h4>
-            </div>
-            <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
-              <b-button @click="stakeShow = !stakeShow" size="lg"><CommandIcon /> {{$t('actions.stake')}}</b-button>
-            </div>
-          </div>
-        </div>
-        <div class=" card-body text-muted" v-if="account_value <= 2000">
-          {{$t('wallet.more_than_2000_required')}}
-        </div>
-        <div v-if="account_value > 2000">
-          <div class="card-body text-muted"
-              v-if="!(account_stakes.filter(st=>(st.active&& Object.keys(consensus).includes(st.agentHash))).length)">
-              {{$t('wallet.no_staking_yet')}}
-          </div>
-          <b-list-group class="list-group-flush">
-            <b-list-group-item v-for="stake in account_stakes"
-            v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" class="d-flex justify-content-between align-items-center">
-              <span>
-                {{ consensus[stake['agentHash']].agentName || consensus[stake['agentHash']].agentId }} ({{stake.value/100000000}} <i class="nuls"></i>)
-              </span>
-              <div>
-                <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
-                <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
+        <b-card class="my-3" no-body>
+          <div slot="header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h4 class="card-header-title">{{$t('wallet.current_staking')}}</h4>
               </div>
-            </b-list-group-item>
-          </b-list-group>
-        </div>
-      </b-card>
-      <b-card no-body class="my-4">
-        <b-tabs pills card>
-          <b-tab :title="$t('wallet.tab_transactions')" active>
-            <b-table show-empty
-                 stacked="md"
-                 class="card-table table-sm table-striped bg-blue-003"
-                 :items="transactions"
-                 :fields="tx_fields"
-                 :current-page="currentPage"
-                 :per-page="perPage"
-                 :sort-by.sync="tx_sortBy"
-                 :sort-desc.sync="tx_sortDesc"
-              >
-              <template slot="time" slot-scope="data">
-                {{dateformat(data.item.time)}}
-              </template>
-              <template slot="source" slot-scope="data">
-                {{data.item.source}}
-              </template>
-              <template slot="tags" slot-scope="data">
-                <span class="badge badge-primary">
-                  {{data.item.display_type}}
-                </span>&nbsp;<span v-if="data.item.remark"
-                      v-b-popover.hover="data.item.remark" title="Remark">
-                      <InfoIcon />
+              <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
+                <b-button @click="stakeShow = !stakeShow" size="lg"><CommandIcon /> {{$t('actions.stake')}}</b-button>
+              </div>
+            </div>
+          </div>
+          <div class=" card-body text-muted" v-if="account_value <= 2000">
+            {{$t('wallet.more_than_2000_required')}}
+          </div>
+          <div v-if="account_value > 2000">
+            <div class="card-body text-muted"
+                v-if="!(account_stakes.filter(st=>(st.active&& Object.keys(consensus).includes(st.agentHash))).length)">
+                {{$t('wallet.no_staking_yet')}}
+            </div>
+            <b-list-group class="list-group-flush">
+              <b-list-group-item v-for="stake in account_stakes"
+              v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" class="d-flex justify-content-between align-items-center">
+                <span>
+                  {{ consensus[stake['agentHash']].agentName || consensus[stake['agentHash']].agentId }} ({{stake.value/100000000}} <i class="nuls"></i>)
                 </span>
-              </template>
-              <template slot="value" slot-scope="data">
-                {{(data.item.value/100000000).toFixed(3)}}&nbsp;<i class="nuls"></i>
-              </template>
-              <template slot="fee" slot-scope="data">
-                {{(data.item.fee/100000000).toFixed(3)}}
-              </template>
-            </b-table>
-            <b-row>
-              <b-col md="6" class="my-1">
-                <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
-              </b-col>
-            </b-row>
-          </b-tab>
-          <b-tab :title="$t('wallet.tab_staking')">
-            <br>I'm the second tab content
-          </b-tab>
-        </b-tabs>
-      </b-card>
-
-    </b-container>
+                <div>
+                  <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
+                  <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
+                </div>
+              </b-list-group-item>
+            </b-list-group>
+          </div>
+        </b-card>
+        <b-card no-body class="my-4">
+          <b-tabs pills card>
+            <b-tab :title="$t('wallet.tab_transactions')" active>
+              <b-table show-empty
+                   stacked="md"
+                   class="card-table table-sm table-striped bg-blue-003"
+                   :items="transactions"
+                   :fields="tx_fields"
+                   :current-page="currentPage"
+                   :per-page="perPage"
+                   :sort-by.sync="tx_sortBy"
+                   :sort-desc.sync="tx_sortDesc"
+                >
+                <template slot="time" slot-scope="data">
+                  {{dateformat(data.item.time)}}
+                </template>
+                <template slot="source" slot-scope="data">
+                  {{data.item.source}}
+                </template>
+                <template slot="tags" slot-scope="data">
+                  <span class="badge badge-primary">
+                    {{data.item.display_type}}
+                  </span>&nbsp;<span v-if="data.item.remark"
+                        v-b-popover.hover="data.item.remark" title="Remark">
+                        <InfoIcon />
+                  </span>
+                </template>
+                <template slot="value" slot-scope="data">
+                  {{(data.item.value/100000000).toFixed(3)}}&nbsp;<i class="nuls"></i>
+                </template>
+                <template slot="fee" slot-scope="data">
+                  {{(data.item.fee/100000000).toFixed(3)}}
+                </template>
+              </b-table>
+              <b-row>
+                <b-col md="6" class="my-1">
+                  <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+                </b-col>
+              </b-row>
+            </b-tab>
+            <b-tab :title="$t('wallet.tab_staking')">
+              <br>I'm the second tab content
+            </b-tab>
+          </b-tabs>
+        </b-card>
+      </b-container>
+    </div>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
@@ -199,6 +199,7 @@
 import axios from 'axios'
 import moment from 'moment'
 import AppHeader from './AppHeader.vue'
+import AppFooter from './AppFooter.vue'
 import Transfer from './Transfer.vue'
 import Request from './Request.vue'
 import Stake from './Stake.vue'
@@ -418,7 +419,7 @@ export default {
     }
   },
   components: {
-    AppHeader,
+    AppHeader, AppFooter,
     Transfer,
     Request,
     Stake,

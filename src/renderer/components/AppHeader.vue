@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-blue-002">
+  <header class="bg-blue-002 flex-shrink-0">
     <b-container fluid class="app-header">
       <b-row>
         <b-col cols="auto" class="justify-content-center align-self-center">
