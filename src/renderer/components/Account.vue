@@ -171,7 +171,7 @@
                   <b-col v-for="stake in account_stakes"
                          v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" :key="stake.hash"
                          cols="6" xl="4" class="mb-3">
-                    <agent-view :agent="consensus[stake['agentHash']]" :stake="stake" />
+                    <agent-view :agent="consensus[stake['agentHash']]" :stake="stake" :removeStake="removeStake" />
                   </b-col>
                 </b-row>
               </div>

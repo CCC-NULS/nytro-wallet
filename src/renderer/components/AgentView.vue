@@ -103,7 +103,7 @@ export default {
   },
   methods: {
   },
-  props: ['agent', 'stake'],
+  props: ['agent', 'stake', 'removeStake'],
   components: {
     XIcon
   },
