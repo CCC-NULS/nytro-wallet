@@ -60,7 +60,11 @@ const cz = {
     unspent_outputs: 'Nečerpané výnosy',
     current_staking: 'Momentálně stakováno',
     more_than_2000_required: 'Stakovaní neni k dispozici (je potřeba více než 2000).',
-    no_staking_yet: 'Ještě nestakujete. Tratíte!'
+    no_staking_yet: 'Ještě nestakujete. Tratíte!',
+
+    tab_transactions: 'Transactions',
+    tab_staking: 'Staking'
+
   },
 
   create: {
@@ -86,6 +90,15 @@ Prosím nahrajte váš soubor s privátním klíčem pro import vašeho účtu.
     import_encrypted_privkey: "Importovat zakódovaný klíč",
     import_keystore: "Importovat klíč ze souboru",
     add_view_only: "Přidat účet jen pro prohlížení"
+  },
+
+
+  info: {
+    date: 'Date',
+    source: 'Source',
+    target: 'Target',
+    value: 'Value',
+    fee: 'Fee'
   }
 };
 export default cz
