@@ -28,13 +28,13 @@
           <p class="mb-1 body-200 text-truncate"><small>{{ agent.agentName || agent.agentAddress }}</small></p>
           <h5 class="mb-0 head-300">
             <span :style="`color: ${color};`">●</span>
-            {{agent.status ? $t("status.active") : $t("status.waiting")}}
+            {{agent.status ? $t("staking.active") : $t("staking.waiting")}}
           </h5>
         </div>
       </div>
       <b-row class="m-0 mt-4">
         <b-col cols="6">
-          <h6 class="mb-0">Commission</h6>
+          <h6 class="mb-0">{{$t('staking.commission_rate')}}</h6>
           <p class="body-100">
             <small>
               {{agent.commissionRate}}&nbsp;%
@@ -42,7 +42,7 @@
           </p>
         </b-col>
         <b-col cols="6">
-          <h6 class="mb-0">Node Deposit</h6>
+          <h6 class="mb-0">{{$t('staking.node_deposit')}}</h6>
           <p class="body-100">
             <small>
               <i class="nuls"></i> {{agent.deposit / 100000000}}
@@ -50,7 +50,7 @@
           </p>
         </b-col>
         <b-col cols="6">
-          <h6 class="mb-0">Participants</h6>
+          <h6 class="mb-0">{{$t('staking.participants')}}</h6>
           <p class="body-100">
             <small>
               {{agent.memberCount}}
@@ -58,7 +58,7 @@
           </p>
         </b-col>
         <b-col cols="6">
-          <h6 class="mb-0">Node total staked</h6>
+          <h6 class="mb-0">{{$t('staking.node_staked')}}</h6>
           <p class="body-100">
             <small>
               <i class="nuls"></i> {{agent.totalDeposit / 100000000}}

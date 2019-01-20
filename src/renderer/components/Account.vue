@@ -22,25 +22,24 @@
     </AppHeader>
     <div id="content" class="flex-fill">
       <b-container class="mt-4">
-        <b-modal id="transferModal" ref="transferModal" hide-footer title="Transfer" v-model="transferShow">
+        <b-modal id="transferModal" ref="transferModal" hide-footer :title="$t('actions.send')" v-model="transferShow">
           <transfer v-if="transferShow" :account="account" :stats="stats" @message-broadcasted="transferShow = !transferShow"></transfer>
         </b-modal>
-        <b-modal id="requestModal" ref="requestModal" hide-footer title="Request" v-model="requestShow">
+        <b-modal id="requestModal" ref="requestModal" hide-footer :title="$t('actions.request')" v-model="requestShow">
           <request v-if="requestShow" :account="account"></request>
         </b-modal>
-        <b-modal id="stakeModal" ref="stakeModal" hide-footer title="Stake" v-model="stakeShow">
+        <b-modal id="stakeModal" ref="stakeModal" hide-footer :title="$t('actions.stake')" v-model="stakeShow">
           <stake v-if="stakeShow" :account="account" :stats="stats" :consensus="consensus" @message-broadcasted="stakeShow = !stakeShow"></stake>
         </b-modal>
         <b-modal id="signModal" ref="signModal" hide-footer :title="signReason" v-model="signShow">
           <sign v-if="signShow" :account="account" :tx="signTx" :reason="signReason" :api_server="settings.api_server" @message-broadcasted="signShow = !signShow"></sign>
         </b-modal>
-        <b-modal id="backupModal" ref="backupModal" title="Backup Account" v-model="backupShow" ok-variant>
+        <b-modal id="backupModal" ref="backupModal" :title="$t('actions.backup')" v-model="backupShow" ok-variant>
           <div v-if="backupShow">
-            <h2>Backup your account</h2>
             <div class="form-group" v-if="tx !== null">
-              <label>Address</label>
+              <label>{{$t('resource.address')}}</label>
               <pre class="tx-detail text-wrap-word">{{account.address}}</pre>
-              <label>Private Key</label>
+              <label>{{$t('resource.private_key')}}</label>
               <pre class="tx-detail text-wrap-word">{{account.private_key}}</pre>
             </div>
           </div>

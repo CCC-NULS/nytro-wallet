@@ -25,7 +25,16 @@ const cz = {
     private_key: "Privátní klíč",
     public_key: "Veřejný klíč",
     address: "Adresa",
-    passphrase: "Přístupové heslo"
+    passphrase: "Přístupové heslo",
+
+    amount: "Amount",
+    min_amount: "Please enter an amount above {min}.",
+    valid_amount: "Valid amount requested: {amount}",
+    insuficient_balance: "Available balance ({balance}) too low",
+    available_balance: "Available balance:",
+    remark: "Remark",
+    valid_target: "Target seems valid",
+    invalid_target: "Invalid Target"
   },
 
   nav: {
@@ -99,6 +108,20 @@ Prosím nahrajte váš soubor s privátním klíčem pro import vašeho účtu.
     target: 'Target',
     value: 'Value',
     fee: 'Fee'
+  },
+
+  staking: {
+    active: 'Active',
+    waiting: 'Waiting',
+    commission_rate: 'Commission Rate',
+    participants: 'Participants',
+    node_deposit: 'Node Deposit',
+    node_staked: 'Node total staked',
+    target_node: 'Target node'
+  },
+
+  transfer: {
+    target_address: 'Target address'
   }
 };
 export default cz

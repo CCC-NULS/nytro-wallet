@@ -25,7 +25,16 @@ const en = {
     private_key: "Private Key",
     public_key: "Public Key",
     address: "Address",
-    passphrase: "Passphrase"
+    passphrase: "Passphrase",
+
+    amount: "Amount",
+    min_amount: "Please enter an amount above {min}.",
+    valid_amount: "Valid amount requested: {amount}",
+    insuficient_balance: "Available balance ({balance}) too low",
+    available_balance: "Available balance:",
+    remark: "Remark",
+    valid_target: "Target seems valid",
+    invalid_target: "Invalid Target"
   },
 
   nav: {
@@ -100,6 +109,20 @@ Please upload your keystore file to import your account.
     target: 'Target',
     value: 'Value',
     fee: 'Fee'
+  },
+
+  staking: {
+    active: 'Active',
+    waiting: 'Waiting',
+    commission_rate: 'Commission Rate',
+    participants: 'Participants',
+    node_deposit: 'Node Deposit',
+    node_staked: 'Node total staked',
+    target_node: 'Target node'
+  },
+
+  transfer: {
+    target_address: 'Target address'
   }
 };
 export default en

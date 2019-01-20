@@ -2,7 +2,7 @@
   <form :class="outputs === null ? 'is-loading is-loading-lg' : ''">
     <b-form-group
       id="address-group"
-      label="Target address"
+      :label="$t('transfer.target_address')"
       label-for="target"
       :state="addressState"
       :invalid-feedback="invalidAddressFeedback"
@@ -15,7 +15,7 @@
     </b-form-group>
     <b-form-group
       id="address-group"
-      label="Amount"
+      :label="$t('resource.amount')"
       label-for="amount"
       :invalid-feedback="invalidAmountFeedback"
       :valid-feedback="validAmountFeedback"
@@ -33,7 +33,7 @@
         </div>
       </b-input-group>
       <b-form-text id="amountHelp">
-        Your balance is
+        {{$t('resource.available_balance')}}
         <b-link @click="set_amount(total_outputs_value/100000000)">
           {{total_outputs_value/100000000}}<i class="nuls"></i>
         </b-link>
@@ -42,11 +42,11 @@
 
     <b-form-group
       id="remark-group"
-      label="Remark"
+      :label="$t('resource.remark')"
       label-for="remark"
       >
       <b-input-group>
-        <b-form-input type="text" placeholder="Remark" :maxlength="100"
+        <b-form-input type="text" :placeholder="$t('resource.remark')" :maxlength="100"
              v-on:change="prepareTx"
              v-on:input="prepareTx" v-model="remark" />
         <div class="input-group-append">
@@ -94,10 +94,10 @@ export default {
       return true
     },
     invalidAddressFeedback () {
-      return 'Invalid address'
+      return this.$t('resource.invalid_target')
     },
     validAddressFeedback () {
-      return 'Address seems valid'
+      return this.$t('resource.valid_target')
     },
     amountState () {
       if (!this.amount) { return false }
@@ -111,13 +111,17 @@ export default {
       return true
     },
     validAmountFeedback () {
-      return 'Valid amount requested: ' + this.amount
+      return this.$t('resource.valid_amount', {amount: this.amount})
     },
     invalidAmountFeedback () {
       if (this.amount < 0.001) {
-        return 'Please enter an amount above 0.001.'
+        return this.$t('resource.min_amount', {min: 0.001})
       }
-      if (this.amount > (this.stats.available_value / 100000000)) { return 'Available balance (' + this.stats.available_value / 100000000 + ') too low.' }
+      if (this.amount > (this.stats.available_value / 100000000)) {
+        return this.$t('resource.insuficient_balance', {
+          balance: this.stats.available_value / 100000000
+        })
+      }
 
       return ''
     },
