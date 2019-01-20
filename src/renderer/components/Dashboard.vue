@@ -36,7 +36,7 @@
               <vc-donut
                 background="#00235B"
                 :sections="accounts_chart"
-                :total="total_unspent/100000000"
+                :total="(total_unspent/100000000)+0.01"
                 :size="200"
                 :thickness="10"
                 :hasLegend="true"
