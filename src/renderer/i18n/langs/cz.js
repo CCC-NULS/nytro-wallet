@@ -81,7 +81,8 @@ const cz = {
 
     tab_transactions: 'Transactions',
     tab_staking: 'Staking',
-    consolidate_outputs: 'Consolidate {count} outputs'
+    consolidate_outputs: 'Consolidate {count} outputs',
+    unstake_from: 'Unstake {amount} from {agent}'
   },
 
   create: {

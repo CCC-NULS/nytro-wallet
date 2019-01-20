@@ -349,10 +349,11 @@ export default {
       tx.outputs[0].na = stake.value - fee
 
       this.signTx = tx
-      this.signReason = ('Unstake ' + (stake.value / 100000000) +
-            ' from ' +
-            (this.consensus[stake['agentHash']].agentName ||
-               this.consensus[stake['agentHash']].agentId))
+      this.signReason = this.$t('wallet.unstake_from', {
+        amount: (stake.value / 100000000),
+        agent: (this.consensus[stake['agentHash']].agentName ||
+            this.consensus[stake['agentHash']].agentId)
+      })
       this.signShow = true
     },
     async consolidate () {
@@ -388,7 +389,7 @@ export default {
       tx.outputs[0].na = total_value - tx.calculate_fee()
 
       this.signTx = tx
-      this.signReason = (`Consolidate ${tx.inputs.length} inputs`)
+      this.signReason = this.$t('wallet.consolidate_outputs', {count: tx.inputs.length})
       this.signShow = true
     },
     async getOutputs () {
