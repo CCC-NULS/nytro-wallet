@@ -105,6 +105,7 @@ export default {
   }
 
   footer {
-    padding: 2rem 0;
+    padding: 0.2rem 0;
+    font-size: 1rem;
   }
 </style>
