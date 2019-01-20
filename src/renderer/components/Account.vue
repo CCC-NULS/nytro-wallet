@@ -78,25 +78,25 @@
           <slide>
             <b-card class="m-2">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">{{$t('public.including_locked')}}</span></h4>
-              <p class="card-price"><i class="nuls-green"></i> {{(stats.unspent_value || 0)/100000000}}</p>
+              <p class="card-price"><i class="nuls-green"></i> {{((stats.unspent_value || 0)/100000000).toFixed(2)}}</p>
             </b-card>
           </slide>
           <slide>
             <b-card class="m-2">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available')}}</span></h4>
-              <p class="card-price"><i class="nuls-green"></i> {{(stats.available_value || 0)/100000000}}</p>
+              <p class="card-price"><i class="nuls-green"></i> {{((stats.available_value || 0)/100000000).toFixed(2)}}</p>
             </b-card>
           </slide>
           <slide>
             <b-card class="m-2">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked')}}</span></h4>
-              <p class="card-price"><i class="nuls-green"></i> {{(stats.time_locked_value || 0)/100000000}}</p>
+              <p class="card-price"><i class="nuls-green"></i> {{((stats.time_locked_value || 0)/100000000).toFixed(2)}}</p>
             </b-card>
           </slide>
           <slide>
             <b-card class="m-2">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.staked')}}</span></h4>
-              <p class="card-price"><i class="nuls-green"></i> {{(stats.consensus_locked_value || 0)/100000000}}</p>
+              <p class="card-price"><i class="nuls-green"></i> {{((stats.consensus_locked_value || 0)/100000000).toFixed(2)}}</p>
             </b-card>
           </slide>
           <slide>
