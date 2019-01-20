@@ -34,7 +34,11 @@ const en = {
     available_balance: "Available balance:",
     remark: "Remark",
     valid_target: "Target seems valid",
-    invalid_target: "Invalid Target"
+    invalid_target: "Invalid Target",
+    signed_transaction: "Signed Transaction",
+    transaction_content: "Transaction Content",
+    unsigned_raw_transaction: "Unsigned Raw Transaction",
+    fee: "Fee"
   },
 
   nav: {
@@ -61,7 +65,11 @@ const en = {
     backup: 'Backup',
     stake: 'Stake',
     regenerate: 'Re-generate',
-    add_it: 'Add it'
+    add_it: 'Add it',
+
+    sign_transaction: 'Sign Transaction',
+    broadcast_transaction: 'Broadcast Transaction',
+    view_detail: 'view detail'
   },
 
   wallet: {
@@ -72,8 +80,8 @@ const en = {
     no_staking_yet: 'No staking yet. You are losing out!',
 
     tab_transactions: 'Transactions',
-    tab_staking: 'Staking'
-
+    tab_staking: 'Staking',
+    consolidate_outputs: 'Consolidate {count} outputs'
   },
 
   create: {

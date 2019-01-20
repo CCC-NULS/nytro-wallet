@@ -34,7 +34,11 @@ const cz = {
     available_balance: "Available balance:",
     remark: "Remark",
     valid_target: "Target seems valid",
-    invalid_target: "Invalid Target"
+    invalid_target: "Invalid Target",
+    signed_transaction: "Signed Transaction",
+    transaction_content: "Transaction Content",
+    unsigned_raw_transaction: "Unsigned Raw Transaction",
+    fee: "Fee"
   },
 
   nav: {
@@ -61,7 +65,11 @@ const cz = {
     backup: 'Zálohovat',
     stake: 'Stakovat',
     regenerate: 'Obnovit',
-    add_it: 'Přidat'
+    add_it: 'Přidat',
+
+    sign_transaction: 'Sign Transaction',
+    broadcast_transaction: 'Broadcast Transaction',
+    view_detail: 'view detail'
   },
 
   wallet: {
@@ -72,8 +80,8 @@ const cz = {
     no_staking_yet: 'Ještě nestakujete. Tratíte!',
 
     tab_transactions: 'Transactions',
-    tab_staking: 'Staking'
-
+    tab_staking: 'Staking',
+    consolidate_outputs: 'Consolidate {count} outputs'
   },
 
   create: {

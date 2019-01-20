@@ -2,16 +2,16 @@
   <div>
     <h4>{{reason}}</h4>
     <div class="form-group" v-if="tx !== null">
-      <b-link v-b-toggle.collapsetx><i class="fe fe-eye"></i> detail</b-link>
+      <b-link v-b-toggle.collapsetx><i class="fe fe-eye"></i> {{$t('actions.view_detail')}}</b-link>
       <b-collapse id="collapsetx">
 
-        <label>Transaction content</label>
+        <label>{{$t('resource.transaction_content')}}</label>
         <pre class="tx-detail text-wrap-word">{{tx.to_dict() | pretty}}</pre>
 
-        <label>Unsigned Raw Transaction</label>
+        <label>{{$t('resource.unsigned_raw_transaction')}}</label>
         <pre class="tx-detail text-wrap-word">{{tx.serialize().toString('hex')}}</pre>
 
-        <label>Fee</label>
+        <label>{{$t('resource.fee')}}</label>
         <code class="d-block text-wrap-word">{{tx.get_fee()/100000000}}</code>
       </b-collapse>
 
@@ -19,16 +19,16 @@
 
     <!-- Submit -->
     <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="sign" :disabled="tx==null">
-      Sign Transaction
+      {{$t('actions.sign_transaction')}}
     </button>
 
     <div class="form-group" v-if="signed_tx !== null">
 
-      <label>Signed Transaction</label>
+      <label>{{$t('resource.signed_transaction')}}</label>
       <pre class="tx-detail text-wrap-word">{{signed_tx}}</pre>
 
       <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="broadcast">
-        Broadcast Transaction
+        {{$t('actions.broadcast_transaction')}}
       </button>
 
     </div>
