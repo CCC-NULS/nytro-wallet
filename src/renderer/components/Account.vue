@@ -149,12 +149,12 @@
             </b-tab>
 
             <b-tab :title="$t('wallet.tab_staking')">
-              <div class="row align-items-center">
+              <div class="row align-items-center mb-4">
                 <div class="col">
                   <h4 class="card-header-title">{{$t('wallet.current_staking')}}</h4>
                 </div>
                 <div class="col-auto" v-if="((stats.available_value || 0)/100000000) > 2000">
-                  <b-button @click="stakeShow = !stakeShow" size="lg"><CommandIcon /> {{$t('actions.stake')}}</b-button>
+                  <b-button @click="stakeShow = !stakeShow" size="lg"><PlusIcon /> {{$t('actions.stake')}}</b-button>
                 </div>
               </div>
 
@@ -167,18 +167,13 @@
                     v-if="!(account_stakes.filter(st=>(st.active&& Object.keys(consensus).includes(st.agentHash))).length)">
                     {{$t('wallet.no_staking_yet')}}
                 </div>
-                <b-list-group class="list-group-flush">
-                  <b-list-group-item v-for="stake in account_stakes"
-                  v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" class="d-flex justify-content-between align-items-center">
-                    <span>
-                      {{ consensus[stake['agentHash']].agentName || consensus[stake['agentHash']].agentId }} ({{stake.value/100000000}} <i class="nuls"></i>)
-                    </span>
-                    <div>
-                      <!--<b-button variant="info" size="sm"><i class="fe fe-edit-2"></i></b-button>-->
-                      <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
-                    </div>
-                  </b-list-group-item>
-                </b-list-group>
+                <b-row>
+                  <b-col v-for="stake in account_stakes"
+                         v-if="stake.active && Object.keys(consensus).includes(stake.agentHash)" :key="stake.hash"
+                         cols="6" xl="4" class="mb-3">
+                    <agent-view :agent="consensus[stake['agentHash']]" :stake="stake" />
+                  </b-col>
+                </b-row>
               </div>
 
             </b-tab>
@@ -198,6 +193,7 @@ import AppFooter from './AppFooter.vue'
 import Transfer from './Transfer.vue'
 import Request from './Request.vue'
 import Stake from './Stake.vue'
+import AgentView from './AgentView.vue'
 import Sign from './Sign.vue'
 import {hash_from_address} from 'nulsworldjs/src/model/data.js'
 import {Coin, Transaction} from 'nulsworldjs/src/model/transaction.js'
@@ -209,7 +205,7 @@ import {
   Edit3Icon, EyeIcon, InboxIcon,
   GitMergeIcon, SendIcon, XIcon,
   InfoIcon, CreditCardIcon, DeleteIcon,
-  UploadIcon, DownloadIcon, MenuIcon,
+  UploadIcon, DownloadIcon, MenuIcon, PlusIcon,
   DollarSignIcon, MoreVerticalIcon, LockIcon, UnlockIcon,
   CommandIcon} from 'vue-feather-icons'
 
@@ -417,12 +413,12 @@ export default {
     AppHeader, AppFooter,
     Transfer,
     Request,
-    Stake,
+    Stake, AgentView,
     Sign, Carousel, Slide,
     Edit3Icon, EyeIcon, InboxIcon,
     GitMergeIcon, SendIcon, XIcon,
     InfoIcon, CreditCardIcon, DeleteIcon,
-    UploadIcon, DownloadIcon, MenuIcon,
+    UploadIcon, DownloadIcon, MenuIcon, PlusIcon,
     DollarSignIcon, MoreVerticalIcon, LockIcon, UnlockIcon,
     CommandIcon
   },
