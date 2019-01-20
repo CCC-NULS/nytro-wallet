@@ -7,7 +7,7 @@
         </h4>
         <h4 v-if="stake !== undefined">
           <i class="nuls"></i> {{stake.value/100000000}}
-          <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="'Un-Stake'"><XIcon /></b-link>
+          <b-link v-if="stake['type'] == 'stake'" href="#" @click="removeStake(stake)" v-b-popover.hover="$t('actions.unstake')"><XIcon /></b-link>
         </h4>
       </div>
       <div class="bg-blue-001 mx-0 d-flex flex-row py-3 px-4">

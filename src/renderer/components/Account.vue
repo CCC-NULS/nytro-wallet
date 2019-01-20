@@ -400,9 +400,9 @@ export default {
       store.commit('start_rename', this.account)
     },
     delete_account () {
-      if (confirm(`Delete account ${this.account.name} ?\n\nPlease backup your private key before doing this!`)) {
-        if (confirm(`The address is ${this.account.address}\n\nAre you really sure? There is no way to going back!`)) {
-          alert(`Ok, deleting address ${this.account.address}`)
+      if (confirm(this.$t('wallet.delete_account_1', {account_name: this.account.name}))) {
+        if (confirm(this.$t('wallet.delete_account_2', {account_address: this.account.address}))) {
+          alert(this.$t('wallet.delete_account_3', {account_address: this.account.address}))
           store.commit('remove_account', this.account)
           this.$router.push('/')
         }

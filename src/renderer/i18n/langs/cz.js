@@ -38,7 +38,8 @@ const cz = {
     signed_transaction: "Signed Transaction",
     transaction_content: "Transaction Content",
     unsigned_raw_transaction: "Unsigned Raw Transaction",
-    fee: "Fee"
+    fee: "Fee",
+    account_name: 'Account Name'
   },
 
   nav: {
@@ -69,7 +70,9 @@ const cz = {
 
     sign_transaction: 'Sign Transaction',
     broadcast_transaction: 'Broadcast Transaction',
-    view_detail: 'view detail'
+    view_detail: 'view detail',
+    save: 'Save',
+    unstake: 'Un-Stake'
   },
 
   wallet: {
@@ -82,7 +85,10 @@ const cz = {
     tab_transactions: 'Transactions',
     tab_staking: 'Staking',
     consolidate_outputs: 'Consolidate {count} outputs',
-    unstake_from: 'Unstake {amount} from {agent}'
+    unstake_from: 'Unstake {amount} from {agent}',
+    delete_account_1: 'Delete account {account_name} ?\n\nPlease backup your private key before doing this!',
+    delete_account_2: 'The address is {account_address}\n\nAre you really sure? There is no way to go back!',
+    delete_account_3: 'Ok, removing address {account_address}.'
   },
 
   create: {

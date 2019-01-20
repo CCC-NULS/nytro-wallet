@@ -2,18 +2,18 @@
   <form>
     <b-form-group
       id="name-group"
-      label="Account Name"
+      :label="$t('resource.account_name')"
       label-for="name"
       :state="nameState"
   >
       <b-form-input id="name" :state="nameState" v-model.trim="name"></b-form-input>
       <b-form-text id="amountHelp" class="text-white">
-        Account address: {{address}}
+        {{$t('resource.address')}}: {{address}}
       </b-form-text>
     </b-form-group>
 
     <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="rename" :disabled="!nameState">
-      Save
+      {{$t('actions.save')}}
     </button>
   </form>
 </template>
