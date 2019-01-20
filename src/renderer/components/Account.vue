@@ -5,10 +5,6 @@
         <b-button variant="icon-lg" @click="transferShow = !transferShow" v-b-popover.hover.bottom="$t('actions.send')"><UploadIcon /></b-button>
         <b-button variant="icon-lg" @click="requestShow = !requestShow" v-b-popover.hover.bottom="$t('actions.request')"><DownloadIcon /></b-button>
 
-        <b-button
-          variant="icon-lg" :disabled="((stats.available_value || 0)/100000000) <= 2000"
-          @click="stakeShow = !stakeShow"
-          v-b-popover.hover.bottom="$t('actions.stake')"><CommandIcon /></b-button>
       </b-col>
       <b-col class="py-1 justify-content-center align-self-center" cols="auto">
         <b-dropdown variant="link" size="lg" no-caret right>
