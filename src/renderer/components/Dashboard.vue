@@ -142,11 +142,15 @@ export default {
     },
     price_info() {
       return this.$store.state.price_info
+    },
+    locale() {
+      return this.$i18n.locale
     }
   },
   watch: {
     accounts() { this.update(); },
-    unspent_info() { this.update(); }
+    unspent_info() { this.update(); },
+    locale() { this.update(); }
   },
   methods: {
     async update () {
@@ -158,15 +162,15 @@ export default {
     },
     update_charts () {
       this.amounts_chart = [{
-          label: 'Available Balance',
+          label: this.$t('public.available_balance'),
           value: this.total_available / 100000000,
           color: "#FFFFFF"
         }, {
-          label: 'Time Locked',
+          label: this.$t('public.time_locked_balance'),
           value: this.total_time_locked / 100000000,
           color: "#0A3B89"
         }, {
-          label: 'Consensus locked',
+          label: this.$t('public.consensus_locked_balance'),
           value: this.total_consensus_locked / 100000000,
           color: "#002E78"
         }]
