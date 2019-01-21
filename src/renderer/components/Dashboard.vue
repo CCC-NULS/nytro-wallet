@@ -148,17 +148,25 @@ export default {
     }
   },
   watch: {
-    accounts() { this.update(); },
+    accounts() {
+      this.update();
+    },
     unspent_info() { this.update(); },
     locale() { this.update(); }
   },
   methods: {
     async update () {
-      this.total_unspent = Object.values(this.unspent_info).map((u) => u.unspent_value).reduce((e, i) => e + i)
-      this.total_available = Object.values(this.unspent_info).map((u) => u.available_value).reduce((e, i) => e + i)
-      this.total_consensus_locked = Object.values(this.unspent_info).map((u) => u.consensus_locked_value).reduce((e, i) => e + i)
-      this.total_time_locked = Object.values(this.unspent_info).map((u) => u.time_locked_value).reduce((e, i) => e + i)
-      this.update_charts()
+      if (Object.values(this.unspent_info).length) {
+        this.total_unspent = Object.values(this.unspent_info).map((u) => u.unspent_value).reduce((e, i) => e + i)
+        this.total_available = Object.values(this.unspent_info).map((u) => u.available_value).reduce((e, i) => e + i)
+        this.total_consensus_locked = Object.values(this.unspent_info).map((u) => u.consensus_locked_value).reduce((e, i) => e + i)
+        this.total_time_locked = Object.values(this.unspent_info).map((u) => u.time_locked_value).reduce((e, i) => e + i)
+        this.update_charts()
+      } else {
+        this.amounts_chart = []
+        this.accounts_chart = []
+        this.total_unspent = this.total_available = this.total_consensus_locked = this.total_time_locked = 0
+      }
     },
     update_charts () {
       this.amounts_chart = [{

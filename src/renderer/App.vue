@@ -50,6 +50,8 @@ export default {
   },
   watch: {
     settings() {
+      this.$store.commit('set_unspent_info', {})
+      this.$store.commit('set_last_height', 0)
       this.update_unspent_info()
     }
   },
