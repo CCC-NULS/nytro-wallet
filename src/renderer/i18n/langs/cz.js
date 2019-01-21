@@ -27,19 +27,19 @@ const cz = {
     address: "Adresa",
     passphrase: "Přístupové heslo",
 
-    amount: "Amount",
-    min_amount: "Please enter an amount above {min}.",
-    valid_amount: "Valid amount requested: {amount}",
-    insuficient_balance: "Available balance ({balance}) too low",
-    available_balance: "Available balance:",
-    remark: "Remark",
-    valid_target: "Target seems valid",
-    invalid_target: "Invalid Target",
-    signed_transaction: "Signed Transaction",
-    transaction_content: "Transaction Content",
-    unsigned_raw_transaction: "Unsigned Raw Transaction",
-    fee: "Fee",
-    account_name: 'Account Name'
+    amount: "Částka",
+    min_amount: "Zadejdte prosím částku větší než {min}.",
+    valid_amount: "Platná požadovaná částka: {amount}",
+    insuficient_balance: "Zůstatek ({balance}) je příliš nízký",
+    available_balance: "Zůstatek k dispozici:",
+    remark: "Poznámka",
+    valid_target: "Cíl se zdá platný",
+    invalid_target: "Neplatný cíl",
+    signed_transaction: "Podepsaná transakce",
+    transaction_content: "Obsah transakce",
+    unsigned_raw_transaction: "Nepodepsaná hrubá transakce",
+    fee: "Poplatek",
+    account_name: 'Jméno účtu'
   },
 
   nav: {
@@ -68,11 +68,11 @@ const cz = {
     regenerate: 'Obnovit',
     add_it: 'Přidat',
 
-    sign_transaction: 'Sign Transaction',
-    broadcast_transaction: 'Broadcast Transaction',
-    view_detail: 'view detail',
-    save: 'Save',
-    unstake: 'Un-Stake'
+    sign_transaction: 'Podepsat transakci',
+    broadcast_transaction: 'Poslat transakci',
+    view_detail: 'Zobrazit detaily',
+    save: 'Uložit',
+    unstake: 'Od-Stakovat'
   },
 
   wallet: {
@@ -82,13 +82,13 @@ const cz = {
     more_than_2000_required: 'Stakovaní neni k dispozici (je potřeba více než 2000).',
     no_staking_yet: 'Ještě nestakujete. Tratíte!',
 
-    tab_transactions: 'Transactions',
-    tab_staking: 'Staking',
-    consolidate_outputs: 'Consolidate {count} outputs',
-    unstake_from: 'Unstake {amount} from {agent}',
-    delete_account_1: 'Delete account {account_name} ?\n\nPlease backup your private key before doing this!',
-    delete_account_2: 'The address is {account_address}\n\nAre you really sure? There is no way to go back!',
-    delete_account_3: 'Ok, removing address {account_address}.'
+    tab_transactions: 'Transakce',
+    tab_staking: 'Stakovani',
+    consolidate_outputs: 'Sloučit {count} výnosy',
+    unstake_from: 'Od-stakovat {amount} z {agent}',
+    delete_account_1: 'Smazat účet {account_name} ?\n\nProsím zazálohujte si privátní klíč než to provedete!',
+    delete_account_2: 'Tato adresa {account_address}\n\nJste si opravdu jisti? Poté již není cesty zpět!',
+    delete_account_3: 'Ok, odstraňuji adresu {account_address}.'
   },
 
   create: {
@@ -118,25 +118,26 @@ Prosím nahrajte váš soubor s privátním klíčem pro import vašeho účtu.
 
 
   info: {
-    date: 'Date',
-    source: 'Source',
-    target: 'Target',
-    value: 'Value',
-    fee: 'Fee'
+    date: 'Datum',
+    source: 'Zdroj',
+    target: 'Cíl',
+    value: 'Hodnota',
+    fee: 'Poplatek'
+ 
   },
 
   staking: {
-    active: 'Active',
-    waiting: 'Waiting',
+    active: 'Aktivní',
+    waiting: 'Čekám',
     commission_rate: 'Commission Rate',
-    participants: 'Participants',
-    node_deposit: 'Node Deposit',
-    node_staked: 'Node total staked',
-    target_node: 'Target node'
+    participants: 'Účastníci',
+    node_deposit: 'Vkladu uzlu',
+    node_staked: 'Stakovano celkově uzlů',
+    target_node: 'Cílový uzel'
   },
 
   transfer: {
-    target_address: 'Target address'
+    target_address: 'Cílová adresa'
   }
 };
 export default cz
