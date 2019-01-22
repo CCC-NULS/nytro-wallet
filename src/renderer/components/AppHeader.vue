@@ -10,7 +10,7 @@
         <b-col class="text-center justify-content-center align-self-center">
           <h1 class="app-name head-400">
             {{$t('public.wallet')}}
-            <small class="caption-200 text-muted">v0.9.0 (beta1)</small>
+            <small class="caption-200 text-muted">v0.9.1 (beta2)</small>
           </h1>
         </b-col>
         <b-col cols="auto" class="justify-content-center align-self-center">
