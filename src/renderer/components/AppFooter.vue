@@ -3,7 +3,7 @@
     <b-container fluid>
       <b-row>
         <b-col>
-          <span>Credits</span>
+          <span> </span>
         </b-col>
       </b-row>
     </b-container>
