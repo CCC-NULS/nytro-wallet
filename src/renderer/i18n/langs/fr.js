@@ -84,11 +84,11 @@ const fr = {
 
     tab_transactions: 'Transactions',
     tab_staking: 'Participations (Agents)',
-    consolidate_outputs: 'Consolidate {count} outputs',
-    unstake_from: 'Unstake {amount} from {agent}',
-    delete_account_1: 'Delete account {account_name} ?\n\nPlease backup your private key before doing this!',
-    delete_account_2: 'The address is {account_address}\n\nAre you really sure? There is no way to go back!',
-    delete_account_3: 'Ok, removing address {account_address}.'
+    consolidate_outputs: 'Consolider {count} sorties',
+    unstake_from: 'Retirer la participation de {amount} sur {agent}',
+    delete_account_1: 'Voulez-vous supprimer le compte {account_name} ?\n\nN\'oubliez pas de faire une sauvegarde de votre compte !',
+    delete_account_2: 'L\'adresse est {account_address}\n\nÊtes-vous vraiment sûr de vouloir retirer ce compte ? Sans sauvegarde, pas de retour en arriere possible.',
+    delete_account_3: 'Ok, compte {account_address} retiré.'
   },
 
   create: {
