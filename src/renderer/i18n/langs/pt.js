@@ -102,4 +102,4 @@ Por favor carrega o teu Arquivo de Armazenamento de Chaves para importar a tua c
     fee: 'Taxa'
   }
 };
-export default en
+export default pt
