@@ -25,7 +25,21 @@ const pt = {
     private_key: "Chave Privada",
     public_key: "Chave Pública",
     address: "Endereço",
-    passphrase: "Frase-chave"
+    passphrase: "Frase-chave",
+
+    amount: "Amount",
+    min_amount: "Please enter an amount above {min}.",
+    valid_amount: "Valid amount requested: {amount}",
+    insuficient_balance: "Available balance ({balance}) too low",
+    available_balance: "Available balance:",
+    remark: "Remark",
+    valid_target: "Target seems valid",
+    invalid_target: "Invalid Target",
+    signed_transaction: "Signed Transaction",
+    transaction_content: "Transaction Content",
+    unsigned_raw_transaction: "Unsigned Raw Transaction",
+    fee: "Fee",
+    account_name: 'Account Name'
   },
 
   nav: {
@@ -52,7 +66,13 @@ const pt = {
     backup: 'Cópia de Segurança',
     stake: 'Participação',
     regenerate: 'Re-generar',
-    add_it: 'Adicionar'
+    add_it: 'Adicionar',
+
+    sign_transaction: 'Sign Transaction',
+    broadcast_transaction: 'Broadcast Transaction',
+    view_detail: 'view detail',
+    save: 'Save',
+    unstake: 'Un-Stake'
   },
 
   wallet: {
@@ -63,8 +83,12 @@ const pt = {
     no_staking_yet: 'Ainda não é possível a participação!',
 
     tab_transactions: 'Transações',
-    tab_staking: 'Participação'
-
+    tab_staking: 'Participação',
+    consolidate_outputs: 'Consolidate {count} outputs',
+    unstake_from: 'Unstake {amount} from {agent}',
+    delete_account_1: 'Delete account {account_name} ?\n\nPlease backup your private key before doing this!',
+    delete_account_2: 'The address is {account_address}\n\nAre you really sure? There is no way to go back!',
+    delete_account_3: 'Ok, removing address {account_address}.'
   },
 
   create: {
@@ -100,6 +124,20 @@ Por favor carrega o teu Arquivo de Armazenamento de Chaves para importar a tua c
     target: 'Objetivo',
     value: 'Valor',
     fee: 'Taxa'
+  },
+
+  staking: {
+    active: 'Active',
+    waiting: 'Waiting',
+    commission_rate: 'Commission Rate',
+    participants: 'Participants',
+    node_deposit: 'Node Deposit',
+    node_staked: 'Node total staked',
+    target_node: 'Target node'
+  },
+
+  transfer: {
+    target_address: 'Target address'
   }
 };
 export default pt
