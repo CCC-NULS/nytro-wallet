@@ -88,6 +88,7 @@ export default {
       'langs': {
         'cn': '简体中文',
         'cz': 'čeština',
+        'de': 'Deutsch',
         'en': 'English',
         'es': 'Español',
         'fr': 'Français',
