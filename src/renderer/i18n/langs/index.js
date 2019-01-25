@@ -5,6 +5,7 @@ import es from './es';
 import en from './en';
 import fr from './fr';
 import pt from './pt';
+import ru from './ru';
 export default {
   cn: cn,
   cz: cz,
@@ -12,5 +13,6 @@ export default {
   es: es,
   en: en,
   fr: fr,
-  pt: pt
+  pt: pt,
+  ru: ru
 }

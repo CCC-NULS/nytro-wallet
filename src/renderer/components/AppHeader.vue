@@ -93,6 +93,7 @@ export default {
         'es': 'Español',
         'fr': 'Français',
         'pt': 'Português',
+        'ru': 'русский'
       },
       'symbols': ['USD', 'EUR', 'CNY', 'BTC', 'ETH'],
       'chains': {
