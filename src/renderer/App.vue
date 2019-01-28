@@ -21,6 +21,7 @@
 
 <script>
 import {storage} from 'nulsworldjs/src/model/store';
+import {get_aliases} from 'nulsworldjs/src/api/aliases'
 import {PlusIcon, LogInIcon, BookmarkIcon,MapPinIcon,SettingsIcon } from 'vue-feather-icons'
 import {mapState} from 'vuex'
 import Rename from './components/Rename.vue'
@@ -45,6 +46,7 @@ export default {
   mounted() {
     this.update_price()
     this.update_unspent_info()
+    this.update_aliases()
     setInterval(this.update_price.bind(this), 120000)
     setInterval(this.update_unspent_info.bind(this), 30000)
   },
@@ -53,6 +55,7 @@ export default {
       this.$store.commit('set_unspent_info', {})
       this.$store.commit('set_last_height', 0)
       this.update_unspent_info()
+      this.update_aliases()
     }
   },
   components: {
@@ -76,7 +79,11 @@ export default {
       })
       this.$store.commit('set_unspent_info', result.data.unspent_info)
       this.$store.commit('set_last_height', result.data.last_height)
-    }
+    },
+    async update_aliases() {
+      let aliases = await get_aliases({api_server: this.settings.api_server})
+      this.$store.commit('set_aliases', aliases)
+    },
   },
 };
 </script>

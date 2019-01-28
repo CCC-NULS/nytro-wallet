@@ -21,7 +21,8 @@ export default new Vuex.Store({
     'price_info': null,
     'unspent_info': {},
     'last_height': 0,
-    'to_symbol': 'USD'
+    'to_symbol': 'USD',
+    'aliases': []
   },
   getters: {
     chain_accounts: state => {
@@ -73,6 +74,9 @@ export default new Vuex.Store({
     },
     set_to_symbol(state, to_symbol) {
       state.to_symbol = to_symbol
+    },
+    set_aliases(state, aliases) {
+      state.aliases = aliases
     }
   },
   actions: {
