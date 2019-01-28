@@ -2,6 +2,10 @@
   <div>
     <h4>{{reason}}</h4>
     <div class="form-group" v-if="tx !== null">
+
+      <label>{{$t('resource.fee')}}</label>
+      <code class="d-block text-wrap-word">{{tx.get_fee()/100000000}}</code>
+
       <b-link v-b-toggle.collapsetx><i class="fe fe-eye"></i> {{$t('actions.view_detail')}}</b-link>
       <b-collapse id="collapsetx">
 
@@ -10,9 +14,6 @@
 
         <label>{{$t('resource.unsigned_raw_transaction')}}</label>
         <pre class="tx-detail text-wrap-word">{{tx.serialize().toString('hex')}}</pre>
-
-        <label>{{$t('resource.fee')}}</label>
-        <code class="d-block text-wrap-word">{{tx.get_fee()/100000000}}</code>
       </b-collapse>
 
     </div>
@@ -23,9 +24,12 @@
     </button>
 
     <div class="form-group" v-if="signed_tx !== null">
+      <b-link v-b-toggle.collapsesignedtx><i class="fe fe-eye"></i> {{$t('actions.view_detail')}}</b-link>
+      <b-collapse id="collapsesignedtx">
 
-      <label>{{$t('resource.signed_transaction')}}</label>
-      <pre class="tx-detail text-wrap-word">{{signed_tx}}</pre>
+        <label>{{$t('resource.signed_transaction')}}</label>
+        <pre class="tx-detail text-wrap-word">{{signed_tx}}</pre>
+      </b-collapse>
 
       <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="broadcast">
         {{$t('actions.broadcast_transaction')}}
