@@ -141,7 +141,7 @@ export default {
     },
     invalidAmountFeedback () {
       if (this.amount < 2000) {
-        return this.$t('resource.min_amount', {min: 2000})
+        return this.$t('resource.validation_min_amount', {min: 2000})
       }
       if (this.amount > (this.stats.available_value / 100000000)) {
         return this.$t('resource.insuficient_balance', {

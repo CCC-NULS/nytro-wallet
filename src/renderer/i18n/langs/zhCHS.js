@@ -28,7 +28,7 @@ const cn = {
     passphrase: "密码",
 
     amount: "数量",
-    min_amount: "请输入不小于 {min}的数字.",
+    validation_min_amount: "请输入不小于 {min}的数字.",
     valid_amount: "可输入的有效数量: {amount}",
     insuficient_balance: "可用余额 ({balance}) 太少",
     available_balance: "可用余额:",
@@ -39,7 +39,9 @@ const cn = {
     transaction_content: "交易内容",
     unsigned_raw_transaction: "未签名的原始交易",
     fee: "手续费",
-    account_name: '账户名称'
+    account_name: '账户名称',
+
+    max_amount: 'Maximum amount:'
   },
 
   nav: {

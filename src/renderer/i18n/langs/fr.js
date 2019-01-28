@@ -28,7 +28,7 @@ const fr = {
     passphrase: "Phrase de passe",
 
     amount: "Montant",
-    min_amount: "Veuillez saisir un montant supérieur à {min}.",
+    validation_min_amount: "Veuillez saisir un montant supérieur à {min}.",
     valid_amount: "Montant valide demandé: {amount}",
     insuficient_balance: "Balance disponible ({balance}) trop basse",
     available_balance: "Balance disponible:",
@@ -39,7 +39,9 @@ const fr = {
     transaction_content: "Contenu de la Transaction",
     unsigned_raw_transaction: "Transaction brute (non signée)",
     fee: "Frais",
-    account_name: 'Nom du Compte'
+    account_name: 'Nom du Compte',
+
+    max_amount: 'Maximum amount:'
   },
 
   nav: {

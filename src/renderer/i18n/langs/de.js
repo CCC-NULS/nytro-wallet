@@ -28,7 +28,7 @@ const de = {
     passphrase: "Passphrase",
 
     amount: "Betrag",
-    min_amount: "Bitte geben Sie einen Betrag über {min} ein.",
+    validation_min_amount: "Bitte geben Sie einen Betrag über {min} ein.",
     valid_amount: "Gültiger Betrag angefordert: {amount}",
     insuficient_balance: "Verfügbarer Betrag ({balance}) zu niedrig",
     available_balance: "Verfügbarer Betrag:",
@@ -39,7 +39,9 @@ const de = {
     transaction_content: "Transaktionsinhalt",
     unsigned_raw_transaction: "Nicht signierte unformatierte Transaktion",
     fee: "Gebühr",
-    account_name: 'Kontoname'
+    account_name: 'Kontoname',
+
+    max_amount: 'Maximum amount:'
   },
 
   nav: {

@@ -28,7 +28,7 @@ const es = {
     passphrase: "Frase de contraseña",
 
     amount: "Amount",
-    min_amount: "Please enter an amount above {min}.",
+    validation_min_amount: "Please enter an amount above {min}.",
     valid_amount: "Valid amount requested: {amount}",
     insuficient_balance: "Available balance ({balance}) too low",
     available_balance: "Available balance:",
@@ -39,7 +39,9 @@ const es = {
     transaction_content: "Transaction Content",
     unsigned_raw_transaction: "Unsigned Raw Transaction",
     fee: "Fee",
-    account_name: 'Account Name'
+    account_name: 'Account Name',
+
+    max_amount: 'Maximum amount:'
   },
 
   nav: {

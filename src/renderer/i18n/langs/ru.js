@@ -28,7 +28,7 @@ const ru = {
     passphrase: "Пароль",
 
     amount: "Количество",
-    min_amount: "Пожалуйста ввердите сумму выше {min}.",
+    validation_min_amount: "Пожалуйста ввердите сумму выше {min}.",
     valid_amount: "Действительная запрашиваемая сумма: {amount}",
     insuficient_balance: "Доступный баланс ({balance}) слишком маленький",
     available_balance: "Доступный баланс:",
@@ -39,7 +39,9 @@ const ru = {
     transaction_content: "Содержание транзакции",
     unsigned_raw_transaction: "Необработанная транзакция",
     fee: "Комиссия",
-    account_name: 'Имя Аккаунта'
+    account_name: 'Имя Аккаунта',
+
+    max_amount: 'Maximum amount:'
   },
 
   nav: {

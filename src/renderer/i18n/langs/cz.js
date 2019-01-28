@@ -28,7 +28,7 @@ const cz = {
     passphrase: "Přístupové heslo",
 
     amount: "Částka",
-    min_amount: "Zadejdte prosím částku větší než {min}.",
+    validation_min_amount: "Zadejdte prosím částku větší než {min}.",
     valid_amount: "Platná požadovaná částka: {amount}",
     insuficient_balance: "Zůstatek ({balance}) je příliš nízký",
     available_balance: "Zůstatek k dispozici:",
@@ -39,7 +39,9 @@ const cz = {
     transaction_content: "Obsah transakce",
     unsigned_raw_transaction: "Nepodepsaná hrubá transakce",
     fee: "Poplatek",
-    account_name: 'Jméno účtu'
+    account_name: 'Jméno účtu',
+
+    max_amount: 'Maximum amount:'
   },
 
   nav: {
@@ -123,7 +125,7 @@ Prosím nahrajte váš soubor s privátním klíčem pro import vašeho účtu.
     target: 'Cíl',
     value: 'Hodnota',
     fee: 'Poplatek'
- 
+
   },
 
   staking: {
