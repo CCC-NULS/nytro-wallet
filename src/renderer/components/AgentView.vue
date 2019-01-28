@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card no-body class="bs-24-40 node">
-      <div class="card-header d-flex flex-row">
+      <div class="card-header d-flex flex-row" v-if="!hideTitle">
         <h4 class="mr-auto">
           {{agent.agentId}}
         </h4>
@@ -103,7 +103,12 @@ export default {
   },
   methods: {
   },
-  props: ['agent', 'stake', 'removeStake'],
+  props: {
+    agent: Object,
+    stake: Object,
+    removeStake: Function,
+    hideTitle: Boolean
+  },
   components: {
     XIcon
   },

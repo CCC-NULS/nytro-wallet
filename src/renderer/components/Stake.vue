@@ -33,6 +33,9 @@
           </div>
         </template>
       </v-select>
+      <div v-if="targetNode">
+        <AgentView :agent="targetNode" hideTitle />
+      </div>
     </b-form-group>
     <b-form-group
       id="address-group"
@@ -53,6 +56,12 @@
           </div>
         </div>
       </b-input-group>
+      <b-form-text id="amountHelp">
+        {{$t('resource.max_amount')}}
+        <b-link @click="set_amount(max_value/100000000)">
+          {{max_value/100000000}}<i class="nuls"></i>
+        </b-link>
+      </b-form-text>
     </b-form-group>
 
     <b-form-group
@@ -84,6 +93,7 @@ import {private_key_to_public_key,
 } from 'nulsworldjs/src/model/data.js'
 import Transaction from 'nulsworldjs/src/model/transaction.js'
 import Sign from './Sign.vue'
+import AgentView from './AgentView.vue'
 import { mapState } from 'vuex'
 
 export default {
@@ -150,6 +160,16 @@ export default {
       }
 
       return ''
+    },
+    max_value () {
+      let max_amount = 0;
+      if (this.targetNode !== null) {
+        max_amount = (500000*100000000) - this.targetNode.totalDeposit
+      }
+      if (this.total_outputs_value < max_amount)
+        max_amount = this.total_outputs_value
+
+      return max_amount
     },
     ... mapState([
       // map this.count to store.state.count
@@ -218,10 +238,14 @@ export default {
       this.$set(this, 'outputs', response.data.outputs)
       this.$set(this, 'last_sync_height', response.data.last_height)
       this.$set(this, 'total_outputs_value', response.data.total_available)
+    },
+    set_amount (amount) {
+      this.amount = amount
     }
   },
   components: {
-    Sign
+    Sign,
+    AgentView
   },
   props: ['account', 'consensus'],
   async created () {
