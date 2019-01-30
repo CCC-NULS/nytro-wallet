@@ -79,7 +79,7 @@ export default {
       this.signed_tx = this.tx.serialize().toString('hex')
     },
     async broadcast () {
-      let response = await axios.post(`${this.api_server}broadcast`, {
+      let response = await axios.post(`${this.api_server}/broadcast`, {
         txHex: this.signed_tx
       })
       if ((response.data !== null) && (response.data.value !== undefined)) {

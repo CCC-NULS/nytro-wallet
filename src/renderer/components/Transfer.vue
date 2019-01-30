@@ -174,7 +174,7 @@ export default {
       return true
     },
     async getOutputs () {
-      let response = await axios.get(`${this.settings.api_server}addresses/outputs/${this.account.address}.json`)
+      let response = await axios.get(`${this.settings.api_server}/addresses/outputs/${this.account.address}.json`)
       this.$set(this, 'stats', response.data.unspent_info)
       this.$set(this, 'outputs', response.data.outputs)
       this.$set(this, 'last_sync_height', response.data.last_height)

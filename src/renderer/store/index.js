@@ -11,7 +11,7 @@ export default new Vuex.Store({
   state: {
     'accounts': [],
     'settings': {
-      'api_server': 'https://nuls.world/',
+      'api_server': 'https://nuls.world',
       'chain_id': 8964
       // 'api_server': 'https://testnet.nuls.world/',
       // 'chain_id': 261

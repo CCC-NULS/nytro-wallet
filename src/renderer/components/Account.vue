@@ -286,20 +286,20 @@ export default {
       return moment.unix(dt / 1000).format('lll')
     },
     async updateConsensus () {
-      let response = await axios.get(`${this.settings.api_server}consensus/agents.json`)
+      let response = await axios.get(`${this.settings.api_server}/consensus/agents.json`)
       this.$set(this, 'consensus', response.data.agents)
     },
     async updateTxs (min_height) {
-      let response = await axios.get(`${this.settings.api_server}addresses/${this.address}/summary/all.json?min_height=${min_height}`)
+      let response = await axios.get(`${this.settings.api_server}/addresses/${this.address}/summary/all.json?min_height=${min_height}`)
       this.transactions = this.transactions.concat(response.data.transactions)
       this.totalRows = this.transactions.length
       this.last_sync_height = response.data.last_height
     },
     async updateStatus () {
-      let response = await axios.get(`${this.settings.api_server}addresses/consensus/${this.address}.json`)
+      let response = await axios.get(`${this.settings.api_server}/addresses/consensus/${this.address}.json`)
       this.$set(this, 'account_stakes', response.data.positions)
 
-      response = await axios.get(`${this.settings.api_server}addresses/stats`, {
+      response = await axios.get(`${this.settings.api_server}/addresses/stats`, {
         params: {
           addresses: [this.address]
         }
@@ -393,7 +393,7 @@ export default {
       this.signShow = true
     },
     async getOutputs () {
-      let response = await axios.get(`${this.settings.api_server}addresses/outputs/${this.account.address}.json`)
+      let response = await axios.get(`${this.settings.api_server}/addresses/outputs/${this.account.address}.json`)
       return response.data
     },
     rename () {

@@ -99,12 +99,12 @@ export default {
       'chains': {
         8964: {
           'chain_name': 'NULS mainnet',
-          'api_server': 'https://nuls.world/',
+          'api_server': 'https://nuls.world',
           'chain_id': 8964
         },
         261: {
           'chain_name': 'NULS testnet',
-          'api_server': 'https://testnet.nuls.world/',
+          'api_server': 'https://testnet.nuls.world',
           'chain_id': 261
         }
       }
