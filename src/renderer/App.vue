@@ -72,7 +72,7 @@ export default {
       this.$store.commit('set_price_info', response.data)
     },
     async update_unspent_info() {
-      let result = await axios.get(`${this.settings.api_server}addresses/stats`, {
+      let result = await axios.get(`${this.settings.api_server}/addresses/stats`, {
         params: {
           addresses: this.$store.getters.chain_accounts.map((acct) => acct.address)
         }
