@@ -90,7 +90,9 @@ const en = {
     unstake_from: 'Unstake {amount} from {agent}',
     delete_account_1: 'Delete account {account_name} ?\n\nPlease backup your private key before doing this!',
     delete_account_2: 'The address is {account_address}\n\nAre you really sure? There is no way to go back!',
-    delete_account_3: 'Ok, removing address {account_address}.'
+    delete_account_3: 'Ok, removing address {account_address}.',
+
+    consolidate_outputs_multi: 'Consolidate {count} outputs in {tx_count} step(s)'
   },
 
   create: {

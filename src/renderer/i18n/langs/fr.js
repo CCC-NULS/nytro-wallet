@@ -90,7 +90,9 @@ const fr = {
     unstake_from: 'Retirer la participation de {amount} sur {agent}',
     delete_account_1: 'Voulez-vous supprimer le compte {account_name} ?\n\nN\'oubliez pas de faire une sauvegarde de votre compte !',
     delete_account_2: 'L\'adresse est {account_address}\n\nÊtes-vous vraiment sûr de vouloir retirer ce compte ? Sans sauvegarde, pas de retour en arriere possible.',
-    delete_account_3: 'Ok, compte {account_address} retiré.'
+    delete_account_3: 'Ok, compte {account_address} retiré.',
+
+    consolidate_outputs_multi: 'Consolider {count} sorties en {tx_count} étape(s)'
   },
 
   create: {

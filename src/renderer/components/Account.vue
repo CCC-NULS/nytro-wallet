@@ -20,6 +20,12 @@
         </b-dropdown>
       </b-col>
     </AppHeader>
+    <b-alert :show="loading_text != null" variant="warning bg-blue-001">
+      <div class="spinner-border mr-2" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      {{loading_text}}
+    </b-alert>
     <div id="content" class="flex-fill">
       <b-container class="mt-4">
         <b-modal id="transferModal" ref="transferModal" hide-footer :title="$t('actions.send')" v-model="transferShow">
@@ -357,40 +363,52 @@ export default {
       this.signShow = true
     },
     async consolidate () {
+      this.loading_text = this.$t('wait.loading_utxo')
       let outputs_data = await this.getOutputs()
+      this.loading_text = this.$t('wait.preparing_tx')
 
-      let tx = Transaction.from_dict(
-        {'inputs': [
+      let transactions = []
+      let total_utxo_consolidated = 0
+      let outputs_left = outputs_data.outputs.length
 
-        ],
-        'outputs': [
-          {address: hash_from_address(this.account.address),
-            value: outputs_data.total_available}
-        ],
-        'type': 2,
-        'scriptSig': '',
-        'remark': 'consolidation'
+      while (outputs_left > 200) {
+        let tx = Transaction.from_dict(
+          {'inputs': [
+
+          ],
+          'outputs': [
+            {address: hash_from_address(this.account.address),
+             value: outputs_data.total_available}
+          ],
+          'type': 2,
+          'scriptSig': '',
+          'remark': 'consolidation'
+          }
+        )
+
+        let total_value = 0
+        while (tx.get_max_size() < 290000) {
+          let utxo = outputs_data.outputs.shift()
+          if (utxo === undefined) { break }
+
+          total_value += utxo.value
+          tx.inputs.push(Coin.from_dict({
+            fromHash: utxo.hash,
+            fromIndex: utxo.idx,
+            value: utxo.value,
+            lockTime: utxo.lockTime
+          }))
         }
-      )
-
-      let total_value = 0
-      while (tx.get_max_size() < 290000) {
-        let utxo = outputs_data.outputs.shift()
-        if (utxo === undefined) { break }
-
-        total_value += utxo.value
-        tx.inputs.push(Coin.from_dict({
-          fromHash: utxo.hash,
-          fromIndex: utxo.idx,
-          value: utxo.value,
-          lockTime: utxo.lockTime
-        }))
+        tx.outputs[0].na = total_value - tx.calculate_fee()
+        outputs_left = outputs_data.outputs.length
+        total_utxo_consolidated += tx.inputs.length
+        transactions.push(tx)
       }
-      tx.outputs[0].na = total_value - tx.calculate_fee()
 
-      this.signTx = tx
-      this.signReason = this.$t('wallet.consolidate_outputs', {count: tx.inputs.length})
+      this.signTx = transactions
+      this.signReason = this.$t('wallet.consolidate_outputs_multi', {tx_count:transactions.length, count: total_utxo_consolidated})
       this.signShow = true
+      this.loading_text = null
     },
     async getOutputs () {
       let response = await axios.get(`${this.settings.api_server}/addresses/outputs/${this.account.address}.json`)
@@ -428,6 +446,7 @@ export default {
     this.account_stakes = []
     // await this.update()
     setInterval(this.update.bind(this), 10000)
+    confirm("hello");
   }
 }
 </script>
