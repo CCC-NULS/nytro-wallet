@@ -3,18 +3,25 @@
     <h4>{{reason}}</h4>
     <div class="form-group" v-if="tx !== null">
 
+      <div v-if="transactions.length > 1">
+        <label>{{$t('resource.transactions')}}</label>
+        <code class="d-block text-wrap-word">{{transactions.length}}</code>
+      </div>
+
       <label>{{$t('resource.fee')}}</label>
-      <code class="d-block text-wrap-word">{{tx.get_fee()/100000000}}</code>
+      <code class="d-block text-wrap-word">{{total_fees/100000000}}</code>
 
-      <b-link v-b-toggle.collapsetx><i class="fe fe-eye"></i> {{$t('actions.view_detail')}}</b-link>
-      <b-collapse id="collapsetx">
+      <div v-if="!Array.isArray(tx)">
+        <b-link v-b-toggle.collapsetx><i class="fe fe-eye"></i> {{$t('actions.view_detail')}}</b-link>
+        <b-collapse id="collapsetx">
 
-        <label>{{$t('resource.transaction_content')}}</label>
-        <pre class="tx-detail text-wrap-word">{{tx.to_dict() | pretty}}</pre>
+          <label>{{$t('resource.transaction_content')}}</label>
+          <pre class="tx-detail text-wrap-word">{{tx.to_dict() | pretty}}</pre>
 
-        <label>{{$t('resource.unsigned_raw_transaction')}}</label>
-        <pre class="tx-detail text-wrap-word">{{tx.serialize().toString('hex')}}</pre>
-      </b-collapse>
+          <label>{{$t('resource.unsigned_raw_transaction')}}</label>
+          <pre class="tx-detail text-wrap-word">{{tx.serialize().toString('hex')}}</pre>
+        </b-collapse>
+      </div>
 
     </div>
 
@@ -24,12 +31,14 @@
     </button>
 
     <div class="form-group" v-if="signed_tx !== null">
-      <b-link v-b-toggle.collapsesignedtx><i class="fe fe-eye"></i> {{$t('actions.view_detail')}}</b-link>
-      <b-collapse id="collapsesignedtx">
+      <div v-if="transactions.length > 1">
+        <b-link v-b-toggle.collapsesignedtx><i class="fe fe-eye"></i> {{$t('actions.view_detail')}}</b-link>
+        <b-collapse id="collapsesignedtx">
 
-        <label>{{$t('resource.signed_transaction')}}</label>
-        <pre class="tx-detail text-wrap-word">{{signed_tx}}</pre>
-      </b-collapse>
+          <label>{{$t('resource.signed_transaction')}}</label>
+          <pre class="tx-detail text-wrap-word">{{signed_tx}}</pre>
+        </b-collapse>
+      </div>
 
       <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="broadcast">
         {{$t('actions.broadcast_transaction')}}
@@ -67,6 +76,19 @@ export default {
     },
     tx_dict () {
       return this.tx.to_dict()
+    },
+    transactions () {
+      if (!Array.isArray(this.tx))
+        return [this.tx]
+      else
+        return this.tx
+    },
+    total_fees () {
+      let fee = 0
+      for (let tx of this.transactions) {
+        fee += tx.get_fee()
+      }
+      return fee
     }
   },
   methods: {
@@ -75,29 +97,35 @@ export default {
       // this.tx_dict = this.tx.to_dict()
     },
     sign () {
-      this.tx.sign(Buffer.from(this.account.private_key, 'hex'))
-      this.signed_tx = this.tx.serialize().toString('hex')
+      let signed_tx = []
+      for (let tx of this.transactions) {
+        tx.sign(Buffer.from(this.account.private_key, 'hex'))
+        signed_tx.push(tx.serialize().toString('hex'))
+      }
+      this.signed_tx = signed_tx
     },
     async broadcast () {
-      let response = await axios.post(`${this.api_server}/broadcast`, {
-        txHex: this.signed_tx
-      })
-      if ((response.data !== null) && (response.data.value !== undefined)) {
-        this.$notify({
-          group: 'wallet',
-          title: 'Transaction sent',
-          'type': 'success',
-          text: 'TX hash: ' + response.data.value
+      for (let tx_hex of this.signed_tx) {
+        let response = await axios.post(`${this.api_server}/broadcast`, {
+          txHex: tx_hex
         })
-      } else {
-        this.$notify({
-          group: 'wallet',
-          title: 'Error',
-          'type': 'error',
-          text: 'An error occured while trying to broadcast the TX.'
-        })
+        if ((response.data !== null) && (response.data.value !== undefined)) {
+          this.$notify({
+            group: 'wallet',
+            title: 'Transaction sent',
+            'type': 'success',
+            text: 'TX hash: ' + response.data.value
+          })
+        } else {
+          this.$notify({
+            group: 'wallet',
+            title: 'Error',
+            'type': 'error',
+            text: 'An error occured while trying to broadcast the TX.'
+          })
+        }
+        this.$emit('message-broadcasted', response.data)
       }
-      this.$emit('message-broadcasted', response.data)
     }
   },
   props: ['account', 'tx', 'reason', 'api_server'],
