@@ -21,10 +21,12 @@
       </b-col>
     </AppHeader>
     <b-alert :show="loading_text != null" variant="warning bg-blue-001">
-      <div class="spinner-border mr-2" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      {{loading_text}}
+      <b-container>
+        <div class="spinner-border mr-2" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        {{loading_text}}
+      </b-container>
     </b-alert>
     <div id="content" class="flex-fill">
       <b-container class="mt-4">
@@ -239,6 +241,7 @@ export default {
       account_value: 0, // available + consensus locked (no time locked)
       signTx: null,
       signReason: '',
+      loading_text: null,
       tx_sortBy: 'time',
       tx_sortDesc: true,
       tx_fields: [
@@ -275,9 +278,13 @@ export default {
   watch: {
     address: async function () {
       this.last_sync_height = 0
+      this.account_value = 0
+      this.total_outputs_value = 0
       this.transactions = []
       this.account_stakes = []
+      this.loading_text = this.$t('wait.loading_account_info')
       await this.update()
+      this.loading_text = null
     }
   },
   computed: mapState([
@@ -446,7 +453,6 @@ export default {
     this.account_stakes = []
     // await this.update()
     setInterval(this.update.bind(this), 10000)
-    confirm("hello");
   }
 }
 </script>
