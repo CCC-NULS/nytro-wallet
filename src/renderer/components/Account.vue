@@ -24,7 +24,17 @@
       <div class="spinner-border mr-2" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      {{loading_text}}
+        {{loading_text}}
+    </b-alert>
+    <b-alert :show="(stats.unspent_count || 0) > 200" variant="warning bg-blue-001">
+      <b-container class="d-flex justify-content-between">
+        <div>
+          {{$t('wallet.consolidation_required')}}
+        </div>
+        <div>
+          <b-button @click="consolidate" size="lg"><GitMergeIcon /> {{$t('actions.consolidate')}}</b-button>
+        </div>
+      </b-container>
     </b-alert>
     <div id="content" class="flex-fill">
       <b-container class="mt-4">
@@ -446,7 +456,7 @@ export default {
     this.account_stakes = []
     // await this.update()
     setInterval(this.update.bind(this), 10000)
-    confirm("hello");
+    //confirm("hello");
   }
 }
 </script>
