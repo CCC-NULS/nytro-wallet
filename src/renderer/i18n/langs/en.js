@@ -93,9 +93,7 @@ const en = {
     delete_account_3: 'Ok, removing address {account_address}.',
 
     consolidate_outputs_multi: 'Consolidate {count} outputs in {tx_count} step(s)',
-    consolidation_required: 'Too many outputs in this account, please consolidate before any other action.',
-    loading_utxo: 'Please wait, loading input transaction data.',
-    preparing_tx: 'Preparing transaction.'
+    consolidation_required: 'Too many outputs in this account, please consolidate before any other action.'
   },
 
   create: {
@@ -145,6 +143,11 @@ Please upload your keystore file to import your account.
 
   transfer: {
     target_address: 'Target address'
+  },
+
+  wait: {
+    loading_utxo: 'Please wait, loading input transaction data.',
+    preparing_tx: 'Preparing transaction.'
   }
 };
 export default en
