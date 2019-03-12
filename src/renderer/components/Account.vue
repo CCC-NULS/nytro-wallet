@@ -21,11 +21,19 @@
       </b-col>
     </AppHeader>
     <b-alert :show="loading_text != null" variant="warning bg-blue-001">
-      <b-container>
-        <div class="spinner-border mr-2" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
+      <div class="spinner-border mr-2" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
         {{loading_text}}
+    </b-alert>
+    <b-alert :show="(stats.unspent_count || 0) > 200" variant="warning bg-blue-001">
+      <b-container class="d-flex justify-content-between">
+        <div>
+          {{$t('wallet.consolidation_required')}}
+        </div>
+        <div>
+          <b-button @click="consolidate" size="lg"><GitMergeIcon /> {{$t('actions.consolidate')}}</b-button>
+        </div>
       </b-container>
     </b-alert>
     <div id="content" class="flex-fill">
