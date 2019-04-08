@@ -10,6 +10,8 @@ import {get_account} from '../ledger'
 ipcMain.on('ledger.get_accounts', async (event, data) => {
   //console.log("Received: " + data)
   //event.sender.send('message', {a: 'Hello interface!'})
-  let transport = await Transport.create();
-  let network_id = (data && data.network_id) ? data.network_id : 261;
+  let transport = await Transport.create()
+  let chain_id = (data && data.chain_id) ? data.chain_id : 261;
+  let account = await get_account(transport, chain_id)
+  event.sender.send('ledger.set_account', account)
 })

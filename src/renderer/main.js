@@ -22,10 +22,11 @@ if (process.env.IS_WEB) {
   use_elect = false;
 }
 let ElectronStore, machine_id, elect_store;
-
+let ipcRenderer = null
 if (!process.env.IS_WEB) {
   ElectronStore = require('electron-store')
-  let {ipcRenderer, remote} = require('electron')
+  let {remote} = require('electron')
+  ipcRenderer = require('electron').ipcRenderer
   let {machineIdSync} = remote.require('node-machine-id')
   machine_id = machineIdSync()
 
@@ -79,7 +80,20 @@ new Vue({
             deep: true,
         },
     },
-    mounted: function () {
+    methods: {
+      async update_ledger() {
+        if (use_elect) {
+          ipcRenderer.send('ledger.get_accounts', {chain_id: store.state.settings.chain_id})
+          ipcRenderer.once('ledger.set_account', (event, account) => {
+            console.log(event, account)
+            store.commit('set_ledger', account);
+          })
+        } else {
+
+        }
+      }
+    },
+    mounted: async function () {
         if (use_elect) {
           try {
               if (elect_store.get('accounts')) {
@@ -112,5 +126,6 @@ new Vue({
               console.warn("Can't import data", e);
           }
         }
+        await this.update_ledger()
     }
 }).$mount('#app');
