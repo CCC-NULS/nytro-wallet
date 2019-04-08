@@ -96,11 +96,33 @@ export default {
       // this.tx_raw = this.tx.serialize().toString('hex')
       // this.tx_dict = this.tx.to_dict()
     },
-    sign () {
+    async sign () {
       let signed_tx = []
       for (let tx of this.transactions) {
-        tx.sign(Buffer.from(this.account.private_key, 'hex'))
-        signed_tx.push(tx.serialize().toString('hex'))
+        if (this.account.private_key !== null) {
+          tx.sign(Buffer.from(this.account.private_key, 'hex'))
+          signed_tx.push(tx.serialize().toString('hex'))
+        } else if (this.account.type === 'ledger') {
+          if (!process.env.IS_WEB) {
+            const {ipcpRenderer} = require('electron-ipcp')
+            let scriptSig = await ipcpRenderer.sendMain(
+              'ledger_get_scriptsig', this.$store.state.settings.chain_id,
+              tx.serialize().toString('hex'))
+            if (scriptSig !== null) {
+              tx.scriptSig = Buffer.from(scriptSig, 'hex')
+              signed_tx.push(tx.serialize().toString('hex'))
+            } else {
+              this.$notify({
+                group: 'wallet',
+                title: 'Signature error',
+                'type': 'error'
+              })
+            }
+          } else {
+            const {get_scriptsig} = require('../../ledger')
+          }
+        }
+
       }
       this.signed_tx = signed_tx
     },

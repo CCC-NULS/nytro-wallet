@@ -65,6 +65,7 @@ new Vue({
             handler() {
                 if (use_elect) elect_store.set('accounts', this.accounts)
                 else localStorage.setItem('accounts', JSON.stringify(this.accounts))
+                this.update_ledger()
             },
             deep: true,
         },

@@ -1,7 +1,7 @@
 import Transport from '@ledgerhq/hw-transport-node-hid'
 import {LedgerAccount, NulsCommHandler, NulsLedger} from 'nuls-ledger/dist'
 // import {ipcMain} from 'electron'
-import {get_account} from '../ledger'
+import {get_account, get_scriptsig} from '../ledger'
 const {ipcpMain} = require('electron-ipcp')
 
 // .getPubKey(new LedgerAccount()) => first acct
@@ -28,4 +28,18 @@ ipcpMain.on('ledger_get_accounts', async (event, chain_id) => {
   catch (e) {
     event.respond(null)
   }
+})
+
+ipcpMain.on('ledger_get_scriptsig', async (event, chain_id, tx_hex) => {
+  console.log(tx_hex)
+  // try {
+    let transport = await Transport.create()
+    chain_id = chain_id ? chain_id : 261
+    let tx_ser = Buffer.from(tx_hex, 'hex')
+    let scriptSig_hex = await get_scriptsig(transport, chain_id, tx_ser)
+    event.respond(scriptSig_hex.toString('hex'))
+  // }
+  // catch (e) {
+  //   event.respond(null)
+  // }
 })
