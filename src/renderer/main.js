@@ -63,8 +63,6 @@ new Vue({
     watch: {
         'accounts': {
             handler() {
-                console.log('Accounts changed!')
-                console.log(store.state, store.state.accounts, this.accounts)
                 if (use_elect) elect_store.set('accounts', this.accounts)
                 else localStorage.setItem('accounts', JSON.stringify(this.accounts))
             },
@@ -72,10 +70,9 @@ new Vue({
         },
         'settings': {
             handler() {
-                console.log('Settings changed!')
-                console.log(store.state, store.state.settings, this.settings)
                 if (use_elect) elect_store.set('settings', this.settings)
                 else localStorage.setItem('settings', JSON.stringify(this.settings))
+                this.update_ledger()
             },
             deep: true,
         },
@@ -83,11 +80,9 @@ new Vue({
     methods: {
       async update_ledger() {
         if (use_elect) {
-          ipcRenderer.send('ledger.get_accounts', {chain_id: store.state.settings.chain_id})
-          ipcRenderer.once('ledger.set_account', (event, account) => {
-            console.log(event, account)
-            store.commit('set_ledger', account);
-          })
+          const {ipcpRenderer} = require('electron-ipcp')
+          const account = await ipcpRenderer.sendMain('ledger_get_accounts', store.state.settings.chain_id)
+          store.commit('set_ledger', account);
         } else {
 
         }

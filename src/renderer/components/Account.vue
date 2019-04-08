@@ -12,11 +12,11 @@
             <MoreVerticalIcon /><span class="sr-only">actions</span>
           </template>
           <b-dropdown-item href="#" :disabled="((stats.unspent_count || 0)< 30)" @click="consolidate"><GitMergeIcon /> {{$t('actions.consolidate')}}</b-dropdown-item>
-          <b-dropdown-divider />
-          <b-dropdown-item href="#" @click="backupShow = !backupShow"><EyeIcon /> {{$t('actions.backup')}}</b-dropdown-item>
-          <b-dropdown-item href="#" @click="rename"><Edit3Icon /> {{$t('actions.rename')}}</b-dropdown-item>
-          <b-dropdown-divider />
-          <b-dropdown-item href="#" @click="delete_account"><DeleteIcon /> {{$t('actions.delete')}}</b-dropdown-item>
+          <b-dropdown-divider v-if="account.type !== 'ledger'" />
+          <b-dropdown-item v-if="account.type !== 'ledger'" href="#" @click="backupShow = !backupShow"><EyeIcon /> {{$t('actions.backup')}}</b-dropdown-item>
+          <b-dropdown-item v-if="account.type !== 'ledger'" href="#" @click="rename"><Edit3Icon /> {{$t('actions.rename')}}</b-dropdown-item>
+          <b-dropdown-divider v-if="account.type !== 'ledger'" />
+          <b-dropdown-item v-if="account.type !== 'ledger'" href="#" @click="delete_account"><DeleteIcon /> {{$t('actions.delete')}}</b-dropdown-item>
         </b-dropdown>
       </b-col>
     </AppHeader>
@@ -65,7 +65,7 @@
             <h1 class="head-400">
               <CreditCardIcon />
               {{account.name}}
-              <b-link @click="rename" class="text-muted" v-b-popover.hover.bottom="$t('actions.rename')">
+              <b-link v-if="account.type !== 'ledger'" @click="rename" class="text-muted" v-b-popover.hover.bottom="$t('actions.rename')">
                 <small>
                   <Edit3Icon />
                 </small>
@@ -295,13 +295,18 @@ export default {
       this.loading_text = null
     }
   },
-  computed: mapState([
-    // map this.count to store.state.count
-    'accounts',
-    'settings',
-    'price_info',
-    'to_symbol'
-  ]),
+  computed: {
+    chain_accounts() {
+      return this.$store.getters.chain_accounts
+    },
+    ... mapState([
+      // map this.count to store.state.count
+      'accounts',
+      'settings',
+      'price_info',
+      'to_symbol'
+    ])
+  },
   methods: {
     dateformat (dt) {
       return moment.unix(dt / 1000).format('lll')
@@ -330,7 +335,7 @@ export default {
       store.commit('set_last_height', response.data.last_height)
     },
     async update () {
-      this.$set(this, 'account', this.accounts.find(obj => {
+      this.$set(this, 'account', this.chain_accounts.find(obj => {
         return obj.address === this.address
       }))
       await this.updateStatus()

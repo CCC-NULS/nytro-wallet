@@ -22,13 +22,26 @@ export default new Vuex.Store({
     'unspent_info': {},
     'last_height': 0,
     'to_symbol': 'USD',
-    'aliases': []
+    'aliases': [],
+    'ledger': null
   },
   getters: {
     chain_accounts: state => {
-      return state.accounts.filter(account =>
+      let accounts = state.accounts.filter(account =>
         bs58.decode(account.address).readInt16LE(0) == state.settings.chain_id
       )
+
+      if (state.ledger !== null) {
+        console.log(state.ledger)
+        accounts.push({
+          'name': `Ledger`,
+          'private_key': null,
+          'public_key': state.ledger.publicKey,
+          'address': state.ledger.address,
+          'type': 'ledger'
+        })
+      }
+      return accounts
     }
   },
   mutations: {
