@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueQriously from 'vue-qriously'
@@ -31,6 +32,7 @@ if (!process.env.IS_WEB) {
   elect_store = new ElectronStore({
       encryptionKey: machine_id
   });
+  ipcRenderer.send('ledger.get_accounts')
 }
 console.log(elect_store);
 

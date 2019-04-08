@@ -87,6 +87,30 @@
             </form>
             </div>
 
+            <div v-if="mode == 'ledger'">
+              <div class="text-center">
+                <vue-markdown :html="false" :source="$t('create.ledger_text')"></vue-markdown>
+              </div>
+                <!-- Form -->
+              <form>
+                <!-- Email address -->
+                <div class="form-group my-5">
+
+                  <label>{{$t('resource.public_key')}}</label>
+                  <code class="d-block text-truncate">{{public_key||'--'}}</code>
+
+                  <label>{{$t('resource.address')}}</label>
+                  <code class="d-block text-truncate">{{address||'--'}}</code>
+
+                </div>
+
+                <!-- Submit -->
+                <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
+                  {{$t('actions.add_it')}}
+                </button>
+            </form>
+            </div>
+
             <div v-if="mode == 'import_encrypted_privkey'">
               <div class="text-center">
                 <vue-markdown :html="false" :source="$t('create.import_encrypted_text')"></vue-markdown>
@@ -180,6 +204,10 @@ import store from '../store'
 import { mapState } from 'vuex'
 import AppHeader from './AppHeader.vue'
 import AppFooter from './AppFooter.vue'
+import Transport from '@ledgerhq/hw-transport-u2f';
+//import Transport from '@ledgerhq/hw-transport-node-hid';
+import { NulsCommHandler, NulsLedger } from 'nuls-ledger/dist';
+
 import {
   PlusIcon
 } from 'vue-feather-icons'
@@ -228,7 +256,8 @@ export default {
         'create',
         'import_privkey',
         'import_encrypted_privkey',
-        'import_keystore'//,
+        'import_keystore',
+        'ledger'//,
         //'add_view_only' // TODO: View-only not yet implemented
       ]
     }
@@ -318,7 +347,7 @@ export default {
         this.address = null
       }
     },
-    init () {
+    async init () {
       this.encrypted_private_key = ''
       this.passphrase = ''
       this.private_key = ''
@@ -327,6 +356,9 @@ export default {
 
       if (this.mode == 'create')
         this.generate()
+
+      if (this.mode == 'ledger')
+        await this.gather_ledger()
     },
     add () {
       store.commit('add_account', {
@@ -336,6 +368,23 @@ export default {
         'address': this.address
       })
       this.$router.push('/account/' + this.address)
+    },
+    async gather_ledger() {
+      if (!process.env.IS_WEB) {
+        const {ipcRenderer} = require('electron')
+
+        ipcRenderer.on('message', (event, data) => {
+          console.log(data)
+        })
+
+        ipcRenderer.send('message', 'Hello server!')
+      } else {
+        let transport = await Transport.create();
+
+        let commhandler = new NULSCommHandler(transport);
+        let ledger = new new NulsLedger(commHandler);
+      }
+      console.log(ledger);
     },
     async keystore_upload() {
       console.log(this.keystore_file)

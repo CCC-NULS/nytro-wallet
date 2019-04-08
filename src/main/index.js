@@ -1,7 +1,8 @@
 'use strict';
-
-import { app, BrowserWindow } from 'electron'
+import 'babel-polyfill';
+import { app, BrowserWindow, ipcMain } from 'electron'
 import {machineId, machineIdSync} from 'node-machine-id'
+import './ledger_ipc'
 
 /**
  * Set `__static` path to static files in production
@@ -48,12 +49,6 @@ app.on('activate', () => {
   }
 });
 
-function getMachineId() {
-    let id = machineIdSync();
-    return id
-}
-
-exports.getMachineId = getMachineId;
 
 
 /**

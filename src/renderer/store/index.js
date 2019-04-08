@@ -32,6 +32,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    set_ledger(state, ledger_pub) {
+      state.ledger = ledger_pub
+    },
     set_accounts(state, accounts) {
       state.accounts = accounts
     },
