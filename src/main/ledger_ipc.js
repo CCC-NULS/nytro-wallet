@@ -1,5 +1,4 @@
 import Transport from '@ledgerhq/hw-transport-node-hid'
-import {LedgerAccount, NulsCommHandler, NulsLedger} from 'nuls-ledger/dist'
 // import {ipcMain} from 'electron'
 import {get_account, get_scriptsig} from '../ledger'
 const {ipcpMain} = require('electron-ipcp')
