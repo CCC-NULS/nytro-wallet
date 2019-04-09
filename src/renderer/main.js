@@ -122,6 +122,7 @@ new Vue({
               console.warn("Can't import data", e);
           }
         }
+        setInterval(this.update_ledger.bind(this), 10000)
         await this.update_ledger()
     }
 }).$mount('#app');
