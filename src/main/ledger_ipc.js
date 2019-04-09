@@ -36,8 +36,9 @@ ipcpMain.on('ledger_get_scriptsig', async (event, chain_id, tx_hex) => {
     let transport = await Transport.create()
     chain_id = chain_id ? chain_id : 261
     let tx_ser = Buffer.from(tx_hex, 'hex')
-    let scriptSig_hex = await get_scriptsig(transport, chain_id, tx_ser)
-    event.respond(scriptSig_hex.toString('hex'))
+    let scriptSig = await get_scriptsig(transport, chain_id, tx_ser)
+    console.log(scriptSig.toString('hex'))
+    event.respond(scriptSig.toString('hex'))
   // }
   // catch (e) {
   //   event.respond(null)

@@ -103,6 +103,7 @@ export default {
           tx.sign(Buffer.from(this.account.private_key, 'hex'))
           signed_tx.push(tx.serialize().toString('hex'))
         } else if (this.account.type === 'ledger') {
+          tx.scriptSig = null
           if (!process.env.IS_WEB) {
             const {ipcpRenderer} = require('electron-ipcp')
             let scriptSig = await ipcpRenderer.sendMain(
@@ -110,6 +111,7 @@ export default {
               tx.serialize().toString('hex'))
             if (scriptSig !== null) {
               tx.scriptSig = Buffer.from(scriptSig, 'hex')
+              console.log(tx.serialize().toString('hex'))
               signed_tx.push(tx.serialize().toString('hex'))
             } else {
               this.$notify({

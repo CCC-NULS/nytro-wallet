@@ -24,21 +24,11 @@ export async function get_scriptsig(transport, chain_id, tx_ser) {
   let account = get_ledger_account(chain_id)
   const acct = await ledger.getPubKey(account)
 
-  console.log(account, tx_ser)
-
   const signature = await ledger.signTx(account, account, tx_ser)
-  console.log(signature)
-
-  const pubKeyBuf = Buffer.from(acct.publicKey, 'hex')
-  console.log(pubKeyBuf)
-  let scriptSig = Buffer.alloc(
-    3
-    + pubKeyBuf.length
-    + signature.length
-  )
-
-  const ll = write_with_length(pubKeyBuf, scriptSig, 0)
-  write_with_length(signature, scriptSig, ll + 1)
-
-  return scriptSig
+  let pub_key = Buffer.from(acct.publicKey, 'hex')
+  let buf = Buffer.alloc(3 + pub_key.length + signature.length)
+  let cursor = write_with_length(pub_key, buf, 0)
+  cursor += 1 // we let a zero there for alg ECC type
+  cursor += write_with_length(signature, buf, cursor)
+  return buf
 }
