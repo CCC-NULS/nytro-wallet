@@ -32,16 +32,16 @@ ipcpMain.on('ledger_get_accounts', async (event, chain_id) => {
 
 ipcpMain.on('ledger_get_scriptsig', async (event, chain_id, tx_hex) => {
   console.log(tx_hex)
-  // try {
-    let transport = await Transport.create()
+  let transport = await Transport.create()
+  try {
     chain_id = chain_id ? chain_id : 261
     let tx_ser = Buffer.from(tx_hex, 'hex')
     let scriptSig = await get_scriptsig(transport, chain_id, tx_ser)
     console.log(scriptSig.toString('hex'))
     event.respond(scriptSig.toString('hex'))
-    transport.close()
-  // }
-  // catch (e) {
-  //   event.respond(null)
-  // }
+  }
+  catch (e) {
+    event.respond(null)
+  }
+  transport.close()
 })
