@@ -18,8 +18,8 @@ const {ipcpMain} = require('electron-ipcp')
 
 
 ipcpMain.on('ledger_get_accounts', async (event, chain_id) => {
+  let transport = await Transport.create()
   try {
-    let transport = await Transport.create()
     chain_id = chain_id ? chain_id : 261
     let account = await get_account(transport, chain_id)
     event.respond(account)
@@ -27,6 +27,7 @@ ipcpMain.on('ledger_get_accounts', async (event, chain_id) => {
   catch (e) {
     event.respond(null)
   }
+  transport.close()
 })
 
 ipcpMain.on('ledger_get_scriptsig', async (event, chain_id, tx_hex) => {
@@ -38,6 +39,7 @@ ipcpMain.on('ledger_get_scriptsig', async (event, chain_id, tx_hex) => {
     let scriptSig = await get_scriptsig(transport, chain_id, tx_ser)
     console.log(scriptSig.toString('hex'))
     event.respond(scriptSig.toString('hex'))
+    transport.close()
   // }
   // catch (e) {
   //   event.respond(null)
