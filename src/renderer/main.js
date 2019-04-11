@@ -123,6 +123,7 @@ new Vue({
           }
         }
         setInterval(this.update_ledger.bind(this), 10000)
-        await this.update_ledger()
+
+        setTimeout(this.update_ledger.bind(this), 1000)
     }
 }).$mount('#app');
