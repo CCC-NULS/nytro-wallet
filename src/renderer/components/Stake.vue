@@ -144,6 +144,8 @@ export default {
         this.amount = this.total_outputs_value / 100000000
       }
 
+      this.amount = Math.floor(this.amount)
+
       return true
     },
     validAmountFeedback () {
