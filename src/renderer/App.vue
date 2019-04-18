@@ -97,24 +97,27 @@ export default {
       height: 100%;
   }
 
-  #window, #app {
-    height: 100%;
-  }
+  @media (min-width:576px)
+  {
+    #window, #app {
+      height: 100%;
+    }
 
-  #window {
-    display: flex;
-    flex-direction: column;
-  }
+    #window {
+      display: flex;
+      flex-direction: column;
+    }
 
-  #content {
-    overflow-y: auto;
-    height: 100%;
-    max-height: 100% !important;
-    min-height: 0;
-  }
+    #content {
+      overflow-y: auto;
+      height: 100%;
+      max-height: 100% !important;
+      min-height: 0;
+    }
 
-  footer {
-    padding: 0.2rem 0;
-    font-size: 1rem;
+    footer {
+      padding: 0.2rem 0;
+      font-size: 1rem;
+    }
   }
 </style>
