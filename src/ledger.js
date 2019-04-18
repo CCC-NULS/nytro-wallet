@@ -1,7 +1,6 @@
 import {LedgerAccount, NulsCommHandler, NulsLedger} from 'nuls-ledger'
 import { Transaction } from 'nulsworldjs/src/model/transaction'
 import { write_with_length } from 'nulsworldjs/src/model/data'
-import {ipcMain} from 'electron'
 
 function get_ledger_account(chain_id) {
   let account = new LedgerAccount()
