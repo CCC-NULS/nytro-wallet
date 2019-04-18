@@ -64,7 +64,7 @@
         </b-modal>
         <b-row>
           <b-col>
-            <h1 class="head-400">
+            <h1 class="head-400 text-truncate">
               <CreditCardIcon />
               {{account.name}}
               <b-link v-if="account.type !== 'ledger'" @click="rename" class="text-muted" v-b-popover.hover.bottom="$t('actions.rename')">
@@ -75,7 +75,7 @@
             </h1>
           </b-col>
           <b-col cols="auto" class="text-right align-self-center">
-            <h3 class="body-200 text-blue-30">
+            <h3 class="body-200 text-blue-30  text-truncate">
               <b-button v-if="account.type==='ledger'" @click="show_on_ledger" v-b-popover.hover.bottom="$t('ledger.display_address_on_ledger')"><EyeIcon /></b-button>
               {{account.address}}
             </h3>

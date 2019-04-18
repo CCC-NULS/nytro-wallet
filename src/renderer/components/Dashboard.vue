@@ -49,13 +49,13 @@
           </b-row>
         </b-card>
         <b-row>
-          <b-col>
+          <b-col cols="12" sm="6" md="4">
             <b-card class="mb-4">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.balance')}} <span class="text-muted">(incl. locked)</span></h4>
               <p class="card-price"><i class="nuls-green"></i> {{((total_unspent || 0)/100000000).toFixed(2)}}</p>
             </b-card>
           </b-col>
-          <b-col>
+          <b-col cols="12" sm="6" md="4">
             <b-card class="mb-4">
               <h4 slot="header">{{$t('public.total_balance')}}</h4>
               <p class="card-price">
@@ -64,27 +64,25 @@
               </p>
             </b-card>
           </b-col>
-          <b-col>
+          <b-col cols="12" sm="6" md="4">
             <b-card class="mb-4">
               <h4 slot="header">{{$t('public.price')}}</h4>
               <p class="card-price">{{price_info.DISPLAY.NULS[to_symbol].PRICE}}</p>
             </b-card>
           </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
+          <b-col cols="12" sm="6" md="4">
             <b-card class="mb-4">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.available_balance')}}</h4>
               <p class="card-price"><i class="nuls-green"></i> {{((total_available || 0)/100000000).toFixed(2)}}</p>
             </b-card>
           </b-col>
-          <b-col>
+          <b-col cols="12" sm="6" md="4">
             <b-card class="mb-4">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.consensus_locked_balance')}}</h4>
               <p class="card-price"><i class="nuls-green"></i> {{((total_consensus_locked || 0)/100000000).toFixed(2)}}</p>
             </b-card>
           </b-col>
-          <b-col>
+          <b-col cols="12" sm="6" md="4">
             <b-card class="mb-4">
               <h4 slot="header"><i class="nuls-green"></i> {{$t('public.time_locked_balance')}}</h4>
               <p class="card-price"><i class="nuls-green"></i> {{((total_time_locked || 0)/100000000).toFixed(2)}}</p>

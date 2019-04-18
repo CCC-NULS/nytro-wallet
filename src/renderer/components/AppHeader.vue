@@ -67,7 +67,7 @@
     </b-container>
     <b-container class="app-selector">
       <b-row>
-         <b-col class="py-5 align-self-center">
+         <b-col class="py-5 align-self-center mr-auto" cols="8" sm="auto">
            <b-dropdown id="mainnav" :text="this.selectTitle ? this.selectTitle : $t('nav.select')" size="lg">
             <b-dropdown-item class="first-level" to="/" active-class="n">{{$t('nav.all')}}</b-dropdown-item>
             <b-dropdown-header>{{$t('nav.configuredWallets')}}</b-dropdown-header>
@@ -180,6 +180,15 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 
+  @media (max-width:576px)
+  {
+    #mainnav > button {
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
 </style>
