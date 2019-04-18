@@ -104,24 +104,26 @@ export default {
           signed_tx.push(tx.serialize().toString('hex'))
         } else if (this.account.type === 'ledger') {
           //tx.scriptSig = null
+          let scriptSig = null
           if (!process.env.IS_WEB) {
             const {ipcpRenderer} = require('electron-ipcp')
-            let scriptSig = await ipcpRenderer.sendMain(
+            scriptSig = await ipcpRenderer.sendMain(
               'ledger_get_scriptsig', this.$store.state.settings.chain_id,
               tx.serialize().toString('hex'))
-            if (scriptSig !== null) {
-              tx.scriptSig = Buffer.from(scriptSig, 'hex')
-              console.log(tx.serialize().toString('hex'))
-              signed_tx.push(tx.serialize().toString('hex'))
-            } else {
-              this.$notify({
-                group: 'wallet',
-                title: 'Signature error',
-                'type': 'error'
-              })
-            }
           } else {
-            const {get_scriptsig} = require('../../ledger')
+            const {ledger_get_scriptsig} = require('../ledger_browser')
+            account = await ledger_get_scriptsig(this.$store.state.settings.chain_id, tx.serialize().toString('hex'))
+          }
+          if (scriptSig !== null) {
+            tx.scriptSig = Buffer.from(scriptSig, 'hex')
+            console.log(tx.serialize().toString('hex'))
+            signed_tx.push(tx.serialize().toString('hex'))
+          } else {
+            this.$notify({
+              group: 'wallet',
+              title: 'Signature error',
+              'type': 'error'
+            })
           }
         }
 

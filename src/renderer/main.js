@@ -90,7 +90,8 @@ new Vue({
           const {ipcpRenderer} = require('electron-ipcp')
           account = await ipcpRenderer.sendMain('ledger_get_accounts', store.state.settings.chain_id, show_on_ledger)
         } else {
-
+          const {ledger_get_accounts} = require('./ledger_browser')
+          account = await ledger_get_accounts(store.state.settings.chain_id, show_on_ledger)
         }
         return account
       }
