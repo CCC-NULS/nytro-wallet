@@ -41,7 +41,8 @@ const en = {
     fee: "Fee",
     account_name: 'Account Name',
 
-    max_amount: 'Maximum amount:'
+    max_amount: 'Maximum amount:',
+    transactions: 'Transactions'
   },
 
   nav: {
@@ -147,7 +148,12 @@ Please upload your keystore file to import your account.
 
   wait: {
     loading_utxo: 'Please wait, loading input transaction data.',
-    preparing_tx: 'Preparing transaction.'
+    preparing_tx: 'Preparing transaction.',
+    loading_account_info: 'Loading account information.'
+  },
+
+  ledger: {
+    display_address_on_ledger: 'Display address on Ledger Device'
   }
 };
 export default en
