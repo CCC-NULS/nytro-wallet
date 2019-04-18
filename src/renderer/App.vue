@@ -3,12 +3,10 @@
     <notifications group="wallet"/>
     <b-modal ref="myModalRef" hide-footer :title="$t('public.warning')" v-model="warningShow">
       <div>
-        <h3 class="head-500">This is a beta-quality software.</h3>
-        <p>Security is not ideal, no password implemented yet.</p>
-        <p>If someone accesses your computer, it has access to funds on accounts still logged in.</p>
-        <p>I am not responsible if you lose any fund with it.</p>
-        <p>If you want to play, play with accounts holding small amounts or verify everything and remove
-          accounts when not in use.</p>
+        <p>Using this wallet on a non-secure device can result in loss of funds.</p>
+        <p>There is no password implementation, and anyone accessing your device can access funds from this wallet.</p>
+        <p>To prevent unauthorized access, be sure to log out of the wallet after use.</p>
+        <p>NULS, developers and CCC are not responsible for any lost funds.</p>
       </div>
     </b-modal>
     <b-modal id="renameModal" ref="renameModal" hide-footer title="Rename Account"
