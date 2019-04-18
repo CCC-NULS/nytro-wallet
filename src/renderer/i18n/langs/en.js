@@ -42,7 +42,10 @@ const en = {
     account_name: 'Account Name',
 
     max_amount: 'Maximum amount:',
-    transactions: 'Transactions'
+    transactions: 'Transactions',
+    language: 'Language',
+    symbol: 'Symbol',
+    chain: 'Chain'
   },
 
   nav: {

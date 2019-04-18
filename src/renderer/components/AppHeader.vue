@@ -10,13 +10,13 @@
         <b-col class="text-center justify-content-center align-self-center">
           <h1 class="app-name head-400">
             {{$t('public.wallet')}}
-            <small class="caption-200 text-muted">v0.9.2 (beta3)</small>
+            <small class="caption-200 text-muted d-none d-md-inline">v0.9.2 (beta3)</small>
           </h1>
         </b-col>
         <b-col cols="auto" class="justify-content-center align-self-center">
-          <small class="caption-100 text-muted">{{$t('header.lastBlock')}} {{last_height}}</small>
+          <small class="caption-100 text-muted d-none d-md-inline">{{$t('header.lastBlock')}} {{last_height}}</small>
         </b-col>
-        <b-col cols="auto" class="justify-content-center align-self-center">
+        <b-col cols="auto" class="align-self-center align-self-center d-none d-md-block">
           <b-dropdown id="ddown1" :text="to_symbol" size="s">
             <b-dropdown-item v-for="sym of symbols"
                         @click="changeSymbol(sym)"
@@ -24,21 +24,42 @@
               {{sym}}
             </b-dropdown-item>
           </b-dropdown>
-        </b-col>
-        <b-col cols="auto" class="justify-content-center align-self-center">
-          <b-dropdown id="ddown1" :text="chains[settings.chain_id].chain_name" size="s">
+          <b-dropdown id="ddown2" :text="chains[settings.chain_id].chain_name" size="s">
             <b-dropdown-item v-for="chain of Object.entries(chains)"
                         @click="applySettings(chain[1])"
                         :active="settings.chain_id==chain[1].chain_id">
               {{chain[1].chain_name}}
             </b-dropdown-item>
           </b-dropdown>
-        </b-col>
-        <b-col cols="auto" class="justify-content-center align-self-center">
-          <b-dropdown id="ddown1" :text="this.langs[this.lang]" size="s">
+          <b-dropdown id="ddown3" :text="this.langs[this.lang]" size="s">
             <b-dropdown-item v-for="lang of Object.entries(this.langs)"
                         @click="changeLang(lang[0])">
               {{lang[1]}}
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-col>
+        <b-col cols="auto" class="align-self-center align-self-center d-md-none">
+          <b-dropdown variant="link" size="lg" no-caret right>
+            <template slot="button-content">
+              <MoreVerticalIcon /><span class="sr-only">actions</span>
+            </template>
+            <b-dropdown-header>{{$t('resource.symbol')}}</b-dropdown-header>
+            <b-dropdown-item v-for="sym of symbols"
+                        @click="changeSymbol(sym)"
+                        :active="to_symbol==sym">
+              {{sym}}
+            </b-dropdown-item>
+            <b-dropdown-header>{{$t('resource.chain')}}</b-dropdown-header>
+            <b-dropdown-item v-for="chain of Object.entries(chains)"
+                        @click="applySettings(chain[1])"
+                        :active="settings.chain_id==chain[1].chain_id">
+              {{chain[1].chain_name}}
+            </b-dropdown-item>
+            <b-dropdown-header>{{$t('resource.language')}}</b-dropdown-header>
+            <b-dropdown-item v-for="nlang of Object.entries(this.langs)"
+                        @click="changeLang(nlang[0])"
+                        :active="lang === nlang[0]">
+              {{nlang[1]}}
             </b-dropdown-item>
           </b-dropdown>
         </b-col>
@@ -77,7 +98,7 @@
 
 <script>
 import {PlusIcon, LogInIcon, BookmarkIcon,
-  MapPinIcon,SettingsIcon } from 'vue-feather-icons'
+  MapPinIcon,SettingsIcon, MoreVerticalIcon } from 'vue-feather-icons'
 import { mapState } from 'vuex'
 import store from '../store'
 
@@ -150,7 +171,8 @@ export default {
     LogInIcon,
     BookmarkIcon,
     MapPinIcon ,
-    SettingsIcon
+    SettingsIcon,
+    MoreVerticalIcon
   },
   async created () {
   }
