@@ -2,15 +2,17 @@
   <div id="window">
     <AppHeader :select-title="account.name">
       <b-col class="py-1 justify-content-center align-self-center" cols="auto">
-        <b-button variant="icon-lg" @click="transferShow = !transferShow" v-b-popover.hover.bottom="$t('actions.send')"><UploadIcon /></b-button>
-        <b-button variant="icon-lg" @click="requestShow = !requestShow" v-b-popover.hover.bottom="$t('actions.request')"><DownloadIcon /></b-button>
-
+        <b-button variant="icon-lg d-none d-md-inline-block" @click="transferShow = !transferShow" v-b-popover.hover.bottom="$t('actions.send')"><UploadIcon /></b-button>
+        <b-button variant="icon-lg d-none d-md-inline-block" @click="requestShow = !requestShow" v-b-popover.hover.bottom="$t('actions.request')"><DownloadIcon /></b-button>
       </b-col>
       <b-col class="py-1 justify-content-center align-self-center" cols="auto">
         <b-dropdown variant="link" size="lg" no-caret right>
           <template slot="button-content">
             <MoreVerticalIcon /><span class="sr-only">actions</span>
           </template>
+          <b-dropdown-item class="d-md-none"href="#" @click="transferShow = !transferShow"><UploadIcon /> {{$t('actions.send')}}</b-dropdown-item>
+          <b-dropdown-item  class="d-md-none" href="#" @click="requestShow = !requestShow"><DownloadIcon /> {{$t('actions.request')}}</b-dropdown-item>
+          <b-dropdown-divider class="d-md-none" />
           <b-dropdown-item href="#" :disabled="((stats.unspent_count || 0)< 30)" @click="consolidate"><GitMergeIcon /> {{$t('actions.consolidate')}}</b-dropdown-item>
           <b-dropdown-divider v-if="account.type !== 'ledger'" />
           <b-dropdown-item v-if="account.type !== 'ledger'" href="#" @click="backupShow = !backupShow"><EyeIcon /> {{$t('actions.backup')}}</b-dropdown-item>
