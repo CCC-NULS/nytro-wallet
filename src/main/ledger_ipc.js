@@ -17,11 +17,11 @@ const {ipcpMain} = require('electron-ipcp')
 // })
 
 
-ipcpMain.on('ledger_get_accounts', async (event, chain_id) => {
+ipcpMain.on('ledger_get_accounts', async (event, chain_id, show_on_ledger) => {
   let transport = await Transport.create()
   try {
     chain_id = chain_id ? chain_id : 261
-    let account = await get_account(transport, chain_id)
+    let account = await get_account(transport, chain_id, show_on_ledger)
     event.respond(account)
   }
   catch (e) {

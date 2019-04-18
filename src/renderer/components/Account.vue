@@ -73,7 +73,10 @@
             </h1>
           </b-col>
           <b-col cols="auto" class="text-right align-self-center">
-            <h3 class="body-200 text-blue-30">{{account.address}}</h3>
+            <h3 class="body-200 text-blue-30">
+              <b-button v-if="account.type==='ledger'" @click="show_on_ledger" v-b-popover.hover.bottom="$t('ledger.display_address_on_ledger')"><EyeIcon /></b-button>
+              {{account.address}}
+            </h3>
           </b-col>
         </b-row>
         <carousel :scrollPerPage="true" :perPageCustom="[[480, 2], [768, 3]]"
@@ -433,6 +436,9 @@ export default {
     async getOutputs () {
       let response = await axios.get(`${this.settings.api_server}/addresses/outputs/${this.account.address}.json`)
       return response.data
+    },
+    async show_on_ledger() {
+      await this.$root.get_ledger_account(true)
     },
     rename () {
       store.commit('start_rename', this.account)

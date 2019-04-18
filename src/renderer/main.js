@@ -80,13 +80,19 @@ new Vue({
     },
     methods: {
       async update_ledger() {
+        const account = await this.get_ledger_account()
+        store.commit('set_ledger', account)
+      },
+      async get_ledger_account(show_on_ledger) {
+        console.log("requesting account");
+        let account = null
         if (use_elect) {
           const {ipcpRenderer} = require('electron-ipcp')
-          const account = await ipcpRenderer.sendMain('ledger_get_accounts', store.state.settings.chain_id)
-          store.commit('set_ledger', account);
+          account = await ipcpRenderer.sendMain('ledger_get_accounts', store.state.settings.chain_id, show_on_ledger)
         } else {
 
         }
+        return account
       }
     },
     mounted: async function () {
