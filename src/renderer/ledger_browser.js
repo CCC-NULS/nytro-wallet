@@ -1,7 +1,7 @@
 import Transport from '@ledgerhq/hw-transport-u2f'
 import {get_account, get_scriptsig} from '../ledger'
 
-async function ledger_get_accounts(chain_id, show_on_ledger) {
+export async function ledger_get_accounts(chain_id, show_on_ledger) {
   let transport = await Transport.create()
   let account = null
   try {
@@ -15,7 +15,7 @@ async function ledger_get_accounts(chain_id, show_on_ledger) {
   return account
 }
 
-async function ledger_get_scriptsig (chain_id, tx_hex) {
+export async function ledger_get_scriptsig (chain_id, tx_hex) {
   console.log(tx_hex)
   let transport = await Transport.create()
   let response = null

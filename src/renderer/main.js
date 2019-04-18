@@ -22,18 +22,18 @@ if (process.env.IS_WEB) {
   use_elect = false;
 }
 let ElectronStore, machine_id, elect_store;
-let ipcRenderer = null
+let ipcpRenderer = null
 if (!process.env.IS_WEB) {
   ElectronStore = require('electron-store')
   let {remote} = require('electron')
-  ipcRenderer = require('electron').ipcRenderer
   let {machineIdSync} = remote.require('node-machine-id')
+  ipcpRenderer = require('electron-ipcp').ipcpRenderer
   machine_id = machineIdSync()
 
   elect_store = new ElectronStore({
       encryptionKey: machine_id
   });
-  ipcRenderer.send('ledger.get_accounts')
+  //ipcRenderer.send('ledger.get_accounts')
 }
 console.log(elect_store);
 
@@ -86,8 +86,7 @@ new Vue({
       async get_ledger_account(show_on_ledger) {
         console.log("requesting account");
         let account = null
-        if (use_elect) {
-          const {ipcpRenderer} = require('electron-ipcp')
+        if (!process.env.IS_WEB) {
           account = await ipcpRenderer.sendMain('ledger_get_accounts', store.state.settings.chain_id, show_on_ledger)
         } else {
           const {ledger_get_accounts} = require('./ledger_browser')
@@ -97,7 +96,7 @@ new Vue({
       }
     },
     mounted: async function () {
-        if (use_elect) {
+        if (!process.env.IS_WEB) {
           try {
               if (elect_store.get('accounts')) {
                   console.log(elect_store.get('accounts'));

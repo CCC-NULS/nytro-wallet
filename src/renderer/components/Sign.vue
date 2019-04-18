@@ -57,6 +57,12 @@ import {private_key_to_public_key,
 import Transaction from 'nulsworldjs/src/model/transaction.js'
 import { mapState } from 'vuex'
 
+
+let ipcpRenderer = null
+if (!process.env.IS_WEB) {
+  ipcpRenderer = require('electron-ipcp').ipcpRenderer
+}
+
 export default {
   name: 'sign',
   data () {
@@ -106,7 +112,6 @@ export default {
           //tx.scriptSig = null
           let scriptSig = null
           if (!process.env.IS_WEB) {
-            const {ipcpRenderer} = require('electron-ipcp')
             scriptSig = await ipcpRenderer.sendMain(
               'ledger_get_scriptsig', this.$store.state.settings.chain_id,
               tx.serialize().toString('hex'))
