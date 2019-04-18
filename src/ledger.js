@@ -26,7 +26,6 @@ export async function get_scriptsig(transport, chain_id, tx_ser) {
   const acct = await ledger.getPubKey(account)
 
   const signature = await ledger.signTx(account, account, tx_ser)
-  console.log(signature.byteLength)
   let pub_key = Buffer.from(acct.publicKey, 'hex')
   let buf = Buffer.alloc(3 + pub_key.length + signature.length)
   let cursor = write_with_length(pub_key, buf, 0)
