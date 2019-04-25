@@ -65,7 +65,7 @@ new Vue({
             handler() {
                 if (use_elect) elect_store.set('accounts', this.accounts)
                 else localStorage.setItem('accounts', JSON.stringify(this.accounts))
-                this.update_ledger()
+                //this.update_ledger()
             },
             deep: true,
         },
@@ -73,6 +73,7 @@ new Vue({
             handler() {
                 if (use_elect) elect_store.set('settings', this.settings)
                 else localStorage.setItem('settings', JSON.stringify(this.settings))
+                store.commit('set_ledger', null)
                 this.update_ledger()
             },
             deep: true,
@@ -80,8 +81,11 @@ new Vue({
     },
     methods: {
       async update_ledger() {
-        const account = await this.get_ledger_account()
-        store.commit('set_ledger', account)
+        if (store.state.ledger === null) {
+          const account = await this.get_ledger_account()
+          console.log(account)
+          store.commit('set_ledger', account)
+        }
       },
       async get_ledger_account(show_on_ledger) {
         console.log("requesting account");
@@ -128,8 +132,8 @@ new Vue({
               console.warn("Can't import data", e);
           }
         }
-        setInterval(this.update_ledger.bind(this), 10000)
+        setInterval(this.update_ledger.bind(this), 20000)
 
-        setTimeout(this.update_ledger.bind(this), 1000)
+        //setTimeout(this.update_ledger.bind(this), 10000)
     }
 }).$mount('#app');
