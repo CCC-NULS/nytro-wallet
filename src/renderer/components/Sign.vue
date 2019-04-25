@@ -117,7 +117,7 @@ export default {
               tx.serialize().toString('hex'))
           } else {
             const {ledger_get_scriptsig} = require('../ledger_browser')
-            account = await ledger_get_scriptsig(this.$store.state.settings.chain_id, tx.serialize().toString('hex'))
+            scriptSig = await ledger_get_scriptsig(this.$store.state.settings.chain_id, tx.serialize().toString('hex'))
           }
           if (scriptSig !== null) {
             tx.scriptSig = Buffer.from(scriptSig, 'hex')
