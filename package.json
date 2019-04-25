@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@ledgerhq/hw-transport-node-hid": "^4.48.0",
-    "@ledgerhq/hw-transport-u2f": "^4.48.0",
+    "@ledgerhq/hw-transport-u2f": "^4.54.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "bigi": "^1.4.2",
