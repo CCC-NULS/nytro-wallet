@@ -4,14 +4,16 @@ import {get_account, get_scriptsig} from '../ledger'
 export async function ledger_get_accounts(chain_id, show_on_ledger) {
   let transport = await Transport.create()
   let account = null
+  console.log('Transport created')
   try {
     chain_id = chain_id ? chain_id : 261
-    let account = await get_account(transport, chain_id, show_on_ledger)
+    account = await get_account(transport, chain_id, show_on_ledger)
+    console.log(account)
   }
   catch (e) {
     console.warn('Error communicating with ledger', e)
   }
-  transport.close()
+  await transport.close()
   return account
 }
 
@@ -29,6 +31,6 @@ export async function ledger_get_scriptsig (chain_id, tx_hex) {
   catch (e) {
     console.warn('Error communicating with ledger', e)
   }
-  transport.close()
+  await transport.close()
   return response
 }

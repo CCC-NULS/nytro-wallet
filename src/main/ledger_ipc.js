@@ -27,7 +27,7 @@ ipcpMain.on('ledger_get_accounts', async (event, chain_id, show_on_ledger) => {
   catch (e) {
     event.respond(null)
   }
-  transport.close()
+  await transport.close()
 })
 
 ipcpMain.on('ledger_get_scriptsig', async (event, chain_id, tx_hex) => {
@@ -43,5 +43,5 @@ ipcpMain.on('ledger_get_scriptsig', async (event, chain_id, tx_hex) => {
   catch (e) {
     event.respond(null)
   }
-  transport.close()
+  await transport.close()
 })
