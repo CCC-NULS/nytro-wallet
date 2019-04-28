@@ -1,8 +1,16 @@
 import Transport from '@ledgerhq/hw-transport-u2f'
 import {get_account, get_scriptsig} from '../ledger'
 
+let last_transport = null;
+
 export async function ledger_get_accounts(chain_id, show_on_ledger) {
-  let transport = await Transport.create()
+  let transport = null
+  if (last_transport !== null)
+    transport = last_transport
+  else
+    transport = await Transport.create()
+  last_transport = transport;
+  console.log(transport)
   let account = null
   console.log('Transport created')
   try {
@@ -13,13 +21,16 @@ export async function ledger_get_accounts(chain_id, show_on_ledger) {
   catch (e) {
     console.warn('Error communicating with ledger', e)
   }
-  await transport.close()
+  // await transport.close()
   return account
 }
 
 export async function ledger_get_scriptsig (chain_id, tx_hex) {
-  console.log(tx_hex)
-  let transport = await Transport.create()
+  let transport = null
+  if (last_transport !== null)
+    transport = last_transport
+  else
+    transport = await Transport.create()
   let response = null
   try {
     chain_id = chain_id ? chain_id : 261
@@ -31,6 +42,6 @@ export async function ledger_get_scriptsig (chain_id, tx_hex) {
   catch (e) {
     console.warn('Error communicating with ledger', e)
   }
-  await transport.close()
+  // await transport.close()
   return response
 }
