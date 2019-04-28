@@ -131,9 +131,10 @@ export default {
             })
           }
         }
-
       }
-      this.signed_tx = signed_tx
+
+      if (signed_tx.length)
+        this.signed_tx = signed_tx
     },
     async broadcast () {
       for (let tx_hex of this.signed_tx) {

@@ -1,4 +1,4 @@
-import Transport from '@ledgerhq/hw-transport-u2f'
+import Transport from '@ledgerhq/hw-transport-webusb'
 import {get_account, get_scriptsig} from '../ledger'
 
 let last_transport = null;
