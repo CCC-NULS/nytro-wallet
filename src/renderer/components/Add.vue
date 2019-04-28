@@ -41,10 +41,10 @@
                 </div>
 
                 <!-- Submit -->
-                <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="generate">
+                <button class="btn btn-lg btn-block btn-primary mb-3" type="button" v-on:click="generate">
                   {{$t('actions.regenerate')}}
                 </button>
-                <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="add">
+                <button class="btn btn-lg btn-block btn-primary mb-3" type="button" v-on:click="add">
                   {{$t('actions.add_it')}}
                 </button>
 
@@ -81,7 +81,7 @@
                 </div>
 
                 <!-- Submit -->
-                <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
+                <button class="btn btn-lg btn-block btn-primary mb-3" type="button" :disabled="!prvState" v-on:click="add">
                   {{$t('actions.add_it')}}
                 </button>
             </form>
@@ -132,7 +132,7 @@
                 </div>
 
                 <!-- Submit -->
-                <button class="btn btn-lg btn-block btn-primary mb-3" :disabled="!prvState" v-on:click="add">
+                <button class="btn btn-lg btn-block btn-primary mb-3" type="button" :disabled="!prvState" v-on:click="add">
                   {{$t('actions.add_it')}}
                 </button>
             </form>

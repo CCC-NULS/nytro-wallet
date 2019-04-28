@@ -26,7 +26,7 @@
     </div>
 
     <!-- Submit -->
-    <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="sign" :disabled="tx==null">
+    <button class="btn btn-lg btn-block btn-primary mb-3" type="button" v-on:click="sign" :disabled="tx==null">
       {{$t('actions.sign_transaction')}}
     </button>
 
@@ -40,7 +40,7 @@
         </b-collapse>
       </div>
 
-      <button class="btn btn-lg btn-block btn-primary mb-3" v-on:click="broadcast">
+      <button class="btn btn-lg btn-block btn-primary mb-3" type="button" v-on:click="broadcast">
         {{$t('actions.broadcast_transaction')}}
       </button>
 
